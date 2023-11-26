@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uDTMConexao;
 
 type
   TfrmPrincipal = class(TForm)
@@ -25,6 +25,7 @@ type
     N4: TMenuItem;
     VendasporData1: TMenuItem;
     procedure mnuFecharClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,6 +38,35 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+{
+  dtmPrincipal := TdtmPrincipal.Create(Self);
+  dtmPrincipal.ConexaoDB.SQLHourGlass := True;
+  dtmPrincipal.ConexaoDB.Protocol := 'mssql';
+  dtmPrincipal.ConexaoDB.LibraryLocation := 'E:\Cursos\Curso_Delphi\ProjetoDelphi\ntwdblib.dll';
+  dtmPrincipal.ConexaoDB.HostName := '.\SERVERCURSO';
+  dtmPrincipal.ConexaoDB.Port := 1433;
+  dtmPrincipal.ConexaoDB.User := 'sa';
+  dtmPrincipal.ConexaoDB.Password := 'delphi@2023';
+  dtmPrincipal.ConexaoDB.Database := 'vendas';
+  dtmPrincipal.ConexaoDB.Connected := True;
+}
+  dtmPrincipal := TdtmPrincipal.Create(Self);
+  with dtmPrincipal.ConexaoDB do
+    begin
+      SQLHourGlass := True;
+      Protocol := 'mssql';
+      LibraryLocation := 'E:\Cursos\Curso_Delphi\ProjetoDelphi\ntwdblib.dll';
+      HostName := '.\SERVERCURSO';
+      Port := 1433;
+      User := 'sa';
+      Password := 'delphi@2023';
+      Database := 'vendas';
+      Connected := True;
+    end;
+end;
 
 procedure TfrmPrincipal.mnuFecharClick(Sender: TObject);
 begin
