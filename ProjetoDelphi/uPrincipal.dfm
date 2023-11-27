@@ -16,7 +16,7 @@ object frmPrincipal: TfrmPrincipal
   PixelsPerInch = 96
   TextHeight = 13
   object mainPrincipal: TMainMenu
-    Left = 8
+    Left = 24
     Top = 16
     object Cadastro1: TMenuItem
       Caption = 'Cadastro'
@@ -28,6 +28,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Categoria1: TMenuItem
         Caption = 'Categoria'
+        OnClick = Categoria1Click
       end
       object Produto1: TMenuItem
         Caption = 'Produto'

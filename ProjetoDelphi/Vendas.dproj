@@ -113,6 +113,10 @@
             <Form>frmTelaHeranca</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="cadastro\uCadCategoria.pas">
+            <Form>frmCadCategoria</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
