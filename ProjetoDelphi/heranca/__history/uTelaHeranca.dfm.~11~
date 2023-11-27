@@ -1,0 +1,149 @@
+object frmTelaHeranca: TfrmTelaHeranca
+  Left = 0
+  Top = 0
+  BorderStyle = bsDialog
+  Caption = 'INFORME AQUI O T'#205'TULO'
+  ClientHeight = 521
+  ClientWidth = 876
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pgcPrincipal: TPageControl
+    Left = 0
+    Top = 0
+    Width = 876
+    Height = 480
+    ActivePage = TabListagem
+    Align = alClient
+    TabOrder = 0
+    ExplicitWidth = 737
+    ExplicitHeight = 412
+    object TabListagem: TTabSheet
+      Caption = 'Listagem'
+      ExplicitLeft = 8
+      ExplicitTop = 22
+      ExplicitWidth = 729
+      ExplicitHeight = 384
+      object pnlListagemTopo: TPanel
+        Left = 0
+        Top = 0
+        Width = 868
+        Height = 41
+        Align = alTop
+        TabOrder = 0
+        ExplicitWidth = 729
+        object mskEdit: TMaskEdit
+          Left = 0
+          Top = 7
+          Width = 369
+          Height = 21
+          TabOrder = 0
+          Text = 'mskEdit'
+        end
+        object bntPesquisar: TBitBtn
+          Left = 375
+          Top = 5
+          Width = 90
+          Height = 25
+          Caption = 'PESQUISAR'
+          TabOrder = 1
+        end
+      end
+      object grdListagem: TDBGrid
+        Left = 0
+        Top = 41
+        Width = 868
+        Height = 411
+        Align = alClient
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
+    object tabManutencao: TTabSheet
+      Caption = 'Manuten'#231#227'o'
+      ImageIndex = 1
+      ExplicitLeft = 8
+      ExplicitTop = 22
+      ExplicitWidth = 729
+      ExplicitHeight = 384
+    end
+  end
+  object pnlRodape: TPanel
+    Left = 0
+    Top = 480
+    Width = 876
+    Height = 41
+    Align = alBottom
+    TabOrder = 1
+    ExplicitLeft = 64
+    ExplicitTop = 344
+    ExplicitWidth = 185
+    object BitBtn1: TBitBtn
+      Left = 4
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'BitBtn1'
+      TabOrder = 0
+    end
+    object BitBtn2: TBitBtn
+      Left = 85
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'BitBtn1'
+      TabOrder = 1
+    end
+    object BitBtn3: TBitBtn
+      Left = 166
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'BitBtn1'
+      TabOrder = 2
+    end
+    object BitBtn4: TBitBtn
+      Left = 247
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'BitBtn1'
+      TabOrder = 3
+    end
+    object BitBtn5: TBitBtn
+      Left = 328
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'BitBtn1'
+      TabOrder = 4
+    end
+    object BitBtn6: TBitBtn
+      Left = 797
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'BitBtn1'
+      TabOrder = 5
+    end
+    object DBNavigator1: TDBNavigator
+      Left = 492
+      Top = 6
+      Width = 220
+      Height = 25
+      VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+      TabOrder = 6
+    end
+  end
+end

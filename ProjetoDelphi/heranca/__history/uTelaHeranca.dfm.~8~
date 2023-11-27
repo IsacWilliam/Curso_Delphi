@@ -1,0 +1,47 @@
+object frmTelaHeranca: TfrmTelaHeranca
+  Left = 0
+  Top = 0
+  BorderStyle = bsDialog
+  Caption = 'INFORME AQUI O T'#205'TULO'
+  ClientHeight = 453
+  ClientWidth = 737
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pgcPrincipal: TPageControl
+    Left = 0
+    Top = 0
+    Width = 737
+    Height = 412
+    ActivePage = TabListagem
+    Align = alClient
+    TabOrder = 0
+    object TabListagem: TTabSheet
+      Caption = 'Listagem'
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'TabSheet2'
+      ImageIndex = 1
+      ExplicitLeft = 8
+      ExplicitTop = 22
+    end
+  end
+  object pnlRodape: TPanel
+    Left = 0
+    Top = 412
+    Width = 737
+    Height = 41
+    Align = alBottom
+    TabOrder = 1
+    ExplicitLeft = 64
+    ExplicitTop = 344
+    ExplicitWidth = 185
+  end
+end
