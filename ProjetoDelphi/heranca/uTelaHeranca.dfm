@@ -13,6 +13,7 @@ object frmTelaHeranca: TfrmTelaHeranca
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object pgcPrincipal: TPageControl
@@ -35,10 +36,9 @@ object frmTelaHeranca: TfrmTelaHeranca
         Left = 0
         Top = 0
         Width = 868
-        Height = 41
+        Height = 43
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 729
         object mskEdit: TMaskEdit
           Left = 0
           Top = 7
@@ -58,10 +58,11 @@ object frmTelaHeranca: TfrmTelaHeranca
       end
       object grdListagem: TDBGrid
         Left = 0
-        Top = 41
+        Top = 43
         Width = 868
-        Height = 411
+        Height = 409
         Align = alClient
+        DataSource = dtsListagem
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -136,14 +137,27 @@ object frmTelaHeranca: TfrmTelaHeranca
       Height = 25
       Caption = '&Fechar'
       TabOrder = 5
+      OnClick = btnFecharClick
     end
     object DBNavigator1: TDBNavigator
       Left = 492
       Top = 6
       Width = 220
       Height = 25
+      DataSource = dtsListagem
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
       TabOrder = 6
     end
+  end
+  object qryListagem: TZQuery
+    Connection = dtmPrincipal.ConexaoDB
+    Params = <>
+    Left = 548
+    Top = 21
+  end
+  object dtsListagem: TDataSource
+    DataSet = qryListagem
+    Left = 617
+    Top = 22
   end
 end
