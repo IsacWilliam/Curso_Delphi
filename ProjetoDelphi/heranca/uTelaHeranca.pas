@@ -39,6 +39,7 @@ type
     procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
               btnGravar, btnApagar: TBitBtn; Navegador: TDBNavigator;
               pgcPrincipal: TPageControl; Flag: Boolean);
+    procedure ControlarIndiceTab(pgcPageControl: TPageControl; Indice: Integer);
   public
     { Public declarations }
   end;
@@ -50,10 +51,12 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
+//Procedimentos de Controle de Tela
+procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
 begin
-   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-   btnNavigator, pgcPrincipal, false);
+   qryListagem.Connection := dtmPrincipal.ConexaoDB;
+   dtsListagem.DataSet := qryListagem;
+   grdListagem.DataSource := dtsListagem;
 end;
 
 procedure TfrmTelaHeranca.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
@@ -69,6 +72,20 @@ begin
    btnGravar.Enabled                := not (Flag);
 end;
 
+procedure TfrmTelaHeranca.ControlarIndiceTab(pgcPageControl: TPageControl;
+          Indice: Integer);
+begin
+   if (pgcPageControl.Pages[Indice].TabVisible) then
+      pgcPageControl.TabIndex := Indice;
+end;
+
+//Procedimentos de Ações dos Botões
+procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
+begin
+   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+   btnNavigator, pgcPrincipal, false);
+end;
+
 procedure TfrmTelaHeranca.btnAlterarClick(Sender: TObject);
 begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
@@ -79,12 +96,14 @@ procedure TfrmTelaHeranca.btnApagarClick(Sender: TObject);
 begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, true);
+   ControlarIndiceTab(pgcPrincipal, 0);
 end;
 
 procedure TfrmTelaHeranca.btnCancelarClick(Sender: TObject);
 begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, true);
+   ControlarIndiceTab(pgcPrincipal, 0);
 end;
 
 procedure TfrmTelaHeranca.btnFecharClick(Sender: TObject);
@@ -96,13 +115,7 @@ procedure TfrmTelaHeranca.btnGravarClick(Sender: TObject);
 begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, true);
-end;
-
-procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
-begin
-   qryListagem.Connection := dtmPrincipal.ConexaoDB;
-   dtsListagem.DataSet := qryListagem;
-   grdListagem.DataSource := dtsListagem;
+   ControlarIndiceTab(pgcPrincipal, 0);
 end;
 
 end.
