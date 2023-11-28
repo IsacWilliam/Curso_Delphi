@@ -1,0 +1,80 @@
+unit uTelaHeranca;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ComCtrls,
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Data.DB, Vcl.DBCtrls, Vcl.Grids,
+  Vcl.DBGrids, ZAbstractRODataset, ZAbstractDataset, ZDataset, uDtmConexao;
+
+type
+  TfrmTelaHeranca = class(TForm)
+    pgcPrincipal: TPageControl;
+    pnlRodape: TPanel;
+    tabListagem: TTabSheet;
+    tabManutencao: TTabSheet;
+    pnlListagemTopo: TPanel;
+    mskEdit: TMaskEdit;
+    bntPesquisar: TBitBtn;
+    grdListagem: TDBGrid;
+    btnNovo: TBitBtn;
+    btnAlterar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnGravar: TBitBtn;
+    btnApagar: TBitBtn;
+    btnFechar: TBitBtn;
+    btnNavigator: TDBNavigator;
+    qryListagem: TZQuery;
+    dtsListagem: TDataSource;
+    procedure FormCreate(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
+              btnGravar, btnApagar: TBitBtn; Navegador: TDBNavigator;
+              pgcPrincipal: TPageControl; Flag: Boolean);
+  public
+    { Public declarations }
+  end;
+
+var
+  frmTelaHeranca: TfrmTelaHeranca;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
+begin
+   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+   btnNa);
+end;
+
+procedure TfrmTelaHeranca.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
+          btnGravar, btnApagar: TBitBtn; Navegador: TDBNavigator;
+          pgcPrincipal: TPageControl; Flag: Boolean);
+begin
+   pgcPrincipal.Pages[0].TabVisible := Flag;
+   Navegador.Enabled                := Flag;
+   btnNovo.Enabled                  := Flag;
+   btnApagar.Enabled                := Flag;
+   btnAlterar.Enabled               := Flag;
+   btnCancelar.Enabled              := not (Flag);
+   btnGravar.Enabled                := not (Flag);
+end;
+
+procedure TfrmTelaHeranca.btnFecharClick(Sender: TObject);
+begin
+   Close;
+end;
+
+procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
+begin
+   qryListagem.Connection := dtmPrincipal.ConexaoDB;
+   dtsListagem.DataSet := qryListagem;
+   grdListagem.DataSource := dtsListagem;
+end;
+
+end.

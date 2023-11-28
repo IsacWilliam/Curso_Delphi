@@ -12,7 +12,7 @@ type
   TfrmTelaHeranca = class(TForm)
     pgcPrincipal: TPageControl;
     pnlRodape: TPanel;
-    TabListagem: TTabSheet;
+    tabListagem: TTabSheet;
     tabManutencao: TTabSheet;
     pnlListagemTopo: TPanel;
     mskEdit: TMaskEdit;
@@ -22,15 +22,23 @@ type
     btnAlterar: TBitBtn;
     btnCancelar: TBitBtn;
     btnGravar: TBitBtn;
-    BitBtn5: TBitBtn;
+    btnApagar: TBitBtn;
     btnFechar: TBitBtn;
-    DBNavigator1: TDBNavigator;
+    btnNavigator: TDBNavigator;
     qryListagem: TZQuery;
     dtsListagem: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+    procedure btnApagarClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
   private
     { Private declarations }
+    procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
+              btnGravar, btnApagar: TBitBtn; Navegador: TDBNavigator;
+              pgcPrincipal: TPageControl; Flag: Boolean);
   public
     { Public declarations }
   end;
@@ -42,9 +50,52 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
+begin
+   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+   btnNavigator, pgcPrincipal, false);
+end;
+
+procedure TfrmTelaHeranca.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
+          btnGravar, btnApagar: TBitBtn; Navegador: TDBNavigator;
+          pgcPrincipal: TPageControl; Flag: Boolean);
+begin
+   pgcPrincipal.Pages[0].TabVisible := Flag;
+   Navegador.Enabled                := Flag;
+   btnNovo.Enabled                  := Flag;
+   btnApagar.Enabled                := Flag;
+   btnAlterar.Enabled               := Flag;
+   btnCancelar.Enabled              := not (Flag);
+   btnGravar.Enabled                := not (Flag);
+end;
+
+procedure TfrmTelaHeranca.btnAlterarClick(Sender: TObject);
+begin
+   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+   btnNavigator, pgcPrincipal, false);
+end;
+
+procedure TfrmTelaHeranca.btnApagarClick(Sender: TObject);
+begin
+   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+   btnNavigator, pgcPrincipal, true);
+end;
+
+procedure TfrmTelaHeranca.btnCancelarClick(Sender: TObject);
+begin
+   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+   btnNavigator, pgcPrincipal, true);
+end;
+
 procedure TfrmTelaHeranca.btnFecharClick(Sender: TObject);
 begin
-  Close;
+   Close;
+end;
+
+procedure TfrmTelaHeranca.btnGravarClick(Sender: TObject);
+begin
+   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+   btnNavigator, pgcPrincipal, true);
 end;
 
 procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
