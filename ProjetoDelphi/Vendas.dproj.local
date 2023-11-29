@@ -21,16 +21,19 @@
     <Transaction>2023/11/27 17:35:56.000.972,E:\Cursos\Curso_Delphi\ProjetoDelphi\cadastro\uCadCategoria.dfm=E:\Cursos\Curso_Delphi\ProjetoDelphi\Unit1.dfm</Transaction>
     <Transaction>2023/11/27 17:35:56.000.972,E:\Cursos\Curso_Delphi\ProjetoDelphi\cadastro\uCadCategoria.pas=E:\Cursos\Curso_Delphi\ProjetoDelphi\Unit1.pas</Transaction>
     <Transaction>2023/11/27 18:05:56.000.299,=E:\Cursos\Curso_Delphi\ProjetoDelphi\terceiros\Enter.pas</Transaction>
-    <Transaction>2023/11/28 17:59:31.947,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
-    <Transaction>2023/11/28 18:00:05.305,E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore=</Transaction>
-    <Transaction>2023/11/28 18:00:29.404,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
-    <Transaction>2023/11/28 18:00:49.097,E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore=</Transaction>
-    <Transaction>2023/11/28 18:01:28.061,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
-    <Transaction>2023/11/28 18:01:46.938,E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore=</Transaction>
-    <Transaction>2023/11/28 18:02:12.446,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
-    <Transaction>2023/11/28 18:02:29.582,E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore=</Transaction>
-    <Transaction>2023/11/28 18:02:37.852,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
-  </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <Transaction>2023/11/28 17:59:31.000.947,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
+    <Transaction>2023/11/28 18:00:05.000.305,E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore=</Transaction>
+    <Transaction>2023/11/28 18:00:29.000.404,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
+    <Transaction>2023/11/28 18:00:49.000.097,E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore=</Transaction>
+    <Transaction>2023/11/28 18:01:28.000.061,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
+    <Transaction>2023/11/28 18:01:46.000.938,E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore=</Transaction>
+    <Transaction>2023/11/28 18:02:12.000.446,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
+    <Transaction>2023/11/28 18:02:29.000.582,E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore=</Transaction>
+    <Transaction>2023/11/28 18:02:37.000.852,=E:\Cursos\Curso_Delphi\ProjetoDelphi\.gitignore</Transaction>
+    <Transaction>2023/11/29 08:11:17.000.881,=E:\Cursos\Curso_Delphi\ProjetoDelphi\Unit1.pas</Transaction>
+    <Transaction>2023/11/29 08:11:34.000.772,E:\Cursos\Curso_Delphi\ProjetoDelphi\Unit1.pas=E:\Cursos\Curso_Delphi\ProjetoDelphi\heranca\uEnum.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="cadastro"/>
     <File Path="cadastro\uCadCategoria.pas"/>
     <File Path="cadastro\uCadCategoria.dfm"/>
@@ -40,6 +43,7 @@
     <File Path="heranca"/>
     <File Path="heranca\uTelaHeranca.pas"/>
     <File Path="heranca\uTelaHeranca.dfm"/>
+    <File Path="heranca\uEnum.pas"/>
     <File Path="terceiros"/>
     <File Path="terceiros\Enter.pas"/>
     <File Path=".gitignore"/>

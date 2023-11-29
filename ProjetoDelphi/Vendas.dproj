@@ -118,6 +118,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="terceiros\Enter.pas"/>
+        <DCCReference Include="heranca\uEnum.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

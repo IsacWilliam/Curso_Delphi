@@ -6,7 +6,8 @@ uses
   uDTMConexao in 'datamodule\uDTMConexao.pas' {dtmPrincipal: TDataModule},
   uTelaHeranca in 'heranca\uTelaHeranca.pas' {frmTelaHeranca},
   uCadCategoria in 'cadastro\uCadCategoria.pas' {frmCadCategoria},
-  Enter in 'terceiros\Enter.pas';
+  Enter in 'terceiros\Enter.pas',
+  uEnum in 'heranca\uEnum.pas';
 
 {$R *.res}
 

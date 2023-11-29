@@ -3,7 +3,7 @@ inherited frmCadCategoria: TfrmCadCategoria
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRodape: TPanel
-    inherited DBNavigator1: TDBNavigator
+    inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
     end
   end
