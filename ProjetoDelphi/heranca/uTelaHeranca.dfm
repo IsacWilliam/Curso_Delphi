@@ -13,7 +13,9 @@ object frmTelaHeranca: TfrmTelaHeranca
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pgcPrincipal: TPageControl
@@ -26,20 +28,23 @@ object frmTelaHeranca: TfrmTelaHeranca
     TabOrder = 0
     object tabListagem: TTabSheet
       Caption = 'Listagem'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnlListagemTopo: TPanel
         Left = 0
         Top = 0
         Width = 868
-        Height = 43
+        Height = 57
         Align = alTop
         TabOrder = 0
+        object lblIndice: TLabel
+          Left = 8
+          Top = 12
+          Width = 78
+          Height = 13
+          Caption = 'Campo Pesquisa'
+        end
         object mskEdit: TMaskEdit
           Left = 0
-          Top = 7
+          Top = 31
           Width = 369
           Height = 21
           TabOrder = 0
@@ -47,8 +52,8 @@ object frmTelaHeranca: TfrmTelaHeranca
         end
         object bntPesquisar: TBitBtn
           Left = 375
-          Top = 5
-          Width = 90
+          Top = 29
+          Width = 89
           Height = 25
           Caption = '&PESQUISAR'
           TabOrder = 1
@@ -56,9 +61,9 @@ object frmTelaHeranca: TfrmTelaHeranca
       end
       object grdListagem: TDBGrid
         Left = 0
-        Top = 43
+        Top = 57
         Width = 868
-        Height = 409
+        Height = 395
         Align = alClient
         DataSource = dtsListagem
         TabOrder = 1
@@ -67,15 +72,12 @@ object frmTelaHeranca: TfrmTelaHeranca
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnTitleClick = grdListagemTitleClick
       end
     end
     object tabManutencao: TTabSheet
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object pnlRodape: TPanel
@@ -85,6 +87,9 @@ object frmTelaHeranca: TfrmTelaHeranca
     Height = 41
     Align = alBottom
     TabOrder = 1
+    DesignSize = (
+      876
+      41)
     object btnNovo: TBitBtn
       Left = 4
       Top = 6
@@ -135,6 +140,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       Top = 6
       Width = 75
       Height = 25
+      Anchors = [akTop, akRight]
       Caption = '&Fechar'
       TabOrder = 5
       OnClick = btnFecharClick
@@ -152,12 +158,12 @@ object frmTelaHeranca: TfrmTelaHeranca
   object qryListagem: TZQuery
     Connection = dtmPrincipal.ConexaoDB
     Params = <>
-    Left = 548
+    Left = 756
     Top = 21
   end
   object dtsListagem: TDataSource
     DataSet = qryListagem
-    Left = 617
+    Left = 825
     Top = 22
   end
 end

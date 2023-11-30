@@ -28,6 +28,7 @@ type
     btnNavigator: TDBNavigator;
     qryListagem: TZQuery;
     dtsListagem: TDataSource;
+    lblIndice: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
@@ -35,6 +36,9 @@ type
     procedure btnGravarClick(Sender: TObject);
     procedure btnApagarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure grdListagemTitleClick(Column: TColumn);
   private
     { Private declarations }
     EstadoDoCadastro : TEstadoDoCadastro;
@@ -57,11 +61,29 @@ implementation
 uses uDTMConexao;
 
 //Procedimentos de Controle de Tela
+procedure TfrmTelaHeranca.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+   qryListagem.Close;
+end;
+
 procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
 begin
    qryListagem.Connection := dtmPrincipal.ConexaoDB;
    dtsListagem.DataSet := qryListagem;
    grdListagem.DataSource := dtsListagem;
+end;
+
+procedure TfrmTelaHeranca.FormShow(Sender: TObject);
+begin
+   if (qryListagem.SQL.Text <> EmptyStr) then
+      begin
+        qryListagem.Open;
+      end;
+end;
+
+procedure TfrmTelaHeranca.grdListagemTitleClick(Column: TColumn);
+begin
+   ShowMessage(Column.FieldName);
 end;
 
 procedure TfrmTelaHeranca.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
