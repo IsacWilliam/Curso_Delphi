@@ -6,19 +6,17 @@ inherited frmCadCategoria: TfrmCadCategoria
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
     Width = 905
+    ExplicitWidth = 905
     inherited tabListagem: TTabSheet
+      ExplicitWidth = 897
       inherited pnlListagemTopo: TPanel
         Width = 897
         ExplicitWidth = 897
-        inherited mskEdit: TMaskEdit
-          Height = 22
-          ExplicitHeight = 22
-        end
         inherited bntPesquisar: TBitBtn
           Width = 90
-          Height = 26
+          Height = 24
           ExplicitWidth = 90
-          ExplicitHeight = 26
+          ExplicitHeight = 24
         end
       end
       inherited grdListagem: TDBGrid
@@ -39,11 +37,13 @@ inherited frmCadCategoria: TfrmCadCategoria
   end
   inherited pnlRodape: TPanel
     Width = 905
+    ExplicitWidth = 905
     DesignSize = (
       905
       41)
     inherited btnFechar: TBitBtn
       Left = 826
+      ExplicitLeft = 826
     end
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
