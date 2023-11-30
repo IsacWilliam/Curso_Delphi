@@ -47,8 +47,10 @@ type
               btnGravar, btnApagar: TBitBtn; Navegador: TDBNavigator;
               pgcPrincipal: TPageControl; Flag: Boolean);
     procedure ControlarIndiceTab(pgcPageControl: TPageControl; Indice: Integer);
+    function RetornarCampoTraduzido(Campo: String): String;
   public
     { Public declarations }
+    IndiceAtual : string;
   end;
 
 var
@@ -83,7 +85,9 @@ end;
 
 procedure TfrmTelaHeranca.grdListagemTitleClick(Column: TColumn);
 begin
-   ShowMessage(Column.FieldName);
+   IndiceAtual := Column.FieldName;
+   qryListagem.IndexFieldNames := IndiceAtual;
+   lblIndice.Caption := RetornarCampoTraduzido(IndiceAtual);
 end;
 
 procedure TfrmTelaHeranca.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
@@ -104,6 +108,17 @@ procedure TfrmTelaHeranca.ControlarIndiceTab(pgcPageControl: TPageControl;
 begin
    if (pgcPageControl.Pages[Indice].TabVisible) then
       pgcPageControl.TabIndex := Indice;
+end;
+
+function TfrmTelaHeranca.RetornarCampoTraduzido(Campo : String) : String;
+var i : Integer;
+begin
+  for i := 0 to qryListagem.Fields.Count -1 do begin
+     if qryListagem.Fields[i].FieldName = Campo then begin
+        Result := qryListagem.Fields[i].DisplayLabel;
+        Break;
+     end;
+  end;
 end;
 
 //Procedimentos de Ações dos Botões
