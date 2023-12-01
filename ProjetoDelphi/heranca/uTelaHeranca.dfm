@@ -22,7 +22,7 @@ object frmTelaHeranca: TfrmTelaHeranca
     Left = 0
     Top = 0
     Width = 876
-    Height = 480
+    Height = 494
     ActivePage = tabListagem
     Align = alClient
     TabOrder = 0
@@ -65,7 +65,7 @@ object frmTelaHeranca: TfrmTelaHeranca
         Left = 0
         Top = 65
         Width = 868
-        Height = 387
+        Height = 401
         Align = alClient
         DataSource = dtsListagem
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -85,17 +85,17 @@ object frmTelaHeranca: TfrmTelaHeranca
   end
   object pnlRodape: TPanel
     Left = 0
-    Top = 480
+    Top = 494
     Width = 876
-    Height = 41
+    Height = 27
     Align = alBottom
     TabOrder = 1
     DesignSize = (
       876
-      41)
+      27)
     object btnNovo: TBitBtn
       Left = 4
-      Top = 6
+      Top = 1
       Width = 75
       Height = 25
       Caption = '&Novo'
@@ -131,7 +131,7 @@ object frmTelaHeranca: TfrmTelaHeranca
     end
     object btnAlterar: TBitBtn
       Left = 85
-      Top = 6
+      Top = 1
       Width = 75
       Height = 25
       Caption = '&Alterar'
@@ -167,7 +167,7 @@ object frmTelaHeranca: TfrmTelaHeranca
     end
     object btnCancelar: TBitBtn
       Left = 166
-      Top = 6
+      Top = 1
       Width = 75
       Height = 25
       Caption = '&Cancelar'
@@ -203,7 +203,7 @@ object frmTelaHeranca: TfrmTelaHeranca
     end
     object btnGravar: TBitBtn
       Left = 247
-      Top = 6
+      Top = 1
       Width = 75
       Height = 25
       Caption = '&Gravar'
@@ -239,7 +239,7 @@ object frmTelaHeranca: TfrmTelaHeranca
     end
     object btnApagar: TBitBtn
       Left = 328
-      Top = 6
+      Top = 1
       Width = 75
       Height = 25
       Caption = 'Apaga&r'
@@ -275,7 +275,7 @@ object frmTelaHeranca: TfrmTelaHeranca
     end
     object btnFechar: TBitBtn
       Left = 797
-      Top = 6
+      Top = 1
       Width = 75
       Height = 25
       Anchors = [akTop, akRight]
@@ -312,7 +312,7 @@ object frmTelaHeranca: TfrmTelaHeranca
     end
     object btnNavigator: TDBNavigator
       Left = 409
-      Top = 6
+      Top = 1
       Width = 220
       Height = 25
       DataSource = dtsListagem
@@ -322,6 +322,8 @@ object frmTelaHeranca: TfrmTelaHeranca
   end
   object qryListagem: TZQuery
     Connection = dtmPrincipal.ConexaoDB
+    SQL.Strings = (
+      'select * from categorias;')
     Params = <>
     Left = 756
     Top = 21
