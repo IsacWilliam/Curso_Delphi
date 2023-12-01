@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Data.DB, Vcl.Grids,
   Vcl.DBGrids, Vcl.Mask, Vcl.DBCtrls, ZAbstractRODataset, ZAbstractDataset,
-  ZDataset,uEnum, RxToolEdit, RxCurrEdit, ZConnection;
+  ZDataset,uEnum, RxToolEdit, RxCurrEdit, ZConnection, uDTMConexao;
 
 type
   TfrmTelaHeranca = class(TForm)
@@ -56,21 +56,21 @@ type
   end;
 
 var
-  frmTelaHeranca: TfrmTelaHeranca;
+  frmTelaHeranca : TfrmTelaHeranca;
 
 implementation
 
 {$R *.dfm}
 
-uses uDTMConexao;
+{$region 'Funções e Procedures'}
 
 //Procedimentos de Controle de Tela
-procedure TfrmTelaHeranca.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmTelaHeranca.FormClose(Sender : TObject; var Action: TCloseAction);
 begin
    qryListagem.Close;
 end;
 
-procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
+procedure TfrmTelaHeranca.FormCreate(Sender : TObject);
 begin
    qryListagem.Connection := dtmPrincipal.ConexaoDB;
    dtsListagem.DataSet := qryListagem;
@@ -88,16 +88,18 @@ begin
          ExibirLabelIndice(IndiceAtual, lblIndice);
          qryListagem.Open;
       end;
+   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+                   btnNavigator, pgcPrincipal, true);
 end;
 
-procedure TfrmTelaHeranca.grdListagemTitleClick(Column: TColumn);
+procedure TfrmTelaHeranca.grdListagemTitleClick(Column : TColumn);
 begin
    IndiceAtual := Column.FieldName;
    qryListagem.IndexFieldNames := IndiceAtual;
    ExibirLabelIndice(IndiceAtual, lblIndice);
 end;
 
-procedure TfrmTelaHeranca.mskPesquisarChange(Sender: TObject);
+procedure TfrmTelaHeranca.mskPesquisarChange(Sender : TObject);
 begin
    qryListagem.Locate(IndiceAtual, TMaskEdit(Sender).Text, [loPartialKey]);
    //ou
@@ -118,8 +120,8 @@ begin
    btnGravar.Enabled                := not (Flag);
 end;
 
-procedure TfrmTelaHeranca.ControlarIndiceTab(pgcPageControl: TPageControl;
-          Indice: Integer);
+procedure TfrmTelaHeranca.ControlarIndiceTab(pgcPageControl : TPageControl;
+          Indice : Integer);
 begin
    if (pgcPageControl.Pages[Indice].TabVisible) then
       pgcPageControl.TabIndex := Indice;
@@ -128,35 +130,37 @@ end;
 function TfrmTelaHeranca.RetornarCampoTraduzido(Campo : String) : String;
 var i : Integer;
 begin
-  for i := 0 to qryListagem.Fields.Count -1 do begin
-     if qryListagem.Fields[i].FieldName = Campo then begin
+  for i := 0 to qryListagem.Fields.Count - 1 do begin
+     if LowerCase(qryListagem.Fields[i].FieldName) = LowerCase(Campo) then begin
         Result := qryListagem.Fields[i].DisplayLabel;
         Break;
      end;
   end;
 end;
 
-procedure TfrmTelaHeranca.ExibirLabelIndice(Campo:string; aLabel: TLabel);
+procedure TfrmTelaHeranca.ExibirLabelIndice(Campo : string; aLabel : TLabel);
 begin
    aLabel.Caption:=RetornarCampoTraduzido(Campo);
 end;
 
+{$endregion}
+
 //Procedimentos de Ações dos Botões
-procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
+procedure TfrmTelaHeranca.btnNovoClick(Sender : TObject);
 begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, false);
    EstadoDoCadastro := ecInserir;
 end;
 
-procedure TfrmTelaHeranca.btnAlterarClick(Sender: TObject);
+procedure TfrmTelaHeranca.btnAlterarClick(Sender : TObject);
 begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, false);
    EstadoDoCadastro := ecAlterar;
 end;
 
-procedure TfrmTelaHeranca.btnApagarClick(Sender: TObject);
+procedure TfrmTelaHeranca.btnApagarClick(Sender : TObject);
 begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, true);
@@ -164,7 +168,7 @@ begin
    EstadoDoCadastro := ecNenhum;
 end;
 
-procedure TfrmTelaHeranca.btnCancelarClick(Sender: TObject);
+procedure TfrmTelaHeranca.btnCancelarClick(Sender : TObject);
 begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, true);
