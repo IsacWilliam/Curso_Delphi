@@ -53,6 +53,7 @@ type
     procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
     function ExisteCampoObrigatorio: Boolean;
     procedure DesabilitarEditPK;
+    procedure LimparEdits;
   public
     { Public declarations }
     IndiceAtual : string;
@@ -198,6 +199,20 @@ begin
     end;
 end;
 
+procedure TfrmTelaHeranca.LimparEdits;
+var i : Integer;
+begin
+  for i := 0 to ComponentCount - 1 do
+    begin
+      if (Components[i] is TLabeledEdit) then
+        //TLabeledEdit(Components[i]).Text := EmptyStr
+        TLabeledEdit(Components[i]).Text := ''
+        else if (Components[i] is TEdit) then
+          //TEdit(Components[i]).Text := EmptyStr
+          TEdit(Components[i]).Text := ''
+    end;
+
+end;
 {$endregion}
 
 {$region 'Métodos Virtuais - Sobrescrever'}
@@ -223,6 +238,7 @@ begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, false);
    EstadoDoCadastro := ecInserir;
+   LimparEdits
 end;
 
 procedure TfrmTelaHeranca.btnAlterarClick(Sender : TObject);
@@ -240,6 +256,7 @@ begin
           ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                           btnNavigator, pgcPrincipal, true);
           ControlarIndiceTab(pgcPrincipal, 0);
+          LimparEdits
         end
      else
         begin
@@ -256,6 +273,7 @@ begin
    btnNavigator, pgcPrincipal, true);
    ControlarIndiceTab(pgcPrincipal, 0);
    EstadoDoCadastro := ecNenhum;
+   LimparEdits
 end;
 
 procedure TfrmTelaHeranca.btnFecharClick(Sender: TObject);
@@ -275,6 +293,7 @@ begin
                          btnNavigator, pgcPrincipal, true);
          ControlarIndiceTab(pgcPrincipal, 0);
          EstadoDoCadastro := ecNenhum;
+         LimparEdits;
       end
     else
       begin

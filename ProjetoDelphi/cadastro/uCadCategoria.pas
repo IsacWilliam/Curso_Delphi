@@ -15,6 +15,7 @@ type
     qryListagemcategoriaId: TIntegerField;
     qryListagemdescricao: TWideStringField;
     procedure FormCreate(Sender: TObject);
+
   private
     { Private declarations }
   public
