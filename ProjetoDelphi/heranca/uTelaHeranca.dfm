@@ -3,7 +3,7 @@ object frmTelaHeranca: TfrmTelaHeranca
   Top = 0
   BorderStyle = bsDialog
   Caption = 'INFORME AQUI O T'#205'TULO'
-  ClientHeight = 521
+  ClientHeight = 531
   ClientWidth = 876
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -22,12 +22,14 @@ object frmTelaHeranca: TfrmTelaHeranca
     Left = 0
     Top = 0
     Width = 876
-    Height = 494
+    Height = 496
     ActivePage = tabListagem
     Align = alClient
     TabOrder = 0
+    ExplicitHeight = 494
     object tabListagem: TTabSheet
       Caption = 'Listagem'
+      ExplicitHeight = 466
       object pnlListagemTopo: TPanel
         Left = 0
         Top = 0
@@ -92,7 +94,7 @@ object frmTelaHeranca: TfrmTelaHeranca
         Left = 0
         Top = 65
         Width = 868
-        Height = 401
+        Height = 403
         Align = alClient
         DataSource = dtsListagem
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -109,18 +111,19 @@ object frmTelaHeranca: TfrmTelaHeranca
     object tabManutencao: TTabSheet
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 1
+      ExplicitHeight = 476
     end
   end
   object pnlRodape: TPanel
     Left = 0
-    Top = 494
+    Top = 496
     Width = 876
-    Height = 27
+    Height = 35
     Align = alBottom
     TabOrder = 1
     DesignSize = (
       876
-      27)
+      35)
     object btnNovo: TBitBtn
       Left = 4
       Top = 1

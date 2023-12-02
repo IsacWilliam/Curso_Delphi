@@ -61,6 +61,9 @@ inherited frmCadCategoria: TfrmCadCategoria
   inherited pnlRodape: TPanel
     Width = 892
     ExplicitWidth = 892
+    DesignSize = (
+      892
+      35)
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
     end

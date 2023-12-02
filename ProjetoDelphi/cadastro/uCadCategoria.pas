@@ -17,6 +17,7 @@ type
     qryListagemdescricao: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnGravarClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -31,6 +32,15 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadCategoria.btnGravarClick(Sender: TObject);
+begin
+  oCategoria.codigo := 100;
+  oCategoria.descricao := 'TESTE';
+
+  ShowMessage(oCategoria.descricao);
+  inherited;
+end;
 
 procedure TfrmCadCategoria.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
