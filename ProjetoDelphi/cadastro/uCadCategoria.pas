@@ -10,11 +10,12 @@ uses
 
 type
   TfrmCadCategoria = class(TfrmTelaHeranca)
-    qryListagemcategoriaId: TIntegerField;
-    qryListagemdescricao: TWideStringField;
     edtCategoriaId: TLabeledEdit;
     edtDescricao: TLabeledEdit;
+    qryListagemcategoriaId: TIntegerField;
+    qryListagemdescricao: TWideStringField;
     procedure FormCreate(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,6 +28,19 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadCategoria.btnGravarClick(Sender: TObject);
+begin
+  if (edtDescricao.Text = EmptyStr) then
+    begin
+      ShowMessage('Campo obrigátorio!');
+      edtDescricao.SetFocus;
+      Abort;
+    end;
+
+  inherited;
+
+end;
 
 procedure TfrmCadCategoria.FormCreate(Sender: TObject);
 begin

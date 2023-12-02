@@ -88,6 +88,7 @@ begin
          ExibirLabelIndice(IndiceAtual, lblIndice);
          qryListagem.Open;
       end;
+   ControlarIndiceTab(pgcPrincipal, 0);
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                    btnNavigator, pgcPrincipal, true);
 end;

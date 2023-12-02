@@ -66,6 +66,16 @@ inherited frmCadCategoria: TfrmCadCategoria
   inherited qryListagem: TZQuery
     Left = 740
     Top = 37
+    object qryListagemcategoriaId: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'categoriaId'
+      ReadOnly = True
+    end
+    object qryListagemdescricao: TWideStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'descricao'
+      Size = 30
+    end
   end
   inherited dtsListagem: TDataSource
     Left = 817
