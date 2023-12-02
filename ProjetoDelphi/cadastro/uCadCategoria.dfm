@@ -44,6 +44,7 @@ inherited frmCadCategoria: TfrmCadCategoria
         TabOrder = 0
       end
       object edtDescricao: TLabeledEdit
+        Tag = 1
         Left = 0
         Top = 96
         Width = 489

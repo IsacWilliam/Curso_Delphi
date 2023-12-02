@@ -50,6 +50,7 @@ type
     procedure ControlarIndiceTab(pgcPageControl: TPageControl; Indice: Integer);
     function RetornarCampoTraduzido(Campo: String): String;
     procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
+    function ExisteCampoObrigatorio: Boolean;
   public
     { Public declarations }
     IndiceAtual : string;
@@ -63,7 +64,7 @@ var
 implementation
 
 {$R *.dfm}
-                  //Procedimentos de Controle de Tela
+                  //Procedimentos e Funções de Controle de Tela
 {$region 'Funções e Procedures'}
 procedure TfrmTelaHeranca.FormClose(Sender : TObject; var Action: TCloseAction);
 begin
@@ -144,6 +145,29 @@ begin
    aLabel.Caption:=RetornarCampoTraduzido(Campo);
 end;
 
+function TfrmTelaHeranca.ExisteCampoObrigatorio : Boolean;
+var i : Integer;
+begin
+  Result := False;
+  for i := 0 to ComponentCount - 1 do
+    begin
+      if (Components[i] is TLabeledEdit) then
+        begin
+          if (TLabeledEdit(Components[i]).Tag = 1) and
+             (TLabeledEdit(Components[i]).Text = EmptyStr) then
+            begin
+              MessageDlg(TLabeledEdit(Components[i]).EditLabel.Caption +
+                          ' é um campo obrigatório', mtInformation, [mbOK], 0);
+              TLabeledEdit(Components[i]).SetFocus;
+              Result := True;
+              Break;
+            end;
+
+        end;
+    end;
+
+end;
+
 {$endregion}
 
                   // Métodos para sobrescrição
@@ -206,6 +230,9 @@ end;
 
 procedure TfrmTelaHeranca.btnGravarClick(Sender: TObject);
 begin
+  if (ExisteCampoObrigatorio) then
+    Abort;
+
   Try
      if Gravar(EstadoDoCadastro) then
         begin
