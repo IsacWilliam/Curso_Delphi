@@ -40,6 +40,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grdListagemTitleClick(Column: TColumn);
     procedure mskPesquisarChange(Sender: TObject);
+    procedure grdListagemDblClick(Sender: TObject);
   private
     { Private declarations }
     EstadoDoCadastro : TEstadoDoCadastro;
@@ -51,6 +52,7 @@ type
     function RetornarCampoTraduzido(Campo: String): String;
     procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
     function ExisteCampoObrigatorio: Boolean;
+    procedure DesabilitarEditPK;
   public
     { Public declarations }
     IndiceAtual : string;
@@ -64,7 +66,13 @@ var
 implementation
 
 {$R *.dfm}
-                  //Procedimentos e Funções de Controle de Tela
+{$region 'NOTAS'}
+{
+  TAG: 1 - Chave Primária - PK
+  TAG: 2 - Campos Obrigatórios
+}
+{$endregion}
+
 {$region 'Funções e Procedures'}
 procedure TfrmTelaHeranca.FormClose(Sender : TObject; var Action: TCloseAction);
 begin
@@ -90,8 +98,14 @@ begin
          qryListagem.Open;
       end;
    ControlarIndiceTab(pgcPrincipal, 0);
+   DesabilitarEditPK;
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                    btnNavigator, pgcPrincipal, true);
+end;
+
+procedure TfrmTelaHeranca.grdListagemDblClick(Sender: TObject);
+begin
+  btnAlterar.Click;
 end;
 
 procedure TfrmTelaHeranca.grdListagemTitleClick(Column : TColumn);
@@ -153,7 +167,7 @@ begin
     begin
       if (Components[i] is TLabeledEdit) then
         begin
-          if (TLabeledEdit(Components[i]).Tag = 1) and
+          if (TLabeledEdit(Components[i]).Tag = 2) and
              (TLabeledEdit(Components[i]).Text = EmptyStr) then
             begin
               MessageDlg(TLabeledEdit(Components[i]).EditLabel.Caption +
@@ -168,10 +182,25 @@ begin
 
 end;
 
+procedure TfrmTelaHeranca.DesabilitarEditPK;
+var i : Integer;
+begin
+  for i := 0 to ComponentCount - 1 do
+    begin
+      if (Components[i] is TLabeledEdit) then
+        begin
+          if (TLabeledEdit(Components[i]).Tag = 1) then
+            begin
+              TLabeledEdit(Components[i]).Enabled := False;
+              Break
+            end;
+        end;
+    end;
+end;
+
 {$endregion}
 
-                  // Métodos para sobrescrição
-{$region 'Métodos Virtuais'}
+{$region 'Métodos Virtuais - Sobrescrever'}
 function TfrmTelaHeranca.Excluir: Boolean;
 begin
    ShowMessage('DELETADO');
@@ -188,7 +217,6 @@ begin
 end;
 {$endregion}
 
-                  //Procedimentos de Ações dos Botões
 {$region 'Ações dos Botões'}
 procedure TfrmTelaHeranca.btnNovoClick(Sender : TObject);
 begin
@@ -206,13 +234,20 @@ end;
 
 procedure TfrmTelaHeranca.btnApagarClick(Sender : TObject);
 begin
-   if Excluir then
-      begin
-        ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-        btnNavigator, pgcPrincipal, true);
-        ControlarIndiceTab(pgcPrincipal, 0);
-        EstadoDoCadastro := ecNenhum;
-      end;
+   Try
+     if (Excluir) then
+        begin
+          ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+                          btnNavigator, pgcPrincipal, true);
+          ControlarIndiceTab(pgcPrincipal, 0);
+        end
+     else
+        begin
+          MessageDlg('Erro na exclusão', mtError, [mbOK], 0);
+        end;
+   Finally
+     EstadoDoCadastro := ecNenhum;
+   End;
 end;
 
 procedure TfrmTelaHeranca.btnCancelarClick(Sender : TObject);
@@ -234,14 +269,18 @@ begin
     Abort;
 
   Try
-     if Gravar(EstadoDoCadastro) then
-        begin
-           ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-                           btnNavigator, pgcPrincipal, true);
-           ControlarIndiceTab(pgcPrincipal, 0);
-        end;
+    if Gravar(EstadoDoCadastro) then
+      begin
+         ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+                         btnNavigator, pgcPrincipal, true);
+         ControlarIndiceTab(pgcPrincipal, 0);
+         EstadoDoCadastro := ecNenhum;
+      end
+    else
+      begin
+        MessageDlg('Erro na gravação', mtError, [mbOK], 0);
+      end;
   Finally
-    EstadoDoCadastro := ecNenhum;
   End;
 end;
 {$endregion}

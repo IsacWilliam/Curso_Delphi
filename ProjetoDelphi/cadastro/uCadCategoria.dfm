@@ -32,6 +32,7 @@ inherited frmCadCategoria: TfrmCadCategoria
     inherited tabManutencao: TTabSheet
       ExplicitWidth = 884
       object edtCategoriaId: TLabeledEdit
+        Tag = 1
         Left = 0
         Top = 40
         Width = 121
@@ -44,7 +45,7 @@ inherited frmCadCategoria: TfrmCadCategoria
         TabOrder = 0
       end
       object edtDescricao: TLabeledEdit
-        Tag = 1
+        Tag = 2
         Left = 0
         Top = 96
         Width = 489
