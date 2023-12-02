@@ -119,6 +119,7 @@
         </DCCReference>
         <DCCReference Include="terceiros\Enter.pas"/>
         <DCCReference Include="heranca\uEnum.pas"/>
+        <DCCReference Include="classes\cCadCategoria.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
