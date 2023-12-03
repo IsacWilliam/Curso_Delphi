@@ -43,8 +43,6 @@ type
     procedure grdListagemDblClick(Sender: TObject);
   private
     { Private declarations }
-    EstadoDoCadastro : TEstadoDoCadastro;
-
     procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
               btnGravar, btnApagar: TBitBtn; Navegador: TDBNavigator;
               pgcPrincipal: TPageControl; Flag: Boolean);
@@ -57,7 +55,8 @@ type
   public
     { Public declarations }
     IndiceAtual : string;
-    function Excluir : Boolean; virtual;
+    EstadoDoCadastro : TEstadoDoCadastro;
+    function Apagar : Boolean; virtual;
     function Gravar(EstadoDoCadastro : TEstadoDoCadastro) : Boolean; virtual;
   end;
 
@@ -216,7 +215,7 @@ end;
 {$endregion}
 
 {$region 'Métodos Virtuais - Sobrescrever'}
-function TfrmTelaHeranca.Excluir: Boolean;
+function TfrmTelaHeranca.Apagar: Boolean;
 begin
    ShowMessage('DELETADO');
    Result := True;
@@ -251,7 +250,7 @@ end;
 procedure TfrmTelaHeranca.btnApagarClick(Sender : TObject);
 begin
    Try
-     if (Excluir) then
+     if (Apagar) then
         begin
           ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                           btnNavigator, pgcPrincipal, true);

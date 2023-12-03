@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls,
-  cCadCategoria;
+  cCadCategoria, uDTMConexao, uEnum;
 
 type
   TfrmCadCategoria = class(TfrmTelaHeranca)
@@ -17,11 +17,12 @@ type
     qryListagemdescricao: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure btnGravarClick(Sender: TObject);
 
   private
     { Private declarations }
     oCategoria : TCategoria;
+    function Apagar : Boolean; override;
+    function Gravar(EstadoDoCadastro : TEstadoDoCadastro) : Boolean; override;
   public
     { Public declarations }
   end;
@@ -33,14 +34,20 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmCadCategoria.btnGravarClick(Sender: TObject);
+{$region 'Override'}
+function TfrmCadCategoria.Apagar: Boolean;
 begin
-  oCategoria.codigo := 100;
-  oCategoria.descricao := 'TESTE';
-
-  ShowMessage(oCategoria.descricao);
-  inherited;
+  Result := oCategoria.Apagar;
 end;
+
+function TfrmCadCategoria.Gravar(EstadoDoCadastro: TEstadoDoCadastro): Boolean;
+begin
+  if (EstadoDoCadastro = ecInserir) then
+    Result := oCategoria.Gravar
+  else if (EstadoDoCadastro = ecAlterar) then
+    Result := oCategoria.Atualizar;
+end;
+{$endRegion}
 
 procedure TfrmCadCategoria.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -52,7 +59,7 @@ end;
 procedure TfrmCadCategoria.FormCreate(Sender: TObject);
 begin
   inherited;
-  oCategoria := TCategoria.Create;
+  oCategoria := TCategoria.Create(dtmPrincipal.ConexaoDB);
   IndiceAtual := 'descricao';
 end;
 

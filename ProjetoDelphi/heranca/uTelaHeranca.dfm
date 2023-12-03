@@ -29,6 +29,9 @@ object frmTelaHeranca: TfrmTelaHeranca
     ExplicitHeight = 494
     object tabListagem: TTabSheet
       Caption = 'Listagem'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 466
       object pnlListagemTopo: TPanel
         Left = 0
@@ -111,6 +114,9 @@ object frmTelaHeranca: TfrmTelaHeranca
     object tabManutencao: TTabSheet
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 476
     end
   end

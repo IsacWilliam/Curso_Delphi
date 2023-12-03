@@ -2,12 +2,13 @@ unit cCadCategoria;
 
 interface
 
-uses System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs; // Lista de Units
-
+uses System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs, // Lista de Units
+     ZAbstractConnection, ZConnection;
 type
   TCategoria = class // Declaração do tipos da classe
 
   private // Variáveis Privadas, somente DENTRO da classe
+    ConexaoDB : TZConnection;
     F_categoriaId : Integer;
     F_descricao : String;
     function getCodigo: Integer;
@@ -16,9 +17,12 @@ type
     procedure setDescricao(const Value: String);
 
   public // Variáveis Públicas, podem ser usadas FORA da Classe
-    constructor Create; // Construtor da Classe
+    constructor Create (aConexao : TZConnection); // Construtor da Classe
     destructor Destroy; override;// Destrói a Classe, usar Override por causa de sobrescrever
-
+    function Gravar : Boolean;
+    function Atualizar: Boolean;
+    function Apagar : Boolean;
+    function Selecionar(id : Integer) : Boolean;
   published // Variáveis Públics utilizadas para propriedades da Classe...
               //... para fornecer informações em Runtime
     property codigo : Integer   read getCodigo    write setCodigo;
@@ -28,16 +32,44 @@ type
 implementation
 
 { TCategoria }
-
-constructor TCategoria.Create;
+{$region 'CONSTRUTOR E DESTRUTOR'}
+constructor TCategoria.Create(aConexao : TZConnection);
 begin
+  ConexaoDB := aConexao;
 end;
 
 destructor TCategoria.Destroy;
 begin
   inherited;
 end;
+{$endRegion}
 
+{$region 'FUNÇÕES CRUD'}
+function TCategoria.Gravar: Boolean;
+begin
+  ShowMessage('Gravado');
+  Result := True;
+end;
+
+function TCategoria.Atualizar: Boolean;
+begin
+  ShowMessage('Atualizado');
+  Result := True;
+end;
+
+function TCategoria.Apagar: Boolean;
+begin
+  ShowMessage('Apagado');
+  Result := True;
+end;
+
+function TCategoria.Selecionar(id: Integer): Boolean;
+begin
+  Result := True;
+end;
+{$endRegion}
+
+{$region 'GETTERS e SETTERS'}
 function TCategoria.getCodigo: Integer;
 begin
   Result := Self.F_categoriaId;
@@ -57,5 +89,6 @@ procedure TCategoria.setDescricao(const Value: String);
 begin
   Self.F_descricao := Value;
 end;
+{$endRegion}
 
 end.
