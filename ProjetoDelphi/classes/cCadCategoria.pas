@@ -3,7 +3,8 @@ unit cCadCategoria;
 interface
 
 uses System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs, // Lista de Units
-     ZAbstractConnection, ZConnection;
+     ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
+     ZDataset, System.SysUtils;
 type
   TCategoria = class // Declaração do tipos da classe
 
@@ -19,7 +20,7 @@ type
   public // Variáveis Públicas, podem ser usadas FORA da Classe
     constructor Create (aConexao : TZConnection); // Construtor da Classe
     destructor Destroy; override;// Destrói a Classe, usar Override por causa de sobrescrever
-    function Gravar : Boolean;
+    function Inserir : Boolean;
     function Atualizar: Boolean;
     function Apagar : Boolean;
     function Selecionar(id : Integer) : Boolean;
@@ -45,10 +46,25 @@ end;
 {$endRegion}
 
 {$region 'FUNÇÕES CRUD'}
-function TCategoria.Gravar: Boolean;
+function TCategoria.Inserir: Boolean;
+var qryInserir : TZQuery;
 begin
-  ShowMessage('Gravado');
-  Result := True;
+  try
+    Result := True;
+    qryInserir := TZQuery.Create(nil);
+    qryInserir.Connection := ConexaoDB;
+    qryInserir.SQL.Clear;
+    qryInserir.SQL.Add('insert into categorias (descricao) values (:descricao)');
+    qryInserir.ParamByName('descricao').Value := Self.F_descricao;
+    try
+      qryInserir.ExecSQL;
+    Except
+      Result := False;
+    end;
+  finally
+    if Assigned(qryInserir) then
+      FreeAndNil(qryInserir);
+  end;
 end;
 
 function TCategoria.Atualizar: Boolean;

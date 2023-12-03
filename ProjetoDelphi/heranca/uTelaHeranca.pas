@@ -237,7 +237,8 @@ begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, false);
    EstadoDoCadastro := ecInserir;
-   LimparEdits
+   LimparEdits;
+   qryListagem.Refresh;
 end;
 
 procedure TfrmTelaHeranca.btnAlterarClick(Sender : TObject);
@@ -245,6 +246,7 @@ begin
    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
    btnNavigator, pgcPrincipal, false);
    EstadoDoCadastro := ecAlterar;
+   qryListagem.Refresh;
 end;
 
 procedure TfrmTelaHeranca.btnApagarClick(Sender : TObject);
@@ -255,7 +257,8 @@ begin
           ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                           btnNavigator, pgcPrincipal, true);
           ControlarIndiceTab(pgcPrincipal, 0);
-          LimparEdits
+          LimparEdits;
+          qryListagem.Refresh;
         end
      else
         begin
@@ -272,7 +275,7 @@ begin
    btnNavigator, pgcPrincipal, true);
    ControlarIndiceTab(pgcPrincipal, 0);
    EstadoDoCadastro := ecNenhum;
-   LimparEdits
+   LimparEdits;
 end;
 
 procedure TfrmTelaHeranca.btnFecharClick(Sender: TObject);
@@ -293,6 +296,7 @@ begin
          ControlarIndiceTab(pgcPrincipal, 0);
          EstadoDoCadastro := ecNenhum;
          LimparEdits;
+         qryListagem.Refresh;
       end
     else
       begin
