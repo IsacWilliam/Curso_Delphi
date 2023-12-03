@@ -55,7 +55,7 @@ begin
     qryInserir.Connection := ConexaoDB;
     qryInserir.SQL.Clear;
     qryInserir.SQL.Add('insert into categorias (descricao) values (:descricao)');
-    qryInserir.ParamByName('descricao').Value := Self.F_descricao;
+    qryInserir.ParamByName('descricao').AsString := Self.F_descricao;
     try
       qryInserir.ExecSQL;
     Except
@@ -80,8 +80,30 @@ begin
 end;
 
 function TCategoria.Selecionar(id: Integer): Boolean;
+var qrySelecionar : TZQuery;
 begin
-  Result := True;
+  try
+    Result := True;
+    qrySelecionar := TZQuery.Create(nil);
+    qrySelecionar.Connection := ConexaoDB;
+    qrySelecionar.SQL.Clear;
+    qrySelecionar.SQL.Add('SELECT categoriaId, '+
+                          '       descricao '  +
+                          'FROM   categorias '   +
+                          'WHERE  categoriaId =:categoriaId');
+    qrySelecionar.ParamByName('categoriaId').AsInteger := id;
+    try
+      qrySelecionar.Open;
+
+      Self.F_categoriaId := qrySelecionar.FieldByName('categoriaId').AsInteger;
+      Self.F_descricao   := qrySelecionar.FieldByName('descricao').AsString;
+    Except
+      Result := False;
+    end;
+  finally
+    if Assigned(qrySelecionar) then
+      FreeAndNil(qrySelecionar);
+  end;
 end;
 {$endRegion}
 

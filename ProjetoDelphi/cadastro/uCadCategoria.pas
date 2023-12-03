@@ -17,6 +17,7 @@ type
     qryListagemdescricao: TWideStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnAlterarClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -55,6 +56,23 @@ begin
     Result := oCategoria.Atualizar;
 end;
 {$endRegion}
+
+procedure TfrmCadCategoria.btnAlterarClick(Sender: TObject);
+begin
+  if (oCategoria.Selecionar(qryListagem.FieldByName('categoriaId').AsInteger))then
+    begin
+      edtCategoriaId.Text := IntToStr(oCategoria.codigo);
+      edtDescricao.Text   := oCategoria.descricao;
+    end
+  else
+    begin
+      btnCancelar.Click;
+      Abort
+    end;
+
+  inherited;
+
+end;
 
 procedure TfrmCadCategoria.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
