@@ -38,7 +38,10 @@ implementation
 {$region 'Override'}
 function TfrmCadCategoria.Apagar: Boolean;
 begin
-  Result := oCategoria.Apagar;
+  if (oCategoria.Selecionar(qryListagem.FieldByName('categoriaId').AsInteger))then
+    begin
+      Result := oCategoria.Apagar;
+    end
 end;
 
 function TfrmCadCategoria.Gravar(EstadoDoCadastro: TEstadoDoCadastro): Boolean;

@@ -258,6 +258,7 @@ begin
                           btnNavigator, pgcPrincipal, true);
           ControlarIndiceTab(pgcPrincipal, 0);
           LimparEdits;
+          ShowMessage('Apagado');
           qryListagem.Refresh;
         end
      else
@@ -296,6 +297,7 @@ begin
          ControlarIndiceTab(pgcPrincipal, 0);
          EstadoDoCadastro := ecNenhum;
          LimparEdits;
+         ShowMessage('Gravado');
          qryListagem.Refresh;
       end
     else

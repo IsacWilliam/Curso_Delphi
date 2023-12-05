@@ -22,7 +22,7 @@ type
     destructor Destroy; override;// Destrói a Classe, usar Override por causa de sobrescrever
     function Inserir : Boolean;
     function Atualizar: Boolean;
-    function Apagar : Boolean;
+    function Apagar: Boolean;
     function Selecionar(id : Integer) : Boolean;
   published // Variáveis Públics utilizadas para propriedades da Classe...
               //... para fornecer informações em Runtime
@@ -68,15 +68,62 @@ begin
 end;
 
 function TCategoria.Atualizar: Boolean;
+var qryAtualizar: TZQuery;
 begin
-  ShowMessage('Atualizado');
-  Result := True;
+  try
+    Result := True;
+    qryAtualizar := TZQuery.Create(nil);
+    qryAtualizar.Connection := ConexaoDB;
+    qryAtualizar.SQL.Clear;
+    qryAtualizar.SQL.Add('UPDATE categorias '+
+                         'SET    descricao   =:descricao '+
+                         'WHERE  categoriaId =:categoriaId');
+    qryAtualizar.ParamByName('categoriaId').AsInteger := Self.F_categoriaId;
+    qryAtualizar.ParamByName('descricao').AsString    := Self.F_descricao;
+
+    Try
+      qryAtualizar.ExecSQL;
+    Except
+      Result := False;
+    End;
+
+  finally
+    if Assigned(qryAtualizar) then
+      FreeAndNil(qryAtualizar);
+  end;
 end;
 
 function TCategoria.Apagar: Boolean;
+var
+  qryApagar: TZQuery;
 begin
-  ShowMessage('Apagado');
-  Result := True;
+  Result := False; // Defina o resultado como falso por padrão
+
+  if MessageDlg('Apagar o Registro: ' + #13#13 +
+                'Código: ' + IntToStr(F_categoriaId) + #13 +
+                'Descrição: ' + F_descricao, mtConfirmation,
+                [mbYes, mbNo], 0) = mrNo then
+  begin
+    Abort; // Se o usuário escolher 'Não', aborte a operação
+  end;
+
+  qryApagar := TZQuery.Create(nil);
+  try
+    qryApagar.Connection := ConexaoDB;
+    qryApagar.SQL.Clear;
+    qryApagar.SQL.Add('DELETE FROM categorias ' +
+                      'WHERE categoriaId = :categoriaId');
+    qryApagar.ParamByName('categoriaId').AsInteger := F_categoriaId;
+
+    try
+      qryApagar.ExecSQL;
+      Result := True; // Se não ocorrer exceção, definir o resultado como verdadeiro
+    except
+      Result := False;
+    end;
+  finally
+    FreeAndNil(qryApagar);
+  end;
 end;
 
 function TCategoria.Selecionar(id: Integer): Boolean;
