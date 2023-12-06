@@ -8,7 +8,8 @@ uses
   uCadCategoria in 'cadastro\uCadCategoria.pas' {frmCadCategoria},
   Enter in 'terceiros\Enter.pas',
   uEnum in 'heranca\uEnum.pas',
-  cCadCategoria in 'classes\cCadCategoria.pas';
+  cCadCategoria in 'classes\cCadCategoria.pas',
+  uCadCliente in 'cadastro\uCadCliente.pas' {frmCadCliente};
 
 {$R *.res}
 
@@ -16,5 +17,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmCadCliente, frmCadCliente);
   Application.Run;
 end.

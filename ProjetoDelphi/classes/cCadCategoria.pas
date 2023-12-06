@@ -24,7 +24,7 @@ type
     function Atualizar: Boolean;
     function Apagar: Boolean;
     function Selecionar(id : Integer) : Boolean;
-  published // Variáveis Públics utilizadas para propriedades da Classe...
+  published // Variáveis Públicas utilizadas para propriedades da Classe...
               //... para fornecer informações em Runtime
     property codigo : Integer   read getCodigo    write setCodigo;
     property descricao : String read getDescricao write setDescricao;
