@@ -124,6 +124,7 @@
             <Form>frmCadCliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="classes\cCadCliente.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

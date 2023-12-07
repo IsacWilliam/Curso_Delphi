@@ -9,7 +9,8 @@ uses
   Enter in 'terceiros\Enter.pas',
   uEnum in 'heranca\uEnum.pas',
   cCadCategoria in 'classes\cCadCategoria.pas',
-  uCadCliente in 'cadastro\uCadCliente.pas' {frmCadCliente};
+  uCadCliente in 'cadastro\uCadCliente.pas' {frmCadCliente},
+  cCadCliente in 'classes\cCadCliente.pas';
 
 {$R *.res}
 
@@ -17,6 +18,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmCadCliente, frmCadCliente);
   Application.Run;
 end.

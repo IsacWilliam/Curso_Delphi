@@ -26,13 +26,8 @@ object frmTelaHeranca: TfrmTelaHeranca
     ActivePage = tabListagem
     Align = alClient
     TabOrder = 0
-    ExplicitHeight = 494
     object tabListagem: TTabSheet
       Caption = 'Listagem'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 466
       object pnlListagemTopo: TPanel
         Left = 0
         Top = 0
@@ -114,10 +109,6 @@ object frmTelaHeranca: TfrmTelaHeranca
     object tabManutencao: TTabSheet
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 476
     end
   end
   object pnlRodape: TPanel
@@ -359,8 +350,6 @@ object frmTelaHeranca: TfrmTelaHeranca
   end
   object qryListagem: TZQuery
     Connection = dtmPrincipal.ConexaoDB
-    SQL.Strings = (
-      'select * from categorias;')
     Params = <>
     Left = 756
     Top = 21

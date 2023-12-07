@@ -69,6 +69,8 @@ inherited frmCadCategoria: TfrmCadCategoria
     end
   end
   inherited qryListagem: TZQuery
+    SQL.Strings = (
+      'select * from categorias;')
     Left = 740
     Top = 37
     object qryListagemcategoriaId: TIntegerField

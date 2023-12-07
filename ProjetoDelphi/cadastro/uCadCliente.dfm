@@ -9,20 +9,43 @@ inherited frmCadCliente: TfrmCadCliente
   inherited pgcPrincipal: TPageControl
     Width = 720
     Height = 360
-    ActivePage = tabManutencao
+    ExplicitWidth = 720
+    ExplicitHeight = 360
     inherited tabListagem: TTabSheet
       inherited pnlListagemTopo: TPanel
         Width = 712
+        ExplicitWidth = 712
       end
       inherited grdListagem: TDBGrid
         Width = 712
         Height = 267
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'clienteId'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'nome'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'cep'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'endereco'
+            Visible = True
+          end>
       end
     end
     inherited tabManutencao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 693
+      ExplicitWidth = 712
       ExplicitHeight = 332
       object Label1: TLabel
         Left = 341
@@ -159,7 +182,7 @@ inherited frmCadCliente: TfrmCadCliente
       Top = 2
       Height = 24
       Anchors = [akRight, akBottom]
-      ExplicitLeft = 655
+      ExplicitLeft = 641
       ExplicitTop = 2
       ExplicitHeight = 24
     end
@@ -168,11 +191,62 @@ inherited frmCadCliente: TfrmCadCliente
     end
   end
   inherited qryListagem: TZQuery
-    Left = 172
+    SQL.Strings = (
+      'select * from clientes;')
+    Left = 588
     Top = 37
+    object qryListagemclienteId: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'clienteId'
+      ReadOnly = True
+    end
+    object qryListagemnome: TWideStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'nome'
+      Size = 60
+    end
+    object qryListagemendereco: TWideStringField
+      DisplayLabel = 'Endere'#231'o'
+      FieldName = 'endereco'
+      Size = 60
+    end
+    object qryListagemcidade: TWideStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'cidade'
+      Size = 50
+    end
+    object qryListagembairro: TWideStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'bairro'
+      Size = 40
+    end
+    object qryListagemestado: TWideStringField
+      DisplayLabel = 'Estado'
+      FieldName = 'estado'
+      Size = 2
+    end
+    object qryListagemcep: TWideStringField
+      DisplayLabel = 'Cep'
+      FieldName = 'cep'
+      Size = 10
+    end
+    object qryListagemtelefone: TWideStringField
+      DisplayLabel = 'Telefone'
+      FieldName = 'telefone'
+      Size = 14
+    end
+    object qryListagememail: TWideStringField
+      DisplayLabel = 'E-mail'
+      FieldName = 'email'
+      Size = 100
+    end
+    object qryListagemdataNascimento: TDateTimeField
+      DisplayLabel = 'Data de Nascimento'
+      FieldName = 'dataNascimento'
+    end
   end
   inherited dtsListagem: TDataSource
-    Left = 233
+    Left = 657
     Top = 38
   end
 end
