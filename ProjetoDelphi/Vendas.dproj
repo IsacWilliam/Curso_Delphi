@@ -125,6 +125,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="classes\cCadCliente.pas"/>
+        <DCCReference Include="cadastro\uCadProduto.pas">
+            <Form>frmCadProduto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

@@ -9,6 +9,7 @@ inherited frmCadCliente: TfrmCadCliente
   inherited pgcPrincipal: TPageControl
     Width = 720
     Height = 360
+    ActivePage = tabManutencao
     ExplicitWidth = 720
     ExplicitHeight = 360
     inherited tabListagem: TTabSheet
@@ -87,9 +88,9 @@ inherited frmCadCliente: TfrmCadCliente
         Top = 96
         Width = 318
         Height = 21
-        EditLabel.Width = 46
+        EditLabel.Width = 27
         EditLabel.Height = 13
-        EditLabel.Caption = 'Descri'#231#227'o'
+        EditLabel.Caption = 'Nome'
         MaxLength = 60
         TabOrder = 1
       end
