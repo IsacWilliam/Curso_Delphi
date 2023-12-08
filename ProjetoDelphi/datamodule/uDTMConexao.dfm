@@ -1,7 +1,7 @@
 object dtmPrincipal: TdtmPrincipal
   OldCreateOrder = False
-  Height = 150
-  Width = 215
+  Height = 80
+  Width = 610
   object ConexaoDB: TZConnection
     ControlsCodePage = cCP_UTF16
     AutoEncodeStrings = True
@@ -17,7 +17,107 @@ object dtmPrincipal: TdtmPrincipal
     Password = 'delphi@2023'
     Protocol = 'mssql'
     LibraryLocation = 'E:\Cursos\Curso_Delphi\ProjetoDelphi\ntwdblib.dll'
-    Left = 80
-    Top = 32
+    Left = 24
+    Top = 12
+  end
+  object qryScriptCategorias: TZQuery
+    Connection = ConexaoDB
+    SQL.Strings = (
+      'if OBJECT_ID ('#39'categorias'#39') is null'
+      'begin'
+      '  create table categorias('
+      '    categoriaId int identity(1,1) not null,'
+      '    descricao varchar(30) null,'
+      '    primary key (categoriaId)'
+      '  )'
+      'end')
+    Params = <>
+    Left = 115
+    Top = 12
+  end
+  object qryScriptClientes: TZQuery
+    Connection = ConexaoDB
+    SQL.Strings = (
+      'if OBJECT_ID ('#39'clientes'#39') is null'
+      'begin'
+      '  create table clientes('
+      '    clienteId int identity(1,1) not null,'
+      '    nome varchar(60) null,'
+      '    endereco varchar(60) null,'
+      '    cidade varchar(50) null,'
+      '    bairro varchar(40) null,'
+      '    estado varchar(2) null,'
+      '    cep varchar(10) null,'
+      '    telefone varchar(14) null,'
+      '    email varchar(100) null,'
+      '    dataNascimento datetime null,'
+      '    primary key (clienteId)'
+      '  )'
+      'end')
+    Params = <>
+    Left = 214
+    Top = 12
+  end
+  object qryScriptProdutos: TZQuery
+    Connection = ConexaoDB
+    SQL.Strings = (
+      'if OBJECT_ID ('#39'produtos'#39') is null'
+      'begin'
+      '  create table produtos('
+      '    produtoId int identity(1,1) not null,'
+      '    nome varchar(60) null,'
+      '    descricao varchar(255) null,'
+      '    valor decimal(18,5) default 0.00000 null,'
+      '    quantidade decimal(18,5) default 0.00000 null,'
+      '    categoriaId int null,'
+      '    primary key (produtoId),'
+      '    constraint FK_ProdutosCategorias'
+      
+        '      foreign key (categoriaId) references categorias(categoriaI' +
+        'd)'
+      '  )'
+      'end')
+    Params = <>
+    Left = 313
+    Top = 12
+  end
+  object qryScriptVendas: TZQuery
+    Connection = ConexaoDB
+    SQL.Strings = (
+      'if OBJECT_ID('#39'vendas'#39') is null'
+      'begin'
+      'create table vendas('
+      '  vendaId int identity(1,1) not null,'
+      '  clienteId int not null,'
+      '  dataVenda datetime default getdate(),'
+      '  totalVenda decimal(18,5) default 0.00000,'
+      '  primary key (vendaId),'
+      '  constraint FK_VendasClientes foreign key (clienteId)'
+      '    references clientes(clienteId)'
+      ')'
+      'end')
+    Params = <>
+    Left = 412
+    Top = 12
+  end
+  object qryScriptItensVendas: TZQuery
+    Connection = ConexaoDB
+    SQL.Strings = (
+      'if OBJECT_ID('#39'vendasItens'#39') is null'
+      'begin'
+      'create table vendasItens('
+      '  vendaId int not null,'
+      '  produtoId int not null,'
+      '  valorUnitario decimal(18,5) default 0.00000,'
+      '  quantidade decimal(18,5) default 0.00000,'
+      '  totalProduto decimal(18,5) default 0.00000,'
+      '  primary key (vendaId, ProdutoId),'
+      '  constraint FK_VendasItensProdutos foreign key (produtoId)'
+      '    references produtos(produtoId)'
+      ')'
+      'end')
+    Params = <>
+    Left = 525
+    Top = 10
   end
 end

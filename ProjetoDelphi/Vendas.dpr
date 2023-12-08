@@ -12,7 +12,8 @@ uses
   uCadCliente in 'cadastro\uCadCliente.pas' {frmCadCliente},
   cCadCliente in 'classes\cCadCliente.pas',
   uCadProduto in 'cadastro\uCadProduto.pas' {frmCadProduto},
-  cCadProduto in 'classes\cCadProduto.pas';
+  cCadProduto in 'classes\cCadProduto.pas',
+  uFrmAtualizaDB in 'datamodule\uFrmAtualizaDB.pas' {frmAtualizaDB};
 
 {$R *.res}
 
@@ -20,6 +21,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmCadProduto, frmCadProduto);
+  Application.CreateForm(TfrmAtualizaDB, frmAtualizaDB);
   Application.Run;
 end.

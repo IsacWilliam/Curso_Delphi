@@ -8,7 +8,7 @@ uses
   Enter, ShellApi, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, VclTee.TeeGDIPlus,
   Data.DB, VCLTee.Series, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart,
   VCLTee.DBChart, ZDbcIntfs, RLReport, ZAbstractRODataset, ZAbstractDataset,
-  ZDataset;
+  ZDataset, uFrmAtualizaDB;
 
 type
   TfrmPrincipal = class(TForm)
@@ -37,6 +37,7 @@ type
   private
     { Private declarations }
     TeclaEnter: TMREnter;
+    procedure AtualizaBancoDados(aForm: TfrmAtualizaDB);
   public
     { Public declarations }
   end;
@@ -72,6 +73,9 @@ end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
+  frmAtualizaDB := TfrmAtualizaDB.Create(Self);
+  frmAtualizaDB.Show;
+  frmAtualizaDB.Refresh;
 {
   dtmPrincipal := TdtmPrincipal.Create(Self);
   dtmPrincipal.ConexaoDB.SQLHourGlass := True;
@@ -98,6 +102,8 @@ begin
       Database := 'vendas';
       Connected := True;
     end;
+    AtualizaBancoDados(frmAtualizaDB);
+    frmAtualizaDB.Free;
 
     TeclaEnter:= TMREnter.Create(Self);
     TeclaEnter.FocusEnabled := True;
@@ -116,6 +122,38 @@ begin
   frmCadProduto := TfrmCadProduto.Create(Self);
   frmCadProduto.ShowModal;
   frmCadProduto.Release;
+end;
+
+procedure TfrmPrincipal.AtualizaBancoDados(aForm : TfrmAtualizaDB);
+begin
+  aForm.chkConexao.Checked := True;
+  aForm.Refresh;
+  Sleep(1000);
+
+  dtmPrincipal.qryScriptCategorias.ExecSQL;
+  aForm.chkCategoria.Checked := True;
+  aForm.Refresh;
+  Sleep(100);
+
+  dtmPrincipal.qryScriptProdutos.ExecSQL;
+  aForm.chkProduto.Checked := True;
+  aForm.Refresh;
+  Sleep(100);
+
+  dtmPrincipal.qryScriptClientes.ExecSQL;
+  aForm.chkCliente.Checked := True;
+  aForm.Refresh;
+  Sleep(100);
+
+  dtmPrincipal.qryScriptVendas.ExecSQL;
+  aForm.chkVendas.Checked := True;
+  aForm.Refresh;
+  Sleep(100);
+
+  dtmPrincipal.qryScriptItensVendas.ExecSQL;
+  aForm.chkItensVenda.Checked := True;
+  aForm.Refresh;
+  Sleep(2000);
 end;
 
 end.
