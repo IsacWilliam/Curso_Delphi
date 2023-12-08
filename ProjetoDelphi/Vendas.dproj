@@ -129,6 +129,7 @@
             <Form>frmCadProduto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="classes\cCadProduto.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

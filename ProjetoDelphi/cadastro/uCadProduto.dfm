@@ -1,22 +1,29 @@
 inherited frmCadProduto: TfrmCadProduto
   Caption = 'Cadastro de Produto'
-  ClientHeight = 425
+  ClientHeight = 358
   ClientWidth = 772
   ExplicitWidth = 778
-  ExplicitHeight = 454
+  ExplicitHeight = 387
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
     Width = 772
-    Height = 390
+    Height = 323
     ActivePage = tabManutencao
+    ExplicitWidth = 772
+    ExplicitHeight = 323
     inherited tabListagem: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 764
+      ExplicitHeight = 295
       inherited pnlListagemTopo: TPanel
         Width = 764
+        ExplicitWidth = 764
       end
       inherited grdListagem: TDBGrid
         Width = 764
-        Height = 297
+        Height = 230
         Columns = <
           item
             Expanded = False
@@ -49,8 +56,8 @@ inherited frmCadProduto: TfrmCadProduto
     inherited tabManutencao: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 24
-      ExplicitWidth = 741
-      ExplicitHeight = 468
+      ExplicitWidth = 764
+      ExplicitHeight = 295
       object Label1: TLabel
         Left = 0
         Top = 128
@@ -60,17 +67,24 @@ inherited frmCadProduto: TfrmCadProduto
       end
       object Label2: TLabel
         Left = 0
-        Top = 301
+        Top = 245
         Width = 24
         Height = 13
         Caption = 'Valor'
       end
       object Label3: TLabel
         Left = 162
-        Top = 301
+        Top = 245
         Width = 56
         Height = 13
         Caption = 'Quantidade'
+      end
+      object Label4: TLabel
+        Left = 336
+        Top = 77
+        Width = 47
+        Height = 13
+        Caption = 'Categoria'
       end
       object edtProdutoId: TLabeledEdit
         Tag = 1
@@ -101,26 +115,26 @@ inherited frmCadProduto: TfrmCadProduto
         Left = 0
         Top = 147
         Width = 756
-        Height = 148
+        Height = 78
         Lines.Strings = (
           'edtDescricao')
         MaxLength = 255
-        TabOrder = 2
+        TabOrder = 3
       end
       object edtValor: TCurrencyEdit
         Left = 0
-        Top = 320
+        Top = 264
         Width = 156
         Height = 21
-        TabOrder = 3
+        TabOrder = 4
       end
       object edtQuantidade: TCurrencyEdit
         Left = 162
-        Top = 320
+        Top = 264
         Width = 156
         Height = 21
         DisplayFormat = ',0.00;-,0.00'
-        TabOrder = 4
+        TabOrder = 5
       end
       object lkpCategoria: TDBLookupComboBox
         Left = 336
@@ -130,17 +144,19 @@ inherited frmCadProduto: TfrmCadProduto
         KeyField = 'categoriaId'
         ListField = 'descricao'
         ListSource = dtsCategoria
-        TabOrder = 5
+        TabOrder = 2
       end
     end
   end
   inherited pnlRodape: TPanel
-    Top = 390
+    Top = 323
     Width = 772
+    ExplicitTop = 323
+    ExplicitWidth = 772
     inherited btnFechar: TBitBtn
       Left = 685
       Top = 2
-      ExplicitLeft = 798
+      ExplicitLeft = 685
       ExplicitTop = 2
     end
     inherited btnNavigator: TDBNavigator

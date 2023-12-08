@@ -351,12 +351,12 @@ object frmTelaHeranca: TfrmTelaHeranca
   object qryListagem: TZQuery
     Connection = dtmPrincipal.ConexaoDB
     Params = <>
-    Left = 756
+    Left = 556
     Top = 21
   end
   object dtsListagem: TDataSource
     DataSet = qryListagem
-    Left = 825
+    Left = 625
     Top = 22
   end
 end

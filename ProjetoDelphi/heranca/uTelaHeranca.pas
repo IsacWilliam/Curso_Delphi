@@ -209,6 +209,16 @@ begin
         else if (Components[i] is TEdit) then
           //TEdit(Components[i]).Text := EmptyStr
           TEdit(Components[i]).Text := ''
+        else if (Components[i] is TMaskEdit) then
+          TMaskEdit(Components[i]).Text := ''
+        else if (Components[i] is TMemo) then
+          TMemo(Components[i]).Text := ''
+        else if (Components[i] is TDBLookupComboBox) then
+          TDBLookupComboBox(Components[i]).KeyValue := Null
+        else if (Components[i] is TCurrencyEdit) then
+          TCurrencyEdit(Components[i]).Value := 0
+        else if (Components[i] is TDateEdit) then
+          TDateEdit(Components[i]).Date := 0;
     end;
 
 end;
