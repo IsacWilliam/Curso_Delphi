@@ -136,7 +136,7 @@ procedure TfrmPrincipal.AtualizaBancoDados(aForm : TfrmAtualizaDB);
 begin
   aForm.chkConexao.Checked := True;
   aForm.Refresh;
-  Sleep(1000);
+  Sleep(100);
 
   dtmPrincipal.qryScriptCategorias.ExecSQL;
   aForm.chkCategoria.Checked := True;
@@ -161,7 +161,7 @@ begin
   dtmPrincipal.qryScriptItensVendas.ExecSQL;
   aForm.chkItensVenda.Checked := True;
   aForm.Refresh;
-  Sleep(2000);
+  Sleep(500);
 end;
 
 end.
