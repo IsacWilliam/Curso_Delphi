@@ -6,6 +6,7 @@ object dtmVenda: TdtmVenda
   Width = 291
   object qryCliente: TZQuery
     Connection = dtmPrincipal.ConexaoDB
+    Active = True
     SQL.Strings = (
       'select clienteId, nome from clientes;')
     Params = <>
@@ -24,6 +25,7 @@ object dtmVenda: TdtmVenda
   end
   object qryProdutos: TZQuery
     Connection = dtmPrincipal.ConexaoDB
+    Active = True
     SQL.Strings = (
       'select produtoId, nome, valor, quantidade from produtos;')
     Params = <>
@@ -54,19 +56,24 @@ object dtmVenda: TdtmVenda
     Left = 188
     Top = 7
     object cdsItensVendasprodutoId: TIntegerField
+      DisplayLabel = 'C'#243'digo'
       FieldName = 'produtoId'
     end
     object cdsItensVendasNomeProduto: TStringField
+      DisplayLabel = 'Nome do Produto'
       FieldName = 'NomeProduto'
       Size = 60
     end
     object cdsItensVendasquantidade: TFloatField
+      DisplayLabel = 'Quantidade'
       FieldName = 'quantidade'
     end
     object cdsItensVendasvalorUnitario: TFloatField
+      DisplayLabel = 'Valor Unit'#225'rio'
       FieldName = 'valorUnitario'
     end
     object cdsItensVendasvalorTotalProduto: TFloatField
+      DisplayLabel = 'Total do Produto'
       FieldName = 'valorTotalProduto'
     end
     object cdsItensVendasvalorTotalVenda: TAggregateField

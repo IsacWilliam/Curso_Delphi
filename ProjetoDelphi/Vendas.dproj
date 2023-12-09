@@ -139,6 +139,10 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="processo\uProVenda.pas">
+            <Form>frmProVenda</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

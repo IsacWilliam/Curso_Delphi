@@ -103,6 +103,7 @@ object frmTelaHeranca: TfrmTelaHeranca
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDblClick = grdListagemDblClick
+        OnKeyDown = grdListagemKeyDown
         OnTitleClick = grdListagemTitleClick
       end
     end
