@@ -64,7 +64,10 @@ implementation
 {$region 'Override'}
 function TfrmProVenda.Apagar: Boolean;
 begin
-  Result := oVenda.Apagar(qryListagem.FieldByName('vendaId').AsInteger);
+  if oVenda.Selecionar(qryListagem.FieldByName('vendaId').AsInteger) then
+    begin
+      Result := oVenda.Apagar;
+    end;
 end;
 
 function TfrmProVenda.Gravar(EstadoDoCadastro : TEstadoDoCadastro): Boolean;

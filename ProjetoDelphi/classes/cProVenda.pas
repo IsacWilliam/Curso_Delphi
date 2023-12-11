@@ -20,7 +20,7 @@ type
     destructor Destroy; override;
     function Inserir : Boolean;
     function Atualizar : Boolean;
-    function Apagar(id : Integer) : Boolean;
+    function Apagar : Boolean;
     function Selecionar(id : Integer) : Boolean;
 
   published
@@ -46,11 +46,11 @@ end;
 {$endRegion}
 
 {$region 'CRUD'}
-function TVenda.Apagar(id: Integer): Boolean;
+function TVenda.Apagar : Boolean;
 var qryApagar : TZQuery;
 begin
   if MessageDlg('Apagar o Registro: '+#13+#13+
-                'Venda Nro: '+IntToStr(id), mtConfirmation, [mbYes, mbNo],0)=mrNo then
+                'Venda Nro: '+IntToStr(VendaId), mtConfirmation, [mbYes, mbNo],0)=mrNo then
     begin
       Result := False;
       Abort;
@@ -64,14 +64,14 @@ begin
     qryApagar.SQL.Clear;
     qryApagar.SQL.Add('DELETE FROM vendasItens '+
                       'WHERE vendaId =:vendaId');
-    qryApagar.ParamByName('vendaId').AsInteger := id;
+    qryApagar.ParamByName('vendaId').AsInteger := VendaId;
 
     Try
       qryApagar.ExecSQL;
       qryApagar.SQL.Clear;
       qryApagar.SQL.Add('DELETE FROM vendas '+
                         'WHERE vendaId =:vendaId');
-      qryApagar.ParamByName('vendaId').AsInteger := id;
+      qryApagar.ParamByName('vendaId').AsInteger := VendaId;
       qryApagar.ExecSQL;
       ConexaoDB.Commit;
 

@@ -10,14 +10,16 @@ inherited frmProVenda: TfrmProVenda
     Width = 774
     Height = 467
     ActivePage = tabManutencao
-    ExplicitWidth = 716
+    ExplicitWidth = 774
     ExplicitHeight = 467
     inherited tabListagem: TTabSheet
-      ExplicitWidth = 708
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 766
       ExplicitHeight = 439
       inherited pnlListagemTopo: TPanel
         Width = 766
-        ExplicitWidth = 708
+        ExplicitWidth = 766
       end
       inherited grdListagem: TDBGrid
         Width = 766
@@ -51,7 +53,9 @@ inherited frmProVenda: TfrmProVenda
       end
     end
     inherited tabManutencao: TTabSheet
-      ExplicitWidth = 708
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 766
       ExplicitHeight = 439
       object Label4: TLabel
         Left = 142
@@ -129,7 +133,6 @@ inherited frmProVenda: TfrmProVenda
         Height = 375
         Align = alBottom
         TabOrder = 3
-        ExplicitWidth = 708
         object Panel2: TPanel
           Left = 1
           Top = 1
@@ -137,7 +140,6 @@ inherited frmProVenda: TfrmProVenda
           Height = 49
           Align = alTop
           TabOrder = 0
-          ExplicitWidth = 706
           object Label5: TLabel
             Left = 2
             Top = 0
@@ -261,7 +263,6 @@ inherited frmProVenda: TfrmProVenda
           Height = 283
           Align = alClient
           TabOrder = 1
-          ExplicitWidth = 706
           object dbGridItensVenda: TDBGrid
             Left = 1
             Top = 1
@@ -316,7 +317,6 @@ inherited frmProVenda: TfrmProVenda
           Height = 41
           Align = alBottom
           TabOrder = 2
-          ExplicitWidth = 706
           object Label2: TLabel
             Left = 512
             Top = 13
@@ -353,11 +353,11 @@ inherited frmProVenda: TfrmProVenda
     Top = 467
     Width = 774
     ExplicitTop = 467
-    ExplicitWidth = 716
+    ExplicitWidth = 774
     inherited btnFechar: TBitBtn
       Left = 695
       TabOrder = 6
-      ExplicitLeft = 637
+      ExplicitLeft = 695
     end
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
