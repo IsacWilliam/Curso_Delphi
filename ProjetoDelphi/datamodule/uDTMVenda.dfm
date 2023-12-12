@@ -1,4 +1,4 @@
-object dtmVenda: TdtmVenda
+object dtmVendas: TdtmVendas
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy

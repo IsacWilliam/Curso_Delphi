@@ -4,7 +4,7 @@ interface
 
 uses System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs,
      ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-     ZDataset, System.SysUtils, System.UITypes;
+     ZDataset, System.SysUtils, System.UITypes, Data.DB, Datasnap.DBClient;
 
 type
   TVenda= class
@@ -14,11 +14,12 @@ type
     F_clienteId : Integer;
     F_dataVenda : TDateTime;
     F_totalVenda : Double;
+    function InserirItens(cds: TClientDataSet; IdVenda: Integer): Boolean;
 
   public
     constructor Create(aConexao : TZConnection);
     destructor Destroy; override;
-    function Inserir : Boolean;
+    function Inserir(cds:TClientDataSet) : Boolean;
     function Atualizar : Boolean;
     function Apagar : Boolean;
     function Selecionar(id : Integer) : Boolean;
@@ -116,7 +117,7 @@ begin
   end;
 end;
 
-function TVenda.Inserir : Boolean;
+function TVenda.Inserir(cds:TClientDataSet) : Boolean;
 var qryInserir : TZQuery;
     IdVendaGerado : Integer;
 begin
@@ -141,6 +142,15 @@ begin
 
       // ID da tabela Master(Venda)
       IdVendaGerado := qryInserir.FieldByName('ID').AsInteger;
+
+      {$region 'GRAVAR NA TABELA VENDASITENS'}
+      cds.First;
+      while not cds.Eof do
+        begin
+          InserirItens(cds, IdVendaGerado);
+          cds.Next;
+        end;
+      {$endRegion}
 
       ConexaoDB.Commit;
     Except
@@ -184,5 +194,34 @@ begin
   end;
 end;
 
+function TVenda.InserirItens(cds: TClientDataSet; IdVenda: Integer): Boolean;
+var qryInserirItens: TZQuery;
+begin
+  try
+    Result := True;
+    qryInserirItens := TZQuery.Create(nil);
+    qryInserirItens.Connection := ConexaoDB;
+    qryInserirItens.SQL.Clear;
+    qryInserirItens.SQL.Add('INSERT INTO VendasItens '+
+                            '(VendaID, ProdutoID, ValorUnitario, Quantidade, TotalProduto) '+
+                            'VALUES '+
+                            '(:VendaID, :ProdutoID, :ValorUnitario, :Quantidade, :TotalProduto)');
+    qryInserirItens.ParamByName('VendaID').AsInteger := IdVenda;
+    qryInserirItens.ParamByName('ProdutoID').AsInteger := cds.FieldByName('produtoId').AsInteger;
+    qryInserirItens.ParamByName('ValorUnitario').AsFloat := cds.FieldByName('valorUnitario').AsFloat;
+    qryInserirItens.ParamByName('Quantidade').AsFloat := cds.FieldByName('quantidade').AsFloat;
+    qryInserirItens.ParamByName('TotalProduto').AsFloat := cds.FieldByName('valorTotalProduto').AsFloat;
+    try
+      qryInserirItens.ExecSQL;
+    Except
+      Result := False;
+    end;
+
+  finally
+    if Assigned(qryInserirItens) then
+      FreeAndNil(qryInserirItens);
+  end;
+
+end;
 {$endRegion}
 end.
