@@ -6,7 +6,6 @@ object dtmVenda: TdtmVenda
   Width = 291
   object qryCliente: TZQuery
     Connection = dtmPrincipal.ConexaoDB
-    Active = True
     SQL.Strings = (
       'select clienteId, nome from clientes;')
     Params = <>
@@ -25,7 +24,6 @@ object dtmVenda: TdtmVenda
   end
   object qryProdutos: TZQuery
     Connection = dtmPrincipal.ConexaoDB
-    Active = True
     SQL.Strings = (
       'select produtoId, nome, valor, quantidade from produtos;')
     Params = <>
@@ -75,11 +73,6 @@ object dtmVenda: TdtmVenda
     object cdsItensVendavalorTotalProduto: TFloatField
       DisplayLabel = 'Total do Produto'
       FieldName = 'valorTotalProduto'
-    end
-    object cdsItensVendavalorTotalVenda: TAggregateField
-      FieldName = 'valorTotalVenda'
-      DisplayName = ''
-      Expression = 'SUM(ValorTotalProduto)'
     end
   end
   object dtsCliente: TDataSource
