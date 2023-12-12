@@ -162,6 +162,8 @@ inherited frmProVenda: TfrmProVenda
             Height = 21
             DisplayFormat = ',0.00;-,0.00'
             TabOrder = 2
+            OnEnter = edtQuantidadeEnter
+            OnExit = edtQuantidadeExit
           end
           object edtTotalProduto: TCurrencyEdit
             Left = 508
@@ -208,8 +210,9 @@ inherited frmProVenda: TfrmProVenda
               17BF6F17FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
               00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
             TabOrder = 4
+            OnClick = btnAdicionarItem
           end
-          object BitBtn2: TBitBtn
+          object btnApagarItem: TBitBtn
             Left = 683
             Top = 14
             Width = 75
@@ -245,7 +248,7 @@ inherited frmProVenda: TfrmProVenda
             TabOrder = 5
             TabStop = False
           end
-          object DBLookupComboBox1: TDBLookupComboBox
+          object lkpProduto: TDBLookupComboBox
             Left = 2
             Top = 14
             Width = 307
@@ -254,6 +257,7 @@ inherited frmProVenda: TfrmProVenda
             ListField = 'nome'
             ListSource = dtmVenda.dtsProdutos
             TabOrder = 0
+            OnExit = lkpProdutoExit
           end
         end
         object Panel3: TPanel
