@@ -22,7 +22,7 @@ type
     function Inserir(cds:TClientDataSet) : Boolean;
     function Atualizar : Boolean;
     function Apagar : Boolean;
-    function Selecionar(id : Integer) : Boolean;
+    function Selecionar(id : Integer; var cds:TClientDataSet) : Boolean;
 
   published
     property VendaId   : Integer    read F_vendaId     write F_vendaId;
@@ -164,7 +164,7 @@ begin
   end;
 end;
 
-function TVenda.Selecionar(id: Integer): Boolean;
+function TVenda.Selecionar(id: Integer; var cds:TClientDataSet): Boolean;
 var qrySelecionar : TZQuery;
 begin
   try
@@ -183,6 +183,39 @@ begin
       Self.F_clienteId  := qrySelecionar.FieldByName('clienteId').AsInteger;
       Self.F_dataVenda  := qrySelecionar.FieldByName('dataVenda').AsDateTime;
       Self.F_totalVenda := qrySelecionar.FieldByName('totalVenda').AsFloat;
+
+      {$region 'SELECIONAR NA TABELA VENDASITENS'}
+      //Apaga o CLientDataSet caso esteja com algum registro
+      cds.First;
+      while not cds.Eof do
+        begin
+          cds.Delete;
+        end;
+
+      //Seleciona os Itens do Banco de Dados com a propriedade F_VendaId
+      qrySelecionar.Close;
+      qrySelecionar.SQL.Clear;
+      qrySelecionar.SQL.Add('SELECT VendasItens.ProdutoID, Produtos.Nome, '+
+      'VendasItens.ValorUnitario, VendasItens.Quantidade, VendasItens.TotalProduto '+
+      'FROM VendasItens INNER JOIN produtos ON Produtos.produtoId = VendasItens.produtoId '+
+                                          'WHERE VendasItens.VendaID=:VendaID');
+      qrySelecionar.ParamByName('VendaID').AsInteger := Self.F_vendaId;
+      qrySelecionar.Open;
+
+      //Lê da Query e coloca no ClientDataSet
+      qrySelecionar.First;
+      while not qrySelecionar.Eof do
+        begin
+          cds.Append;
+          cds.FieldByName('produtoId').AsInteger := qrySelecionar.FieldByName('ProdutoID').AsInteger;
+          cds.FieldByName('nomeProduto').AsString := qrySelecionar.FieldByName('Nome').AsString;
+          cds.FieldByName('valorUnitario').AsFloat := qrySelecionar.FieldByName('ValorUnitario').AsFloat;
+          cds.FieldByName('quantidade').AsFloat := qrySelecionar.FieldByName('Quantidade').AsFloat;
+          cds.FieldByName('valorTotalProduto').AsFloat := qrySelecionar.FieldByName('TotalProduto').AsFloat;
+          cds.Post;
+          qrySelecionar.Next;
+        end;
+      {$endRegion}
 
     Except
       Result := False

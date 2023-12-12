@@ -77,7 +77,7 @@ implementation
 {$region 'Override'}
 function TfrmProVenda.Apagar: Boolean;
 begin
-  if oVenda.Selecionar(qryListagem.FieldByName('vendaId').AsInteger) then
+  if oVenda.Selecionar(qryListagem.FieldByName('vendaId').AsInteger, dtmVendas.cdsItensVenda) then
     begin
       Result := oVenda.Apagar;
     end;
@@ -172,13 +172,14 @@ end;
 
 procedure TfrmProVenda.LimparCds;
 begin
+  dtmVendas.cdsItensVenda.First;
   while not dtmVendas.cdsItensVenda.Eof do
     dtmVendas.cdsItensVenda.Delete;
 end;
 
 procedure TfrmProVenda.btnAlterarClick(Sender: TObject);
 begin
-  if oVenda.Selecionar(qryListagem.FieldByName('vendaId').AsInteger) then
+  if oVenda.Selecionar(qryListagem.FieldByName('vendaId').AsInteger, dtmVendas.cdsItensVenda) then
     begin
       edtVendaId.Text     := IntToStr(oVenda.VendaId);
       lkpCliente.KeyValue := oVenda.ClienteId;
