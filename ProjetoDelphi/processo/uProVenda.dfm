@@ -247,6 +247,7 @@ inherited frmProVenda: TfrmProVenda
               00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
             TabOrder = 5
             TabStop = False
+            OnClick = btnApagarItemClick
           end
           object lkpProduto: TDBLookupComboBox
             Left = 2
@@ -281,6 +282,7 @@ inherited frmProVenda: TfrmProVenda
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
+            OnDblClick = dbGridItensVendaDblClick
             OnKeyDown = dbGridItensVendaKeyDown
             Columns = <
               item

@@ -16,16 +16,16 @@ type
     qryProdutosnome: TWideStringField;
     qryProdutosvalor: TFloatField;
     qryProdutosquantidade: TFloatField;
-    cdsItensVendas: TClientDataSet;
+    cdsItensVenda: TClientDataSet;
     dtsCliente: TDataSource;
     dtsProdutos: TDataSource;
     dtsItensVendas: TDataSource;
-    cdsItensVendasprodutoId: TIntegerField;
-    cdsItensVendasNomeProduto: TStringField;
-    cdsItensVendasquantidade: TFloatField;
-    cdsItensVendasvalorUnitario: TFloatField;
-    cdsItensVendasvalorTotalProduto: TFloatField;
-    cdsItensVendasvalorTotalVenda: TAggregateField;
+    cdsItensVendaprodutoId: TIntegerField;
+    cdsItensVendaNomeProduto: TStringField;
+    cdsItensVendaquantidade: TFloatField;
+    cdsItensVendavalorUnitario: TFloatField;
+    cdsItensVendavalorTotalProduto: TFloatField;
+    cdsItensVendavalorTotalVenda: TAggregateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
@@ -47,7 +47,7 @@ uses uDTMConexao;
 
 procedure TdtmVenda.DataModuleCreate(Sender: TObject);
 begin
-  cdsItensVendas.CreateDataSet;
+  cdsItensVenda.CreateDataSet;
 
   qryCliente.Open;
   qryProdutos.Open;
@@ -55,7 +55,7 @@ end;
 
 procedure TdtmVenda.DataModuleDestroy(Sender: TObject);
 begin
-cdsItensVendas.Close;
+cdsItensVenda.Close;
 
   qryCliente.Close;
   qryProdutos.Close;

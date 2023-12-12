@@ -50,33 +50,33 @@ object dtmVenda: TdtmVenda
       FieldName = 'quantidade'
     end
   end
-  object cdsItensVendas: TClientDataSet
+  object cdsItensVenda: TClientDataSet
     Aggregates = <>
     Params = <>
     Left = 188
     Top = 7
-    object cdsItensVendasprodutoId: TIntegerField
+    object cdsItensVendaprodutoId: TIntegerField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'produtoId'
     end
-    object cdsItensVendasNomeProduto: TStringField
+    object cdsItensVendaNomeProduto: TStringField
       DisplayLabel = 'Nome do Produto'
       FieldName = 'NomeProduto'
       Size = 60
     end
-    object cdsItensVendasquantidade: TFloatField
+    object cdsItensVendaquantidade: TFloatField
       DisplayLabel = 'Quantidade'
       FieldName = 'quantidade'
     end
-    object cdsItensVendasvalorUnitario: TFloatField
+    object cdsItensVendavalorUnitario: TFloatField
       DisplayLabel = 'Valor Unit'#225'rio'
       FieldName = 'valorUnitario'
     end
-    object cdsItensVendasvalorTotalProduto: TFloatField
+    object cdsItensVendavalorTotalProduto: TFloatField
       DisplayLabel = 'Total do Produto'
       FieldName = 'valorTotalProduto'
     end
-    object cdsItensVendasvalorTotalVenda: TAggregateField
+    object cdsItensVendavalorTotalVenda: TAggregateField
       FieldName = 'valorTotalVenda'
       DisplayName = ''
       Expression = 'SUM(ValorTotalProduto)'
@@ -93,7 +93,7 @@ object dtmVenda: TdtmVenda
     Top = 57
   end
   object dtsItensVendas: TDataSource
-    DataSet = cdsItensVendas
+    DataSet = cdsItensVenda
     Left = 188
     Top = 57
   end
