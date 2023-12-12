@@ -96,7 +96,7 @@ begin
   if (EstadoDoCadastro = ecInserir) then
     Result := oVenda.Inserir(dtmVendas.cdsItensVenda)
   else if (EstadoDoCadastro = ecAlterar) then
-    Result := oVenda.Atualizar;
+    Result := oVenda.Atualizar(dtmVendas.cdsItensVenda);
 end;
 procedure TfrmProVenda.lkpProdutoExit(Sender: TObject);
 begin

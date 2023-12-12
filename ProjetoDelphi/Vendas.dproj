@@ -135,7 +135,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="datamodule\uDTMVenda.pas">
-            <Form>dtmVenda</Form>
+            <Form>dtmVendas</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>

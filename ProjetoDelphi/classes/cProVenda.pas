@@ -15,12 +15,16 @@ type
     F_dataVenda : TDateTime;
     F_totalVenda : Double;
     function InserirItens(cds: TClientDataSet; IdVenda: Integer): Boolean;
+    function ApagaItens(cds: TClientDataSet): Boolean;
+    function InNot(cds: TClientDataSet): String;
+    function EsteItemExiste(vendaId, produtoId: Integer): Boolean;
+    function AtualizarItem(cds: TClientDataSet): Boolean;
 
   public
     constructor Create(aConexao : TZConnection);
     destructor Destroy; override;
     function Inserir(cds:TClientDataSet) : Boolean;
-    function Atualizar : Boolean;
+    function Atualizar(cds:TClientDataSet) : Boolean;
     function Apagar : Boolean;
     function Selecionar(id : Integer; var cds:TClientDataSet) : Boolean;
 
@@ -87,11 +91,12 @@ begin
   end;
 end;
 
-function TVenda.Atualizar : Boolean;
+function TVenda.Atualizar(cds:TClientDataSet) : Boolean;
 var qryAtualizar : TZQuery;
 begin
   try
     Result := True;
+    ConexaoDB.StartTransaction;
     qryAtualizar := TZQuery.Create(nil);
     qryAtualizar.Connection := ConexaoDB;
     qryAtualizar.SQL.Clear;
@@ -106,15 +111,131 @@ begin
     qryAtualizar.ParamByName('totalVenda').AsFloat  := Self.F_totalVenda;
 
     Try
+      //Update Vendas
       qryAtualizar.ExecSQL;
+
+      //Apagar itens no banco de dados que foram apagados na tela
+      ApagaItens(cds);
+
+      cds.First;
+      while not cds.Eof do
+        begin
+          if EsteItemExiste(Self.F_vendaId, cds.FieldByName('produtoId').AsInteger) then
+            begin
+              //Update
+              AtualizarItem(cds);
+            end
+          else
+            begin
+              //Insert
+              InserirItens(cds, Self.F_vendaId);
+            end;
+          cds.Next;
+        end;
+
     Except
       Result := False;
+      ConexaoDB.Rollback;
     End;
 
+    ConexaoDB.Commit;
   finally
     if Assigned(qryAtualizar) then
       FreeAndNil(qryAtualizar);
   end;
+end;
+
+function TVenda.AtualizarItem(cds:TClientDataSet): Boolean;
+var qryAtualizarItem: TZQuery;
+begin
+  try
+    Result:= True;
+    qryAtualizarItem:= TZQuery.Create(nil);
+    qryAtualizarItem.Connection:= ConexaoDB;
+    qryAtualizarItem.SQL.Clear;
+    qryAtualizarItem.SQL.Add('UPDATE VendasItens SET ValorUnitario=:ValorUnitario, '+
+    'Quantidade=:Quantidade, TotalProduto=:TotalProduto WHERE vendaId=:vendaId '+
+    'AND produtoId=:produtoId');
+    qryAtualizarItem.ParamByName('vendaId').AsInteger    := Self.F_vendaId;
+    qryAtualizarItem.ParamByName('produtoId').AsInteger  := cds.FieldByName('produtoId').AsInteger;
+    qryAtualizarItem.ParamByName('ValorUnitario').AsFloat:= cds.FieldByName('valorUnitario').AsFloat;
+    qryAtualizarItem.ParamByName('Quantidade').AsFloat   := cds.FieldByName('quantidade').AsFloat;
+    qryAtualizarItem.ParamByName('TotalProduto').AsFloat := cds.FieldByName('valorTotalProduto').AsFloat;
+
+    Try
+      qryAtualizarItem.ExecSQL;
+    Except
+      Result := False;
+    End;
+  finally
+    if Assigned(qryAtualizarItem) then
+      FreeAndNil(qryAtualizarItem);
+  end;
+end;
+
+function TVenda.EsteItemExiste(vendaId: Integer; produtoId: Integer): Boolean;
+var qryEsteItemExiste: TZQuery;
+begin
+  try
+    qryEsteItemExiste:= TZQuery.Create(nil);
+    qryEsteItemExiste.Connection:= ConexaoDB;
+    qryEsteItemExiste.SQL.Clear;
+    qryEsteItemExiste.SQL.Add('SELECT Count(vendaId) AS Qtde FROM VendasItens '+
+    'WHERE vendaId=:vendaId AND produtoId=:produtoId');
+    qryEsteItemExiste.ParamByName('vendaId').AsInteger := vendaId;
+    qryEsteItemExiste.ParamByName('produtoId').AsInteger := produtoId;
+    Try
+      qryEsteItemExiste.Open;
+
+      if qryEsteItemExiste.FieldByName('Qtde').AsInteger > 0 then
+        Result := True
+      else
+        Result := False;
+    Except
+      Result := False;
+    End;
+  finally
+    if Assigned(qryEsteItemExiste) then
+      FreeAndNil(qryEsteItemExiste);
+  end;
+end;
+
+function TVenda.ApagaItens(cds:TClientDataSet): Boolean;
+var qryApagaItens: TZQuery;
+begin
+  try
+    Result := True;
+    qryApagaItens := TZQuery.Create(nil);
+    qryApagaItens.Connection := ConexaoDB;
+    qryApagaItens.SQL.Clear;
+    qryApagaItens.SQL.Add('DELETE FROM VendasItens WHERE VendaId=:VendaId '+
+                          'AND produtoId NOT IN ('+InNot(cds)+')');
+    qryApagaItens.ParamByName('vendaId').AsInteger := Self.F_vendaId;
+    Try
+      qryApagaItens.ExecSQL;
+    Except
+      Result := False;
+    End;
+  finally
+    if Assigned(qryApagaItens) then
+      FreeAndNil(qryApagaItens);
+  end;
+end;
+
+function TVenda.InNot(cds:TClientDataSet): String;
+var sInNot : String;
+begin
+  sInNot := EmptyStr;
+  cds.First;
+  while not cds.Eof do
+    begin
+      if sInNot = EmptyStr then
+        sInNot := cds.FieldByName('produtoId').AsString
+      else
+        sInNot := sInNot + ', '+cds.FieldByName('produtoId').AsString;
+        cds.Next;
+    end;
+  Result := sInNot;
 end;
 
 function TVenda.Inserir(cds:TClientDataSet) : Boolean;
@@ -215,6 +336,7 @@ begin
           cds.Post;
           qrySelecionar.Next;
         end;
+        cds.First;
       {$endRegion}
 
     Except
