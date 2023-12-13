@@ -144,6 +144,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="classes\cProVenda.pas"/>
+        <DCCReference Include="classes\cControleEstoque.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

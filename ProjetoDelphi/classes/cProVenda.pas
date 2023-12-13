@@ -16,7 +16,7 @@ type
     F_dataVenda : TDateTime;
     F_totalVenda : Double;
     function InserirItens(cds: TClientDataSet; IdVenda: Integer): Boolean;
-    function ApagaItens(cds: TClientDataSet): Boolean;
+    function ApagarItens(cds: TClientDataSet): Boolean;
     function InNot(cds: TClientDataSet): String;
     function EsteItemExiste(vendaId, produtoId: Integer): Boolean;
     function AtualizarItem(cds: TClientDataSet): Boolean;
@@ -118,7 +118,7 @@ begin
       qryAtualizar.ExecSQL;
 
       //Apagar itens no banco de dados que foram apagados na tela
-      ApagaItens(cds);
+      ApagarItens(cds);
 
       cds.First;
       while not cds.Eof do
@@ -153,6 +153,7 @@ var qryAtualizarItem: TZQuery;
 begin
   try
     Result:= True;
+    RetornarEstoque(cds.FieldByName('produtoId').AsString, aeeAlterar);
     qryAtualizarItem:= TZQuery.Create(nil);
     qryAtualizarItem.Connection:= ConexaoDB;
     qryAtualizarItem.SQL.Clear;
@@ -167,6 +168,7 @@ begin
 
     Try
       qryAtualizarItem.ExecSQL;
+      BaixarEstoque(cds.FieldByName('produtoId').AsInteger, cds.FieldByName('quantidade').AsFloat);
     Except
       Result := False;
     End;
@@ -203,16 +205,23 @@ begin
   end;
 end;
 
-function TVenda.ApagaItens(cds:TClientDataSet): Boolean;
+function TVenda.ApagarItens(cds:TClientDataSet): Boolean;
 var qryApagaItens: TZQuery;
+    sCodNoCds: String;
 begin
   try
     Result := True;
+    //Pega os códigos que estão no ClientDataSet para selecionar o IN NOT no BD
+    sCodNoCds:= InNot(cds);
+
+    //Retorna ao Estoque
+    RetornarEstoque(sCodNoCds, aeeApagar);
+
     qryApagaItens := TZQuery.Create(nil);
     qryApagaItens.Connection := ConexaoDB;
     qryApagaItens.SQL.Clear;
     qryApagaItens.SQL.Add('DELETE FROM VendasItens WHERE VendaId=:VendaId '+
-                          'AND produtoId NOT IN ('+InNot(cds)+')');
+                          'AND produtoId NOT IN ('+sCodNoCds+')');
     qryApagaItens.ParamByName('vendaId').AsInteger := Self.F_vendaId;
     Try
       qryApagaItens.ExecSQL;
@@ -371,6 +380,7 @@ begin
     qryInserirItens.ParamByName('TotalProduto').AsFloat := cds.FieldByName('valorTotalProduto').AsFloat;
     try
       qryInserirItens.ExecSQL;
+      BaixarEstoque(cds.FieldByName('produtoId').AsInteger, cds.FieldByName('quantidade').AsFloat);
     Except
       Result := False;
     end;
