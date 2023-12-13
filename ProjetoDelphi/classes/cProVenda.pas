@@ -4,7 +4,8 @@ interface
 
 uses System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs,
      ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-     ZDataset, System.SysUtils, Data.DB, Datasnap.DBClient;
+     ZDataset, System.SysUtils, Data.DB, Datasnap.DBClient, uEnum,
+     cControleEstoque;
 
 type
   TVenda= class
@@ -19,6 +20,8 @@ type
     function InNot(cds: TClientDataSet): String;
     function EsteItemExiste(vendaId, produtoId: Integer): Boolean;
     function AtualizarItem(cds: TClientDataSet): Boolean;
+    procedure RetornarEstoque(sCodigo: String; Acao: TAcaoExcluirEstoque);
+    procedure BaixarEstoque(produtoId: Integer; Quantidade: Double);
 
   public
     constructor Create(aConexao : TZConnection);
@@ -376,7 +379,58 @@ begin
     if Assigned(qryInserirItens) then
       FreeAndNil(qryInserirItens);
   end;
-
 end;
 {$endRegion}
+
+{$region 'CONTROLE DE ESTOQUE'}
+// Utilizado pelo UPDATE e DELETE do Item
+procedure TVenda.RetornarEstoque(sCodigo: String; Acao:TAcaoExcluirEstoque);
+var qryRetornarEstoque: TZQuery;
+    oControleEstoque: TControleEstoque;
+begin
+    qryRetornarEstoque := TZQuery.Create(nil);
+    qryRetornarEstoque.Connection := ConexaoDB;
+    qryRetornarEstoque.SQL.Clear;
+    qryRetornarEstoque.SQL.Add('SELECT produtoId, quantidade FROM VendasItens '+
+                               'WHERE VendaId=:VendaId ');
+    if Acao = aeeApagar then
+      qryRetornarEstoque.SQL.Add('AND produtoId NOT IN ('+sCodigo+') ')
+    else
+      qryRetornarEstoque.SQL.Add('AND produtoId = ('+sCodigo+') ');
+
+    qryRetornarEstoque.ParamByName('vendaId').AsInteger := Self.F_vendaId;
+
+    Try
+      oControleEstoque := TControleEstoque.Create(ConexaoDB);
+      qryRetornarEstoque.Open;
+      qryRetornarEstoque.First;
+      while not qryRetornarEstoque.Eof do
+        begin
+          oControleEstoque.ProdutoId := qryRetornarEstoque.FieldByName('produtoId').AsInteger;
+          oControleEstoque.Quantidade:= qryRetornarEstoque.FieldByName('quantidade').AsFloat;
+          oControleEstoque.RetornarEstoque;
+          qryRetornarEstoque.Next;
+        end;
+    Finally
+      if Assigned(oControleEstoque) then
+        FreeAndNil(oControleEstoque);
+    End;
+end;
+
+//Utilizado pelo INSERT
+procedure TVenda.BaixarEstoque(produtoId: Integer; Quantidade:Double);
+var oControleEstoque: TControleEstoque;
+begin
+  Try
+    oControleEstoque:= TControleEstoque.Create(ConexaoDB);
+    oControleEstoque.ProdutoId := produtoId;
+    oControleEstoque.Quantidade:= Quantidade;
+    oControleEstoque.BaixarEstoque;
+  Finally
+    if Assigned(oControleEstoque) then
+      FreeAndNil(oControleEstoque);
+  End;
+end;
+{$endRegion}
+
 end.
