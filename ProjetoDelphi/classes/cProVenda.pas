@@ -4,7 +4,7 @@ interface
 
 uses System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs,
      ZAbstractConnection, ZConnection, ZAbstractRODataset, ZAbstractDataset,
-     ZDataset, System.SysUtils, System.UITypes, Data.DB, Datasnap.DBClient;
+     ZDataset, System.SysUtils, Data.DB, Datasnap.DBClient;
 
 type
   TVenda= class
