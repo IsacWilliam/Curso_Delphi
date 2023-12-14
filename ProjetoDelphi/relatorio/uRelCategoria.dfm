@@ -190,7 +190,9 @@ object frmRelCategoia: TfrmRelCategoia
   object qryCategorias: TZQuery
     Connection = dtmPrincipal.ConexaoDB
     SQL.Strings = (
-      'select categoriaId, descricao from categorias;')
+      
+        'select categoriaId, descricao from categorias order by descricao' +
+        ';')
     Params = <>
     Left = 536
     Top = 304

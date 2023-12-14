@@ -40,6 +40,7 @@ type
     procedure Categoria2Click(Sender: TObject);
     procedure Cliente2Click(Sender: TObject);
     procedure FichadeClientes1Click(Sender: TObject);
+    procedure Produto2Click(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -56,7 +57,7 @@ implementation
 {$R *.dfm}
 
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
-  uRelCategoria, uRelCadCliente, uRelCadClienteFicha;
+  uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -150,6 +151,13 @@ begin
   frmCadProduto := TfrmCadProduto.Create(Self);
   frmCadProduto.ShowModal;
   frmCadProduto.Release;
+end;
+
+procedure TfrmPrincipal.Produto2Click(Sender: TObject);
+begin
+  frmRelCadProduto:= TfrmRelCadProduto.Create(Self);
+  frmRelCadProduto.Relatorio.PreviewModal;
+  frmRelCadProduto.Release;
 end;
 
 procedure TfrmPrincipal.Venda1Click(Sender: TObject);

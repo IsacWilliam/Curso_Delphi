@@ -149,12 +149,16 @@
             <Form>frmRelCadClienteFicha</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="relatorio\uRelCategoria.pas">
-            <Form>frmRelCategoia</Form>
+        <DCCReference Include="relatorio\uRelCadProduto.pas">
+            <Form>frmRelCadProduto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="relatorio\uRelCadCliente.pas">
             <Form>frmRelCadCliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="relatorio\uRelCategoria.pas">
+            <Form>frmRelCategoia</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <None Include=".gitignore"/>
