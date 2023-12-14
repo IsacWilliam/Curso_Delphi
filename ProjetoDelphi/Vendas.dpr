@@ -19,9 +19,10 @@ uses
   cProVenda in 'classes\cProVenda.pas',
   cControleEstoque in 'classes\cControleEstoque.pas',
   uRelCadClienteFicha in 'relatorio\uRelCadClienteFicha.pas' {frmRelCadClienteFicha},
-  uRelCadProduto in 'relatorio\uRelCadProduto.pas' {frmRelCadProduto},
   uRelCadCliente in 'relatorio\uRelCadCliente.pas' {frmRelCadCliente},
-  uRelCategoria in 'relatorio\uRelCategoria.pas' {frmRelCategoia};
+  uRelCategoria in 'relatorio\uRelCategoria.pas' {frmRelCategoia},
+  uRelCadProdutoComGrupoCategoria in 'relatorio\uRelCadProdutoComGrupoCategoria.pas' {frmRelCadProdutoComGrupoCategoria},
+  uRelCadProduto in 'relatorio\uRelCadProduto.pas' {frmRelCadProduto};
 
 {$R *.res}
 
@@ -29,5 +30,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmRelCadProduto, frmRelCadProduto);
   Application.Run;
 end.

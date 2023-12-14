@@ -30,6 +30,7 @@ type
     VendasporData1: TMenuItem;
     Categoria2: TMenuItem;
     FichadeClientes1: TMenuItem;
+    ProdutoporCategoria1: TMenuItem;
     procedure mnuFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Categoria1Click(Sender: TObject);
@@ -41,6 +42,7 @@ type
     procedure Cliente2Click(Sender: TObject);
     procedure FichadeClientes1Click(Sender: TObject);
     procedure Produto2Click(Sender: TObject);
+    procedure ProdutoporCategoria1Click(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -57,7 +59,8 @@ implementation
 {$R *.dfm}
 
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
-  uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto;
+  uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
+  uRelCadProdutoComGrupoCategoria;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -158,6 +161,14 @@ begin
   frmRelCadProduto:= TfrmRelCadProduto.Create(Self);
   frmRelCadProduto.Relatorio.PreviewModal;
   frmRelCadProduto.Release;
+end;
+
+procedure TfrmPrincipal.ProdutoporCategoria1Click(Sender: TObject);
+begin
+  frmRelCadProdutoComGrupoCategoria:= TfrmRelCadProdutoComGrupoCategoria.Create(Self);
+  frmRelCadProdutoComGrupoCategoria.Relatorio.PreviewModal;
+  frmRelCadProdutoComGrupoCategoria.Release;
+
 end;
 
 procedure TfrmPrincipal.Venda1Click(Sender: TObject);

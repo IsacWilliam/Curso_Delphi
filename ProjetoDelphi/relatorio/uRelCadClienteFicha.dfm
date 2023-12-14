@@ -466,7 +466,6 @@ object frmRelCadClienteFicha: TfrmRelCadClienteFicha
   end
   object qryCliente: TZQuery
     Connection = dtmPrincipal.ConexaoDB
-    Active = True
     SQL.Strings = (
       
         'select clienteId, Nome,'#9'cep, endereco, bairro, cidade, estado, e' +
