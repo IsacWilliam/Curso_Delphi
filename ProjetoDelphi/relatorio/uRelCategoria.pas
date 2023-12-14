@@ -3,10 +3,10 @@ unit uRelCategoria;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDTMConexao, Data.DB,
-  ZAbstractRODataset, ZAbstractDataset, ZDataset, RLReport, RLFilters,
-  RLPDFFilter, RLHTMLFilter, RLXLSFilter, RLXLSXFilter;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  uDTMConexao, Data.DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,
+  RLReport, RLFilters, RLPDFFilter, RLHTMLFilter, RLXLSFilter, RLXLSXFilter;
 
 type
   TfrmRelCategoia = class(TForm)
