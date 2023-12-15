@@ -81,6 +81,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object VendasporData1: TMenuItem
         Caption = 'Venda por Data'
+        OnClick = VendasporData1Click
       end
     end
   end

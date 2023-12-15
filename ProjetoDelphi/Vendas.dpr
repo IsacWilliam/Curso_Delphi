@@ -22,7 +22,8 @@ uses
   uRelCadCliente in 'relatorio\uRelCadCliente.pas' {frmRelCadCliente},
   uRelCategoria in 'relatorio\uRelCategoria.pas' {frmRelCategoia},
   uRelCadProdutoComGrupoCategoria in 'relatorio\uRelCadProdutoComGrupoCategoria.pas' {frmRelCadProdutoComGrupoCategoria},
-  uRelCadProduto in 'relatorio\uRelCadProduto.pas' {frmRelCadProduto};
+  uRelCadProduto in 'relatorio\uRelCadProduto.pas' {frmRelCadProduto},
+  uSelecionarData in 'relatorio\uSelecionarData.pas' {frmSelecionarData};
 
 {$R *.res}
 
@@ -31,5 +32,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TfrmRelCadProduto, frmRelCadProduto);
+  Application.CreateForm(TfrmSelecionarData, frmSelecionarData);
   Application.Run;
 end.

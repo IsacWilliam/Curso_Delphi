@@ -43,6 +43,7 @@ type
     procedure FichadeClientes1Click(Sender: TObject);
     procedure Produto2Click(Sender: TObject);
     procedure ProdutoporCategoria1Click(Sender: TObject);
+    procedure VendasporData1Click(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -60,7 +61,7 @@ implementation
 
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
   uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
-  uRelCadProdutoComGrupoCategoria;
+  uRelCadProdutoComGrupoCategoria, uSelecionarData;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -176,6 +177,16 @@ begin
   frmProVenda := TfrmProVenda.Create(Self);
   frmProVenda.ShowModal;
   frmProVenda.Release;
+end;
+
+procedure TfrmPrincipal.VendasporData1Click(Sender: TObject);
+begin
+  try
+    frmSelecionarData:= TfrmSelecionarData.Create(Self);
+    frmSelecionarData.ShowModal;
+  finally
+    frmSelecionarData.Release;
+  end;
 end;
 
 procedure TfrmPrincipal.AtualizaBancoDados(aForm : TfrmAtualizaDB);

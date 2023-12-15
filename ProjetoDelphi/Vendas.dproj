@@ -165,6 +165,10 @@
             <Form>frmRelCadProduto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="relatorio\uSelecionarData.pas">
+            <Form>frmSelecionarData</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
