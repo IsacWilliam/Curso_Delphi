@@ -157,8 +157,8 @@
             <Form>frmRelCategoia</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="relatorio\uRelCadProdutoComGrupoCategoria.pas">
-            <Form>frmRelCadProdutoComGrupoCategoria</Form>
+        <DCCReference Include="relatorio\uRelVendaPorData.pas">
+            <Form>frmRelVendaPorData</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="relatorio\uRelCadProduto.pas">

@@ -61,7 +61,7 @@ implementation
 
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
   uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
-  uRelCadProdutoComGrupoCategoria, uSelecionarData;
+  uRelCadProdutoComGrupoCategoria, uSelecionarData, uRelVendaPorData;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -184,8 +184,17 @@ begin
   try
     frmSelecionarData:= TfrmSelecionarData.Create(Self);
     frmSelecionarData.ShowModal;
+
+    frmRelProVendaPorData := TfrmRelProVendaPorData.Create(Self);
+    frmRelProVendaPorData.qryVendas.Close;
+    frmRelProVendaPorData.qryVendas.ParamByName('DataInicio').AsDate:= frmSelecionarData.edtDataInicio.Date;
+    frmRelProVendaPorData.qryVendas.ParamByName('DataFim').AsDate:= frmSelecionarData.edtDataFinal.Date;
+    frmRelProVendaPorData.qryVendas.Open;
+    frmRelProVendaPorData.Relatorio.PreviewModal;
+
   finally
     frmSelecionarData.Release;
+    frmRelProVendaPorData.Release;
   end;
 end;
 
