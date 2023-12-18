@@ -74,6 +74,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses uRelProVenda;
 {$region 'Override'}
 function TfrmProVenda.Apagar: Boolean;
 begin
@@ -83,20 +85,37 @@ begin
     end;
 end;
 
-function TfrmProVenda.Gravar(EstadoDoCadastro : TEstadoDoCadastro): Boolean;
+function TfrmProVenda.Gravar(EstadoDoCadastro: TEstadoDoCadastro): boolean;
 begin
-  if edtVendaId.Text <> EmptyStr then
-    oVenda.VendaId := StrToInt(edtVendaId.Text)
+  Result:=False;
+  if edtVendaId.Text<>EmptyStr then
+     oVenda.VendaId:=StrToInt(edtVendaId.Text)
   else
-    oVenda.VendaId := 0;
-    oVenda.ClienteId := lkpCliente.KeyValue;
-    oVenda.DataVenda := edtDataVenda.Date;
-    oVenda.TotalVenda := edtValorTotal.Value;
+     oVenda.VendaId:=0;
 
-  if (EstadoDoCadastro = ecInserir) then
-    Result := oVenda.Inserir(dtmVendas.cdsItensVenda)
-  else if (EstadoDoCadastro = ecAlterar) then
-    Result := oVenda.Atualizar(dtmVendas.cdsItensVenda);
+  oVenda.ClienteId        :=lkpCliente.KeyValue;
+  oVenda.DataVenda        :=edtDataVenda.Date;
+  oVenda.TotalVenda       :=edtValorTotal.Value;
+
+  if (EstadoDoCadastro=ecInserir) then begin
+     oVenda.VendaId:=oVenda.Inserir(dtmVendas.cdsItensVenda);
+  end
+  else if (EstadoDoCadastro=ecAlterar) then
+     oVenda.Atualizar(dtmVendas.cdsItensVenda);
+
+  frmRelProVenda:=TfrmRelProVenda.Create(self);
+  frmRelProVenda.QryVendas.Close;
+  frmRelProVenda.QryVendas.ParamByName('VendaId').AsInteger:= oVenda.VendaId;
+  frmRelProVenda.QryVendas.Open;
+
+  frmRelProVenda.QryVendaItens.Close;
+  frmRelProVenda.QryVendaItens.ParamByName('VendaId').AsInteger:= oVenda.VendaId;
+  frmRelProVenda.QryVendaItens.Open;
+
+  frmRelProVenda.Relatorio.PreviewModal;
+  frmRelProVenda.Release;
+
+  Result:=true;
 end;
 procedure TfrmProVenda.lkpProdutoExit(Sender: TObject);
 begin

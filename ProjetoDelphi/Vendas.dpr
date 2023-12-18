@@ -23,7 +23,9 @@ uses
   uRelCategoria in 'relatorio\uRelCategoria.pas' {frmRelCategoia},
   uRelVendaPorData in 'relatorio\uRelVendaPorData.pas' {frmRelVendaPorData},
   uRelCadProduto in 'relatorio\uRelCadProduto.pas' {frmRelCadProduto},
-  uSelecionarData in 'relatorio\uSelecionarData.pas' {frmSelecionarData};
+  uSelecionarData in 'relatorio\uSelecionarData.pas' {frmSelecionarData},
+  uRelProVenda in 'relatorio\uRelProVenda.pas' {frmRelProVenda},
+  uRelCadProdutoComGrupoCategoria in 'relatorio\uRelCadProdutoComGrupoCategoria.pas' {frmRelCadProdutoComGrupoCategoria};
 
 {$R *.res}
 

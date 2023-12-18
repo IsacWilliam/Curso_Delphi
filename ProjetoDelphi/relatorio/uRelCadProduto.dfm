@@ -238,7 +238,6 @@ object frmRelCadProduto: TfrmRelCadProduto
   end
   object qryProdutos: TZQuery
     Connection = dtmPrincipal.ConexaoDB
-    Active = True
     SQL.Strings = (
       'select produtos.produtoId,'
       '       produtos.Nome,'

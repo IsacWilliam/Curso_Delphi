@@ -169,6 +169,14 @@
             <Form>frmSelecionarData</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="relatorio\uRelProVenda.pas">
+            <Form>frmRelProVenda</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="relatorio\uRelCadProdutoComGrupoCategoria.pas">
+            <Form>frmRelCadProdutoComGrupoCategoria</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
