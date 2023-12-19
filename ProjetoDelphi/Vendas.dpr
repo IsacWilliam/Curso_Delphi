@@ -25,7 +25,8 @@ uses
   uRelCadProduto in 'relatorio\uRelCadProduto.pas' {frmRelCadProduto},
   uSelecionarData in 'relatorio\uSelecionarData.pas' {frmSelecionarData},
   uRelProVenda in 'relatorio\uRelProVenda.pas' {frmRelProVenda},
-  uRelCadProdutoComGrupoCategoria in 'relatorio\uRelCadProdutoComGrupoCategoria.pas' {frmRelCadProdutoComGrupoCategoria};
+  uRelCadProdutoComGrupoCategoria in 'relatorio\uRelCadProdutoComGrupoCategoria.pas' {frmRelCadProdutoComGrupoCategoria},
+  uFuncaoCriptografia in 'heranca\uFuncaoCriptografia.pas';
 
 {$R *.res}
 

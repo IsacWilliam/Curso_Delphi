@@ -177,6 +177,7 @@
             <Form>frmRelCadProdutoComGrupoCategoria</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="heranca\uFuncaoCriptografia.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
