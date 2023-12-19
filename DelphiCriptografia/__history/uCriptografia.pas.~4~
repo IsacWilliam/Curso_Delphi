@@ -1,0 +1,27 @@
+unit uCriptografia;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TfrmCriptografia = class(TForm)
+    Button1: TButton;
+    edtCriptografia: TEdit;
+    edtDesCriptografia: TEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCriptografia: TfrmCriptografia;
+
+implementation
+
+{$R *.dfm}
+
+end.

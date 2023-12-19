@@ -62,7 +62,7 @@ object frmRelProVenda: TfrmRelProVenda
       object RLSystemInfo3: TRLSystemInfo
         Left = 3
         Top = 17
-        Width = 232
+        Width = 212
         Height = 16
         Info = itFullDate
         Text = ''

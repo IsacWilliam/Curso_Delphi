@@ -70,6 +70,21 @@ BEGIN
 END
 
 
+--LIMPAR TABELAS E REINICIAR IDENTITY(AUTO INCREMENT)
+DELETE FROM vendasItens
+
+DELETE FROM vendas
+DBCC CHECKIDENT('vendas', RESEED, 0)
+
+DELETE FROM produtos
+DBCC CHECKIDENT('produtos', RESEED, 0)
+
+DELETE FROM clientes
+DBCC CHECKIDENT('clientes', RESEED, 0)
+
+DELETE FROM categorias
+DBCC CHECKIDENT('categorias', RESEED, 0)
+
 
 --TESTES DE INCLUSAO
   INSERT INTO categorias (descricao) VALUES ('Celulares'), ('Computadores'), ('Tablets')
