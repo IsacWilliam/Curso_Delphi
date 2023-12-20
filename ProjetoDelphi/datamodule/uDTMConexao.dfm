@@ -1,6 +1,6 @@
 object dtmPrincipal: TdtmPrincipal
   OldCreateOrder = False
-  Height = 80
+  Height = 116
   Width = 610
   object ConexaoDB: TZConnection
     ControlsCodePage = cCP_UTF16
@@ -32,7 +32,7 @@ object dtmPrincipal: TdtmPrincipal
       '  )'
       'end')
     Params = <>
-    Left = 115
+    Left = 187
     Top = 12
   end
   object qryScriptClientes: TZQuery
@@ -55,7 +55,7 @@ object dtmPrincipal: TdtmPrincipal
       '  )'
       'end')
     Params = <>
-    Left = 214
+    Left = 286
     Top = 12
   end
   object qryScriptProdutos: TZQuery
@@ -78,7 +78,7 @@ object dtmPrincipal: TdtmPrincipal
       '  )'
       'end')
     Params = <>
-    Left = 313
+    Left = 385
     Top = 12
   end
   object qryScriptVendas: TZQuery
@@ -97,8 +97,8 @@ object dtmPrincipal: TdtmPrincipal
       ')'
       'end')
     Params = <>
-    Left = 412
-    Top = 12
+    Left = 188
+    Top = 68
   end
   object qryScriptItensVendas: TZQuery
     Connection = ConexaoDB
@@ -117,7 +117,24 @@ object dtmPrincipal: TdtmPrincipal
       ')'
       'end')
     Params = <>
-    Left = 525
-    Top = 10
+    Left = 288
+    Top = 66
+  end
+  object qryScriptUsuarios: TZQuery
+    Connection = ConexaoDB
+    SQL.Strings = (
+      'if OBJECT_ID ('#39'usuarios'#39') is null'
+      'begin'
+      '  create table usuarios('
+      '    usuarioId int identity(1,1) not null,'
+      '    nome varchar(50) not null,'
+      '    senha varchar(40) not null,'
+      '    primary key (usuarioId)'
+      '  );'
+      'end;'
+      '')
+    Params = <>
+    Left = 384
+    Top = 64
   end
 end

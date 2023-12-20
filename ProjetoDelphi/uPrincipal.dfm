@@ -39,6 +39,13 @@ object frmPrincipal: TfrmPrincipal
       object N2: TMenuItem
         Caption = '-'
       end
+      object Usurio1: TMenuItem
+        Caption = 'Usu'#225'rio'
+        OnClick = Usurio1Click
+      end
+      object N5: TMenuItem
+        Caption = '-'
+      end
       object mnuFechar: TMenuItem
         Caption = 'Fechar'
         OnClick = mnuFecharClick

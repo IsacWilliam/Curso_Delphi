@@ -27,8 +27,6 @@ object frmAtualizaDB: TfrmAtualizaDB
     Color = clBlack
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 599
-    ExplicitHeight = 352
     object Panel2: TPanel
       Left = 6
       Top = 6
@@ -39,7 +37,6 @@ object frmAtualizaDB: TfrmAtualizaDB
       Enabled = False
       ParentBackground = False
       TabOrder = 0
-      ExplicitLeft = 12
       object Image1: TImage
         Left = -30
         Top = 2
@@ -577,6 +574,14 @@ object frmAtualizaDB: TfrmAtualizaDB
         Height = 17
         Caption = 'Itens Venda'
         TabOrder = 5
+      end
+      object chkUsuarios: TCheckBox
+        Left = 321
+        Top = 218
+        Width = 81
+        Height = 17
+        Caption = 'Usu'#225'rios'
+        TabOrder = 6
       end
     end
   end

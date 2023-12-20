@@ -178,6 +178,11 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="heranca\uFuncaoCriptografia.pas"/>
+        <DCCReference Include="cadastro\uCadUsuario.pas">
+            <Form>frmCadUsuario</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="classes\cCadUsuario.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

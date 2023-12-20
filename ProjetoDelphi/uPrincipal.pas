@@ -31,6 +31,8 @@ type
     Categoria2: TMenuItem;
     FichadeClientes1: TMenuItem;
     ProdutoporCategoria1: TMenuItem;
+    Usurio1: TMenuItem;
+    N5: TMenuItem;
     procedure mnuFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Categoria1Click(Sender: TObject);
@@ -44,6 +46,7 @@ type
     procedure Produto2Click(Sender: TObject);
     procedure ProdutoporCategoria1Click(Sender: TObject);
     procedure VendasporData1Click(Sender: TObject);
+    procedure Usurio1Click(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -61,7 +64,8 @@ implementation
 
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
   uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
-  uRelCadProdutoComGrupoCategoria, uSelecionarData, uRelVendaPorData;
+  uRelCadProdutoComGrupoCategoria, uSelecionarData, uRelVendaPorData,
+  uCadUsuario;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -172,6 +176,13 @@ begin
 
 end;
 
+procedure TfrmPrincipal.Usurio1Click(Sender: TObject);
+begin
+  frmCadUsuario := TfrmCadUsuario.Create(Self);
+  frmCadUsuario.ShowModal;
+  frmCadUsuario.Release;
+end;
+
 procedure TfrmPrincipal.Venda1Click(Sender: TObject);
 begin
   frmProVenda := TfrmProVenda.Create(Self);
@@ -227,7 +238,13 @@ begin
   dtmPrincipal.qryScriptItensVendas.ExecSQL;
   aForm.chkItensVenda.Checked := True;
   aForm.Refresh;
+  Sleep(100);
+
+  dtmPrincipal.qryScriptUsuarios.ExecSQL;
+  aForm.chkUsuarios.Checked := True;
+  aForm.Refresh;
   Sleep(500);
+
 end;
 
 end.

@@ -20,7 +20,7 @@ begin
   if (aEntrada <>  EmptyStr) then
     begin
       iQtdeEnt := Length(aEntrada);
-      ShowMessage(IntToStr(iQtdeEnt));
+      //ShowMessage(IntToStr(iQtdeEnt));
       for i := iQtdeEnt downto 1 do //Faça o Loop contrário
         begin
           sProximoCaracter := Copy(aEntrada, i, 1);
@@ -40,7 +40,7 @@ begin
   if (aEntrada <>  EmptyStr) then
     begin
       iQtdeEnt := Length(aEntrada);
-      ShowMessage(IntToStr(iQtdeEnt));
+      //ShowMessage(IntToStr(iQtdeEnt));
       for i := iQtdeEnt downto 1 do //Faça o Loop contrário
         begin
           sProximoCaracter := Copy(aEntrada, i, 1);
