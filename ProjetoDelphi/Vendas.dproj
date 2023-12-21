@@ -183,6 +183,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="classes\cCadUsuario.pas"/>
+        <DCCReference Include="login\uLogin.pas">
+            <Form>frmLogin</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

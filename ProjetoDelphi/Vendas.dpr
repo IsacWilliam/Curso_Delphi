@@ -28,7 +28,8 @@ uses
   uRelCadProdutoComGrupoCategoria in 'relatorio\uRelCadProdutoComGrupoCategoria.pas' {frmRelCadProdutoComGrupoCategoria},
   uFuncaoCriptografia in 'heranca\uFuncaoCriptografia.pas',
   uCadUsuario in 'cadastro\uCadUsuario.pas' {frmCadUsuario},
-  cCadUsuario in 'classes\cCadUsuario.pas';
+  cCadUsuario in 'classes\cCadUsuario.pas',
+  uLogin in 'login\uLogin.pas' {frmLogin};
 
 {$R *.res}
 

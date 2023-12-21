@@ -47,6 +47,7 @@ type
     procedure ProdutoporCategoria1Click(Sender: TObject);
     procedure VendasporData1Click(Sender: TObject);
     procedure Usurio1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -65,7 +66,7 @@ implementation
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
   uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
   uRelCadProdutoComGrupoCategoria, uSelecionarData, uRelVendaPorData,
-  uCadUsuario;
+  uCadUsuario, uLogin;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -146,6 +147,13 @@ begin
     TeclaEnter.FocusEnabled := True;
     TeclaEnter.FocusColor := clInfoBk;
 
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+  frmLogin:= TfrmLogin.Create(Self);
+  frmLogin.ShowModal;
+  frmLogin.Release;
 end;
 
 procedure TfrmPrincipal.mnuFecharClick(Sender: TObject);
