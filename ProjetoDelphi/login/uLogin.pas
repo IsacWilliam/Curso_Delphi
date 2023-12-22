@@ -32,11 +32,28 @@ var
 
 implementation
 
+uses cCadUsuario, uDTMConexao;
+
 {$R *.dfm}
 
 procedure TfrmLogin.btnAcessarClick(Sender: TObject);
+var oUsuario: TUsuario;
 begin
-  FecharFormulario;  //  Fecha o formulário de Login
+  Try
+    oUsuario:= TUsuario.Create(dtmPrincipal.ConexaoDB);
+    if oUsuario.Logar(edtUsuario.Text, edtSenha.Text) then
+      begin
+        FecharFormulario;  //  Fecha o formulário de Login
+      end
+    else
+      begin
+        MessageDlg('Usuário Inválido', mtInformation, [mbOK], 0);
+        edtUsuario.SetFocus;
+      end;
+  Finally
+    if Assigned(oUsuario) then
+      FreeAndNil(oUsuario);
+  End;
 end;
 
 procedure TfrmLogin.FecharAplicacao;

@@ -22,6 +22,7 @@ type
     function Atualizar: Boolean;
     function Apagar: Boolean;
     function Selecionar(id: Integer): Boolean;
+    function Logar(aUsuario, aSenha: String): Boolean;
   published
     property codigo: Integer read F_usuarioId write F_usuarioId;
     property nome  : String  read F_nome      write F_nome;
@@ -155,16 +156,43 @@ begin
 end;
 {$endRegion}
 
-{$region 'GETTERS and SETTERS'}
+{$region 'GET e SET'}
 function TUsuario.getSenha: String;
 begin
-  Result:= Criptografar(Self.F_senha);
+  Result:= Descriptografar(Self.F_senha);
 end;
 
 procedure TUsuario.setSenha(const Value: string);
 begin
-  Self.F_senha:= Descriptografar(Value);
+  Self.F_senha:= Criptografar(Value);
 end;
 {$endRegion}
 
+{$region 'LOGIN'}
+function TUsuario.Logar(aUsuario: String; aSenha:String): Boolean;
+var qryLogar: TZQuery;
+begin
+  try
+    qryLogar:= TZQuery.Create(nil);
+    qryLogar.Connection:= ConexaoDB;
+    qryLogar.SQL.Clear;
+    qryLogar.SQL.Add('SELECT COUNT (usuarioId) AS Qtde FROM usuarios '+
+                     ' WHERE nome=:nome AND senha=:Senha');
+    qryLogar.ParamByName('nome').AsString:= aUsuario;
+    qryLogar.ParamByName('senha').AsString:= Criptografar(aSenha);
+    Try
+      qryLogar.Open;
+      if qryLogar.FieldByName('Qtde').AsInteger > 0 then
+        Result:= True
+      else Result:= False;
+    Except
+      Result:= False;
+    end;
+
+  finally
+    if Assigned(qryLogar) then
+      FreeAndNil(qryLogar);
+  end;
+end;
+{$endRegion}
 end.

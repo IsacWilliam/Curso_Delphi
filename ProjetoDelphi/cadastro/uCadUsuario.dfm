@@ -9,7 +9,6 @@ inherited frmCadUsuario: TfrmCadUsuario
   inherited pgcPrincipal: TPageControl
     Width = 715
     Height = 264
-    ActivePage = tabManutencao
     ExplicitWidth = 715
     ExplicitHeight = 264
     inherited tabListagem: TTabSheet
@@ -62,9 +61,9 @@ inherited frmCadUsuario: TfrmCadUsuario
         Top = 76
         Width = 399
         Height = 21
-        EditLabel.Width = 27
+        EditLabel.Width = 36
         EditLabel.Height = 13
-        EditLabel.Caption = 'Nome'
+        EditLabel.Caption = 'Usu'#225'rio'
         MaxLength = 50
         TabOrder = 1
       end
@@ -107,6 +106,7 @@ inherited frmCadUsuario: TfrmCadUsuario
       ReadOnly = True
     end
     object qryListagemNome: TWideStringField
+      DisplayLabel = 'Usu'#225'rio'
       FieldName = 'Nome'
       Required = True
       Size = 50
