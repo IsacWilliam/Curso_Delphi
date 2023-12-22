@@ -3,7 +3,7 @@ object frmLogin: TfrmLogin
   Top = 0
   BorderIcons = []
   BorderStyle = bsDialog
-  Caption = 'frmLogin'
+  Caption = 'Tela de Login'
   ClientHeight = 155
   ClientWidth = 296
   Color = clBtnFace
@@ -128,6 +128,7 @@ object frmLogin: TfrmLogin
     Top = 69
     Width = 185
     Height = 21
+    PasswordChar = '*'
     TabOrder = 3
   end
 end

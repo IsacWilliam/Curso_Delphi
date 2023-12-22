@@ -23,6 +23,7 @@ type
     function Apagar: Boolean;
     function Selecionar(id: Integer): Boolean;
     function Logar(aUsuario, aSenha: String): Boolean;
+    function UsuarioExiste(aUsuario: String): Boolean;
   published
     property codigo: Integer read F_usuarioId write F_usuarioId;
     property nome  : String  read F_nome      write F_nome;
@@ -152,6 +153,31 @@ begin
   finally
     if Assigned(qrySelecionar) then
       FreeAndNil(qrySelecionar);
+  end;
+end;
+
+function TUsuario.UsuarioExiste(aUsuario: String): Boolean;
+var qryUsuarioExiste: TZQuery;
+begin
+  try
+    qryUsuarioExiste:= TZQuery.Create(nil);
+    qryUsuarioExiste.Connection:= ConexaoDB;
+    qryUsuarioExiste.SQL.Clear;
+    qryUsuarioExiste.SQL.Add('SELECT COUNT (usuarioId) AS Qtde FROM usuarios '+
+                             ' WHERE nome =:nome');
+    qryUsuarioExiste.ParamByName('nome').AsString:= aUsuario;
+    Try
+      qryUsuarioExiste.Open;
+      if qryUsuarioExiste.FieldByName('Qtde').AsInteger > 0 then
+        Result:= True
+      else
+        Result:= False;
+    Except
+        Result:= False;
+    End;
+  finally
+    if Assigned(qryUsuarioExiste) then
+      FreeAndNil(qryUsuarioExiste);
   end;
 end;
 {$endRegion}

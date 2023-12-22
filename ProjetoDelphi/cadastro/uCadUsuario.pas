@@ -67,6 +67,13 @@ end;
 
 procedure TfrmCadUsuario.btnGravarClick(Sender: TObject);
 begin
+  if oUsuario.UsuarioExiste(edtNome.Text) then
+    begin
+      MessageDlg('Usuário já cadastrado', mtInformation, [mbOK], 0);
+      edtNome.SetFocus;
+      Abort;
+    end;
+
   if edtUsuarioId.Text <> EmptyStr then
     oUsuario.codigo:= StrToInt(edtUsuarioId.Text)
   else

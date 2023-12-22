@@ -237,4 +237,4 @@ VALUES ('Iago Vitor Matheus Porto', 'Rua Antônio Sartoratto, s/n', 'Eleutério'
  -- '987Fxgj{s' = mudar@123
  DELETE FROM usuarios
  DBCC CHECKIDENT('usuarios', RESEED, 0)
- INSERT INTO usuarios (nome, Senha) Values ('ADMIN', '987Fxgj{s') 
+ INSERT INTO usuarios(nome, senha) VALUES ('ADM', '9868Fonvrkj') 

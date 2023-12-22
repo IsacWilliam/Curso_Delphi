@@ -2,11 +2,11 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2023/12/19 15:34:04.000.222,=C:\Users\Nova Era\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/12/19 15:34:43.000.157,E:\Cursos\DelphiCriptografia\Criptografia.pas=C:\Users\Nova Era\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/12/19 15:34:43.000.157,E:\Cursos\DelphiCriptografia\Criptografia.dfm=C:\Users\Nova Era\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2023/12/19 15:34:55.000.391,E:\Cursos\DelphiCriptografia\Criptgorafia.dproj=C:\Users\Nova Era\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>2023/12/19 15:35:35.000.662,E:\Cursos\DelphiCriptografia\uCriptografia.pas=E:\Cursos\DelphiCriptografia\Criptografia.pas</Transaction>
-    <Transaction>2023/12/19 15:35:35.000.662,E:\Cursos\DelphiCriptografia\uCriptografia.dfm=E:\Cursos\DelphiCriptografia\Criptografia.dfm</Transaction>
-    <Transaction>2023/12/19 15:51:52.000.032,E:\Cursos\DelphiCriptografia\Criptografia.dproj=E:\Cursos\DelphiCriptografia\Criptgorafia.dproj</Transaction>
+    <Transaction>2023/12/19 15:34:43.000.157,C:\Users\Nova Era\Documents\Embarcadero\Studio\Projects\Unit1.pas=E:\Cursos\DelphiCriptografia\Criptografia.pas</Transaction>
+    <Transaction>2023/12/19 15:34:43.000.157,C:\Users\Nova Era\Documents\Embarcadero\Studio\Projects\Unit1.dfm=E:\Cursos\DelphiCriptografia\Criptografia.dfm</Transaction>
+    <Transaction>2023/12/19 15:34:55.000.391,C:\Users\Nova Era\Documents\Embarcadero\Studio\Projects\Project1.dproj=E:\Cursos\DelphiCriptografia\Criptgorafia.dproj</Transaction>
+    <Transaction>2023/12/19 15:35:35.000.662,E:\Cursos\DelphiCriptografia\Criptografia.pas=E:\Cursos\DelphiCriptografia\uCriptografia.pas</Transaction>
+    <Transaction>2023/12/19 15:35:35.000.662,E:\Cursos\DelphiCriptografia\Criptografia.dfm=E:\Cursos\DelphiCriptografia\uCriptografia.dfm</Transaction>
+    <Transaction>2023/12/19 15:51:52.000.032,E:\Cursos\DelphiCriptografia\Criptgorafia.dproj=E:\Cursos\DelphiCriptografia\Criptografia.dproj</Transaction>
   </Transactions>
 </BorlandProject>
