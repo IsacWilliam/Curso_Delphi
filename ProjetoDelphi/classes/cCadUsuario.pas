@@ -24,6 +24,7 @@ type
     function Selecionar(id: Integer): Boolean;
     function Logar(aUsuario, aSenha: String): Boolean;
     function UsuarioExiste(aUsuario: String): Boolean;
+    function AlterarSenha: Boolean;
   published
     property codigo: Integer read F_usuarioId write F_usuarioId;
     property nome  : String  read F_nome      write F_nome;
@@ -202,14 +203,19 @@ begin
     qryLogar:= TZQuery.Create(nil);
     qryLogar.Connection:= ConexaoDB;
     qryLogar.SQL.Clear;
-    qryLogar.SQL.Add('SELECT COUNT (usuarioId) AS Qtde FROM usuarios '+
+    qryLogar.SQL.Add('SELECT usuarioId, nome, senha FROM usuarios '+
                      ' WHERE nome=:nome AND senha=:Senha');
     qryLogar.ParamByName('nome').AsString:= aUsuario;
     qryLogar.ParamByName('senha').AsString:= Criptografar(aSenha);
     Try
       qryLogar.Open;
-      if qryLogar.FieldByName('Qtde').AsInteger > 0 then
-        Result:= True
+      if qryLogar.FieldByName('usuarioId').AsInteger > 0 then
+      begin
+        F_usuarioId:= qryLogar.FieldByName('usuarioId').AsInteger;
+        F_nome     := qryLogar.FieldByName('nome').AsString;
+        F_senha    := qryLogar.FieldByName('senha').AsString;
+        Result     := True;
+      end
       else Result:= False;
     Except
       Result:= False;
@@ -221,4 +227,29 @@ begin
   end;
 end;
 {$endRegion}
+
+{$region 'ALTERAR SENHA'}
+function TUsuario.AlterarSenha: Boolean;
+var qryAlterarSenha: TZQuery;
+begin
+  try
+    Result:= True;
+    qryAlterarSenha:= TZQuery.Create(nil);
+    qryAlterarSenha.Connection:= ConexaoDB;
+    qryAlterarSenha.SQL.Clear;
+    qryAlterarSenha.SQL.Add('UPDATE usuarios SET senha =:senha '+
+                            ' WHERE usuarioId =:usuarioId');
+    qryAlterarSenha.ParamByName('usuarioId').AsInteger := Self.F_usuarioId;
+    qryAlterarSenha.ParamByName('senha').AsString      := Self.F_senha;
+    Try
+      qryAlterarSenha.ExecSQL;
+    Except
+      Result:= False;
+    end;
+  finally
+    if Assigned(qryAlterarSenha) then
+      FreeAndNil(qryAlterarSenha);
+  end;
+end;
+{$endregion}
 end.

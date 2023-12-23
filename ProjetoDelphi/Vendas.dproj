@@ -187,6 +187,11 @@
             <Form>frmLogin</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="login\uAlterarSenha.pas">
+            <Form>frmAlterarSenha</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="login\CUsuarioLogado.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

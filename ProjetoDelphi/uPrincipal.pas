@@ -8,7 +8,7 @@ uses
   Enter, ShellApi, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, VclTee.TeeGDIPlus,
   Data.DB, VCLTee.Series, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart,
   VCLTee.DBChart, ZDbcIntfs, RLReport, ZAbstractRODataset, ZAbstractDataset,
-  ZDataset, uFrmAtualizaDB;
+  ZDataset, uFrmAtualizaDB, cUsuarioLogado;
 
 type
   TfrmPrincipal = class(TForm)
@@ -33,6 +33,8 @@ type
     ProdutoporCategoria1: TMenuItem;
     Usurio1: TMenuItem;
     N5: TMenuItem;
+    AlterarSenha1: TMenuItem;
+    stbPrincipal: TStatusBar;
     procedure mnuFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Categoria1Click(Sender: TObject);
@@ -48,6 +50,7 @@ type
     procedure VendasporData1Click(Sender: TObject);
     procedure Usurio1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure AlterarSenha1Click(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -58,6 +61,7 @@ type
 
 var
   frmPrincipal: TfrmPrincipal;
+  oUsuarioLogado: TUsuarioLogado;
 
 implementation
 
@@ -66,7 +70,7 @@ implementation
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
   uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
   uRelCadProdutoComGrupoCategoria, uSelecionarData, uRelVendaPorData,
-  uCadUsuario, uLogin;
+  uCadUsuario, uLogin, uAlterarSenha;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -107,6 +111,8 @@ procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   FreeAndNil(TeclaEnter);
   FreeAndNil(dtmPrincipal);
+  if Assigned(oUsuarioLogado) then
+    FreeAndNil(oUsuarioLogado);
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
@@ -151,9 +157,14 @@ end;
 
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
-  frmLogin:= TfrmLogin.Create(Self);
-  frmLogin.ShowModal;
-  frmLogin.Release;
+  try
+    oUsuarioLogado:= TUsuarioLogado.Create;
+    frmLogin:= TfrmLogin.Create(Self);
+    frmLogin.ShowModal;
+  finally
+    frmLogin.Release;
+    stbPrincipal.Panels[0].Text:='USUÁRIO: '+oUsuarioLogado.nome;
+  end;
 end;
 
 procedure TfrmPrincipal.mnuFecharClick(Sender: TObject);
@@ -215,6 +226,13 @@ begin
     frmSelecionarData.Release;
     frmRelProVendaPorData.Release;
   end;
+end;
+
+procedure TfrmPrincipal.AlterarSenha1Click(Sender: TObject);
+begin
+  frmAlterarSenha:= TfrmAlterarSenha.Create(Self);
+  frmAlterarSenha.ShowModal;
+  frmAlterarSenha.Release;
 end;
 
 procedure TfrmPrincipal.AtualizaBancoDados(aForm : TfrmAtualizaDB);

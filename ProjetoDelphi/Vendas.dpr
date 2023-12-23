@@ -29,7 +29,9 @@ uses
   uFuncaoCriptografia in 'heranca\uFuncaoCriptografia.pas',
   uCadUsuario in 'cadastro\uCadUsuario.pas' {frmCadUsuario},
   cCadUsuario in 'classes\cCadUsuario.pas',
-  uLogin in 'login\uLogin.pas' {frmLogin};
+  uLogin in 'login\uLogin.pas' {frmLogin},
+  uAlterarSenha in 'login\uAlterarSenha.pas' {frmAlterarSenha},
+  CUsuarioLogado in 'login\CUsuarioLogado.pas';
 
 {$R *.res}
 

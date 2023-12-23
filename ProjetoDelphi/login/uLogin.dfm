@@ -122,6 +122,7 @@ object frmLogin: TfrmLogin
     Width = 185
     Height = 21
     TabOrder = 2
+    Text = 'ADM'
   end
   object edtSenha: TEdit
     Left = 88
@@ -130,5 +131,6 @@ object frmLogin: TfrmLogin
     Height = 21
     PasswordChar = '*'
     TabOrder = 3
+    Text = 'delphi@2023'
   end
 end
