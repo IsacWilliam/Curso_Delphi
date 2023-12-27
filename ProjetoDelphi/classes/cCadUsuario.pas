@@ -65,11 +65,14 @@ begin
     qryApagar.SQL.Add('DELETE FROM usuarios '+
                       'WHERE usuarioId =:usuarioId');
     qryApagar.ParamByName('usuarioId').AsInteger := F_usuarioId;
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryApagar.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
 
   finally
     if Assigned(qryApagar) then
@@ -92,11 +95,14 @@ begin
     qryAtualizar.ParamByName('nome').AsString      := Self.F_nome;
     qryAtualizar.ParamByName('senha').AsString     := Self.F_senha;
 
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryAtualizar.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
 
   finally
     if Assigned(qryAtualizar) then
@@ -117,11 +123,14 @@ begin
     qryInserir.ParamByName('nome').AsString         := Self.F_nome;
     qryInserir.ParamByName('senha').AsString    := Self.F_senha;
 
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryInserir.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
 
   finally
     if Assigned(qryInserir) then
@@ -241,10 +250,13 @@ begin
                             ' WHERE usuarioId =:usuarioId');
     qryAlterarSenha.ParamByName('usuarioId').AsInteger := Self.F_usuarioId;
     qryAlterarSenha.ParamByName('senha').AsString      := Self.F_senha;
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryAlterarSenha.ExecSQL;
-    Except
-      Result:= False;
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
+      Result := False;
     end;
   finally
     if Assigned(qryAlterarSenha) then

@@ -135,13 +135,12 @@ begin
             end;
           cds.Next;
         end;
-
+        ConexaoDB.Commit;
     Except
       Result := False;
       ConexaoDB.Rollback;
     End;
 
-    ConexaoDB.Commit;
   finally
     if Assigned(qryAtualizar) then
       FreeAndNil(qryAtualizar);
@@ -167,9 +166,12 @@ begin
     qryAtualizarItem.ParamByName('TotalProduto').AsFloat := cds.FieldByName('valorTotalProduto').AsFloat;
 
     Try
+      ConexaoDB.StartTransaction;
       qryAtualizarItem.ExecSQL;
+      ConexaoDB.Commit;
       BaixarEstoque(cds.FieldByName('produtoId').AsInteger, cds.FieldByName('quantidade').AsFloat);
     Except
+      ConexaoDB.Rollback;
       Result := False;
     End;
   finally
@@ -223,11 +225,14 @@ begin
     qryApagaItens.SQL.Add('DELETE FROM VendasItens WHERE VendaId=:VendaId '+
                           'AND produtoId NOT IN ('+sCodNoCds+')');
     qryApagaItens.ParamByName('vendaId').AsInteger := Self.F_vendaId;
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryApagaItens.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
   finally
     if Assigned(qryApagaItens) then
       FreeAndNil(qryApagaItens);
@@ -379,9 +384,12 @@ begin
     qryInserirItens.ParamByName('Quantidade').AsFloat := cds.FieldByName('quantidade').AsFloat;
     qryInserirItens.ParamByName('TotalProduto').AsFloat := cds.FieldByName('valorTotalProduto').AsFloat;
     try
+      ConexaoDB.StartTransaction;
       qryInserirItens.ExecSQL;
+      ConexaoDB.Commit;
       BaixarEstoque(cds.FieldByName('produtoId').AsInteger, cds.FieldByName('quantidade').AsFloat);
     Except
+      ConexaoDB.Rollback;
       Result := False;
     end;
 

@@ -193,6 +193,7 @@
         </DCCReference>
         <DCCReference Include="login\CUsuarioLogado.pas"/>
         <None Include=".gitignore"/>
+        <None Include="README.md"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -226,6 +227,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName=".gitignore" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="README.md" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

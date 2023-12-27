@@ -74,11 +74,14 @@ begin
       qryApagar.SQL.Add('DELETE FROM clientes '+
                         'WHERE clienteId =:clienteId');
       qryApagar.ParamByName('clienteId').AsInteger := F_clienteId;
-      Try
+      try
+        ConexaoDB.StartTransaction;
         qryApagar.ExecSQL;
-      Except
+        ConexaoDB.Commit;
+      except
+        ConexaoDB.Rollback;
         Result := False;
-      End;
+      end;
 
     finally
       if Assigned(qryApagar) then
@@ -115,11 +118,14 @@ begin
       qryAtualizar.ParamByName('telefone').AsString        := Self.F_telefone;
       qryAtualizar.ParamByName('email').AsString           := Self.F_email;
       qryAtualizar.ParamByName('dataNascimento').AsDateTime:= Self.F_dataNascimento;
-      Try
-        qryAtualizar.ExecSQL;
-      Except
-        Result := False;
-      End;
+    try
+      ConexaoDB.StartTransaction;
+      qryAtualizar.ExecSQL;
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
+      Result := False;
+    end;
 
     finally
       if Assigned(qryAtualizar) then
@@ -148,11 +154,14 @@ begin
       qryInserir.ParamByName('telefone').AsString        := Self.F_telefone;
       qryInserir.ParamByName('email').AsString           := Self.F_email;
       qryInserir.ParamByName('dataNascimento').AsDateTime:= Self.F_dataNascimento;
-      Try
+      try
+        ConexaoDB.StartTransaction;
         qryInserir.ExecSQL;
-      Except
+        ConexaoDB.Commit;
+      except
+        ConexaoDB.Rollback;
         Result := False;
-      End;
+      end;
 
     finally
       if Assigned(qryInserir) then

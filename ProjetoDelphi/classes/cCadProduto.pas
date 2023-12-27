@@ -68,11 +68,14 @@ begin
     qryApagar.SQL.Add('DELETE FROM produtos '+
                       'WHERE produtoId =:produtoId');
     qryApagar.ParamByName('produtoId').AsInteger := F_produtoId;
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryApagar.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
 
   finally
     if Assigned(qryApagar) then
@@ -99,11 +102,14 @@ begin
     qryAtualizar.ParamByName('quantidade').AsFloat    := Self.F_quantidade;
     qryAtualizar.ParamByName('categoriaId').AsInteger := Self.F_categoriaId;
 
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryAtualizar.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
 
   finally
     if Assigned(qryAtualizar) then
@@ -128,11 +134,14 @@ begin
     qryInserir.ParamByName('quantidade').AsFloat    := Self.F_quantidade;
     qryInserir.ParamByName('categoriaId').AsInteger := Self.F_categoriaId;
 
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryInserir.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
 
   finally
     if Assigned(qryInserir) then

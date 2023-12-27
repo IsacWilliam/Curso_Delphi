@@ -49,11 +49,14 @@ begin
                              'WHERE produtoId=:produtoId');
     qryBaixarEstoque.ParamByName('produtoId').AsInteger := ProdutoId;
     qryBaixarEstoque.ParamByName('qtdeBaixa').AsFloat := F_Quantidade;
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryBaixarEstoque.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
 
   finally
     if Assigned(qryBaixarEstoque) then
@@ -74,11 +77,14 @@ begin
                                'WHERE produtoId=:produtoId');
     qryRetornarEstoque.ParamByName('produtoId').AsInteger := ProdutoId;
     qryRetornarEstoque.ParamByName('qtdeRetorno').AsFloat := Quantidade;
-    Try
+    try
+      ConexaoDB.StartTransaction;
       qryRetornarEstoque.ExecSQL;
-    Except
+      ConexaoDB.Commit;
+    except
+      ConexaoDB.Rollback;
       Result := False;
-    End;
+    end;
 
   finally
     if Assigned(qryRetornarEstoque) then

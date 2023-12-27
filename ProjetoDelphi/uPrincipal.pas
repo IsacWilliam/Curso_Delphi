@@ -144,6 +144,8 @@ begin
       User := 'sa';
       Password := 'delphi@2023';
       Database := 'vendas';
+      AutoCommit := True;
+      TransactIsolationLevel:= tiReadCommitted;
       Connected := True;
     end;
     AtualizaBancoDados(frmAtualizaDB);

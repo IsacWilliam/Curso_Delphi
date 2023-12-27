@@ -9,6 +9,7 @@ object dtmPrincipal: TdtmPrincipal
     Properties.Strings = (
       'controls_cp=CP_UTF16'
       'AutoEncodeStrings=True')
+    TransactIsolationLevel = tiReadCommitted
     Connected = True
     HostName = '.\SERVERCURSO'
     Port = 0
