@@ -31,7 +31,8 @@ uses
   cCadUsuario in 'classes\cCadUsuario.pas',
   uLogin in 'login\uLogin.pas' {frmLogin},
   uAlterarSenha in 'login\uAlterarSenha.pas' {frmAlterarSenha},
-  CUsuarioLogado in 'login\CUsuarioLogado.pas';
+  CUsuarioLogado in 'login\CUsuarioLogado.pas',
+  cAtualizacaoBancoDeDados in 'classes\cAtualizacaoBancoDeDados.pas';
 
 {$R *.res}
 
