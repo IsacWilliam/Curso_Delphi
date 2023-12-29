@@ -193,6 +193,7 @@
         </DCCReference>
         <DCCReference Include="login\CUsuarioLogado.pas"/>
         <DCCReference Include="classes\cAtualizacaoBancoDeDados.pas"/>
+        <DCCReference Include="classes\cAtualizacaoTabelaMSSQL.pas"/>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

@@ -21,21 +21,6 @@ object dtmPrincipal: TdtmPrincipal
     Left = 24
     Top = 12
   end
-  object qryScriptCategorias: TZQuery
-    Connection = ConexaoDB
-    SQL.Strings = (
-      'if OBJECT_ID ('#39'categorias'#39') is null'
-      'begin'
-      '  create table categorias('
-      '    categoriaId int identity(1,1) not null,'
-      '    descricao varchar(30) null,'
-      '    primary key (categoriaId)'
-      '  )'
-      'end')
-    Params = <>
-    Left = 187
-    Top = 12
-  end
   object qryScriptClientes: TZQuery
     Connection = ConexaoDB
     SQL.Strings = (

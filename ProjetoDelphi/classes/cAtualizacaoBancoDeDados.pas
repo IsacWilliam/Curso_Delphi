@@ -10,8 +10,8 @@ uses System.Classes, System.SysUtils, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs,
 Type
   TAtualizaBancoDados = class
   private
-    ConexaoDB: TZConnection;
   public
+    ConexaoDB: TZConnection;
     constructor Create(aConexao: TZConnection);
     procedure ExecutaDiretoBancoDeDados(aScript: String);
 End;
@@ -21,12 +21,14 @@ Type
   private
     ConexaoDB: TZConnection;
   public
-    function AtualizaBancoDadosMSSQL: Boolean;
+    function AtualizarBancoDeDadosMSSQL: Boolean;
     constructor Create(aConexao: TZConnection);
 End;
 {$endRegion}
 
 implementation
+
+uses cAtualizacaoTabelaMSSQL;
 
 { TAtualizaBancoDados }
 constructor TAtualizaBancoDados.Create(aConexao: TZConnection);
@@ -57,15 +59,22 @@ begin
 end;
 
 { TAtualizaBancoDadosMSSQL }
-function TAtualizaBancoDadosMSSQL.AtualizaBancoDadosMSSQL: Boolean;
+function TAtualizaBancoDadosMSSQL.AtualizarBancoDeDadosMSSQL: Boolean;
 var oAtualizarDB: TAtualizaBancoDados;
+    oTabela: TAtualizacaoTabelaMSSQL;
 begin
   Try
     // Classe Principal de Atualização
     oAtualizarDB:= TAtualizaBancoDados.Create(ConexaoDB);
+
+    // Classe Filha(Herança) de Atualização
+    oTabela:= TAtualizacaoTabelaMSSQL.Create(ConexaoDB);
   Finally
     if Assigned(oAtualizarDB) then
        FreeAndNil(oAtualizarDB);
+
+    if Assigned(oTabela) then
+       FreeAndNil(oTabela);
   End;
 end;
 

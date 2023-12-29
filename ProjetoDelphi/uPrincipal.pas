@@ -8,7 +8,7 @@ uses
   Enter, ShellApi, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, VclTee.TeeGDIPlus,
   Data.DB, VCLTee.Series, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart,
   VCLTee.DBChart, ZDbcIntfs, RLReport, ZAbstractRODataset, ZAbstractDataset,
-  ZDataset, uFrmAtualizaDB, cUsuarioLogado;
+  ZDataset, uFrmAtualizaDB, cUsuarioLogado, cAtualizacaoBancoDeDados;
 
 type
   TfrmPrincipal = class(TForm)
@@ -238,7 +238,19 @@ begin
 end;
 
 procedure TfrmPrincipal.AtualizaBancoDados(aForm : TfrmAtualizaDB);
+var oAtualizarMSSQL: TAtualizaBancoDadosMSSQL;
 begin
+  aForm.Refresh;
+
+  try
+    oAtualizarMSSQL:= TAtualizaBancoDadosMSSQL.Create(dtmPrincipal.ConexaoDB);
+    oAtualizarMSSQL.AtualizarBancoDeDadosMSSQL;
+  finally
+    if Assigned(oAtualizarMSSQL) then
+       FreeAndNil(oAtualizarMSSQL);
+  end;
+
+{
   aForm.chkConexao.Checked := True;
   aForm.Refresh;
   Sleep(100);
@@ -272,6 +284,7 @@ begin
   aForm.chkUsuarios.Checked := True;
   aForm.Refresh;
   Sleep(500);
+}
 
 end;
 
