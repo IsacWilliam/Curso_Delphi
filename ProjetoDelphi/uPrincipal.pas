@@ -136,6 +136,7 @@ begin
   dtmPrincipal := TdtmPrincipal.Create(Self);
   with dtmPrincipal.ConexaoDB do
     begin
+      Connected := False;
       SQLHourGlass := False;
       Protocol := 'mssql';
       LibraryLocation := 'E:\Cursos\Curso_Delphi\ProjetoDelphi\ntwdblib.dll';
@@ -143,7 +144,7 @@ begin
       Port := 1433;
       User := 'sa';
       Password := 'delphi@2023';
-      Database := 'vendas';
+      Database := 'vendasTeste'; //'vendas';
       AutoCommit := True;
       TransactIsolationLevel:= tiReadCommitted;
       Connected := True;
