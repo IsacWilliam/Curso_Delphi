@@ -70,7 +70,7 @@ implementation
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
   uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
   uRelCadProdutoComGrupoCategoria, uSelecionarData, uRelVendaPorData,
-  uCadUsuario, uLogin, uAlterarSenha;
+  uCadUsuario, uLogin, uAlterarSenha, cArquivoIni;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -117,45 +117,63 @@ end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
-  frmAtualizaDB := TfrmAtualizaDB.Create(Self);
-  frmAtualizaDB.Show;
-  frmAtualizaDB.Refresh;
-{
-  dtmPrincipal := TdtmPrincipal.Create(Self);
-  dtmPrincipal.ConexaoDB.SQLHourGlass := True;
-  dtmPrincipal.ConexaoDB.Protocol := 'mssql';
-  dtmPrincipal.ConexaoDB.LibraryLocation := 'E:\Cursos\Curso_Delphi\ProjetoDelphi\ntwdblib.dll';
-  dtmPrincipal.ConexaoDB.HostName := '.\SERVERCURSO';
-  dtmPrincipal.ConexaoDB.Port := 1433;
-  dtmPrincipal.ConexaoDB.User := 'sa';
-  dtmPrincipal.ConexaoDB.Password := 'delphi@2023';
-  dtmPrincipal.ConexaoDB.Database := 'vendas';
-  dtmPrincipal.ConexaoDB.Connected := True;
-}
-// Este bloco substitui o anterior
-  dtmPrincipal := TdtmPrincipal.Create(Self);
-  with dtmPrincipal.ConexaoDB do
-    begin
-      Connected := False;
-      SQLHourGlass := False;
-      Protocol := 'mssql';
-      LibraryLocation := 'E:\Cursos\Curso_Delphi\ProjetoDelphi\ntwdblib.dll';
-      HostName := '.\SERVERCURSO';
-      Port := 1433;
-      User := 'sa';
-      Password := 'delphi@2023';
-      Database := 'vendasTeste'; //'vendas';
-      AutoCommit := True;
-      TransactIsolationLevel:= tiReadCommitted;
-      Connected := True;
-    end;
+  //Configuração do arquivo INI
+  if not FileExists(TArquivoIni.ArquivoIni) then
+  begin
+    TArquivoIni.AtualizarIni('SERVER', 'TipoDataBase', 'MSSQL');
+    TArquivoIni.AtualizarIni('SERVER', 'HostName', '.\');
+    TArquivoIni.AtualizarIni('SERVER', 'Port', '1433');
+    TArquivoIni.AtualizarIni('SERVER', 'User', 'sa');
+    TArquivoIni.AtualizarIni('SERVER', 'Password', 'delphi@2023');
+    TArquivoIni.AtualizarIni('SERVER', 'Database', 'vendas');
+    MessageDlg('Arquivo ' + TArquivoIni.ArquivoIni + #13 + 'Criado com sucesso.'
+               + ' Configure o arquivo antes de inicializar a aplicação',
+               mtInformation, [mbOK], 0);
+    Application.Terminate;
+  end
+  else
+  begin
+    frmAtualizaDB := TfrmAtualizaDB.Create(Self);
+    frmAtualizaDB.Show;
+    frmAtualizaDB.Refresh;
+  {
+    dtmPrincipal := TdtmPrincipal.Create(Self);
+    dtmPrincipal.ConexaoDB.SQLHourGlass := True;
+    dtmPrincipal.ConexaoDB.Protocol := 'mssql';
+    dtmPrincipal.ConexaoDB.LibraryLocation := 'E:\Cursos\Curso_Delphi\ProjetoDelphi\ntwdblib.dll';
+    dtmPrincipal.ConexaoDB.HostName := '.\SERVERCURSO';
+    dtmPrincipal.ConexaoDB.Port := 1433;
+    dtmPrincipal.ConexaoDB.User := 'sa';
+    dtmPrincipal.ConexaoDB.Password := 'delphi@2023';
+    dtmPrincipal.ConexaoDB.Database := 'vendas';
+    dtmPrincipal.ConexaoDB.Connected := True;
+  }
+  // Este bloco substitui o anterior
+    dtmPrincipal := TdtmPrincipal.Create(Self);
+    with dtmPrincipal.ConexaoDB do
+      begin
+        Connected := False;
+        SQLHourGlass := False;
+        if TArquivoIni.LerIni('SERVER', 'TipoDataBase') = 'MSSQL' then
+          Protocol := 'mssql'; //Protocolo DB
+        LibraryLocation := 'E:\Cursos\Curso_Delphi\ProjetoDelphi\ntwdblib.dll';
+        HostName := TArquivoIni.LerIni('SERVER', 'HostName'); //Instância do DB
+        Port := StrToInt(TArquivoIni.LerIni('SERVER', 'Port'));  //Porta DB
+        User := TArquivoIni.LerIni('SERVER', 'User');  //Usuário DB
+        Password := TArquivoIni.LerIni('SERVER', 'Password');  //Senha DB
+        Database := TArquivoIni.LerIni('SERVER', 'DataBase');  //Nome DB
+        AutoCommit := True;
+        TransactIsolationLevel:= tiReadCommitted;
+        Connected := True;
+      end;
+
     AtualizaBancoDados(frmAtualizaDB);
     frmAtualizaDB.Free;
 
     TeclaEnter:= TMREnter.Create(Self);
     TeclaEnter.FocusEnabled := True;
     TeclaEnter.FocusColor := clInfoBk;
-
+  end;
 end;
 
 procedure TfrmPrincipal.FormShow(Sender: TObject);

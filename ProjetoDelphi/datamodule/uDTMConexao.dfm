@@ -12,7 +12,7 @@ object dtmPrincipal: TdtmPrincipal
     TransactIsolationLevel = tiReadCommitted
     HostName = '.\SERVERCURSO'
     Port = 0
-    Database = 'dbVendaTeste'
+    Database = 'vendas'
     User = 'sa'
     Password = 'delphi@2023'
     Protocol = 'mssql'
