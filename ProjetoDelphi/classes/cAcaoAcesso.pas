@@ -20,6 +20,7 @@ type
       function Atualizar: Boolean;
       function Apagar: Boolean;
       function Selecionar(id: Integer): Boolean;
+      function ChaveExiste(aChave: String): Boolean;
     published
       property codigo   : Integer   read F_acaoAcessoId   write F_acaoAcessoId;
       property descricao: String    read F_descricao      write F_descricao;
@@ -90,6 +91,36 @@ begin
   finally
     if Assigned(qryAtualizar) then
        FreeAndNil(qryAtualizar);
+  end;
+end;
+
+function TAcaoAcesso.ChaveExiste(aChave: String): Boolean;
+var qryChaveExiste: TZQuery;
+begin
+  try
+    qryChaveExiste:= TZQuery.Create(nil);
+    qryChaveExiste.Connection:= ConexaoDB;
+    qryChaveExiste.SQL.Clear;
+    qryChaveExiste.SQL.Add('update acaoAcesso '+
+                         'set descricao=:descicao '+
+                         'chave=:chave where acaoAcessoId=acaoAcessoId;');
+    qryChaveExiste.ParamByName('chave').AsString:= Self.F_chave;
+
+    Try
+      qryChaveExiste.Open;
+
+      if qryChaveExiste.FieldByName('Qtde').AsInteger > 0 then
+         Result:= True
+      else
+         Result:= False;
+
+    Except
+      Result:= False;
+    End;
+
+  finally
+    if Assigned(qryChaveExiste) then
+       FreeAndNil(qryChaveExiste);
   end;
 end;
 
