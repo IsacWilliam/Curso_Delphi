@@ -55,6 +55,13 @@ object frmPrincipal: TfrmPrincipal
         Caption = 'Usu'#225'rio'
         OnClick = Usurio1Click
       end
+      object AoAcesso1: TMenuItem
+        Caption = 'A'#231#227'o Acesso'
+        OnClick = AoAcesso1Click
+      end
+      object N6: TMenuItem
+        Caption = '-'
+      end
       object AlterarSenha1: TMenuItem
         Caption = 'Alterar Senha'
         OnClick = AlterarSenha1Click

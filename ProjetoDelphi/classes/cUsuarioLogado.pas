@@ -1,4 +1,4 @@
-unit CUsuarioLogado;
+unit cUsuarioLogado;
 
 interface
 

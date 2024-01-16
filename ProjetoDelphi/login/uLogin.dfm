@@ -131,6 +131,6 @@ object frmLogin: TfrmLogin
     Height = 21
     PasswordChar = '*'
     TabOrder = 3
-    Text = 'delphi@2023'
+    Text = 'adm'
   end
 end

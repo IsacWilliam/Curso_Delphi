@@ -35,6 +35,8 @@ type
     N5: TMenuItem;
     AlterarSenha1: TMenuItem;
     stbPrincipal: TStatusBar;
+    AoAcesso1: TMenuItem;
+    N6: TMenuItem;
     procedure mnuFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Categoria1Click(Sender: TObject);
@@ -51,6 +53,7 @@ type
     procedure Usurio1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure AlterarSenha1Click(Sender: TObject);
+    procedure AoAcesso1Click(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -70,7 +73,7 @@ implementation
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
   uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
   uRelCadProdutoComGrupoCategoria, uSelecionarData, uRelVendaPorData,
-  uCadUsuario, uLogin, uAlterarSenha, cArquivoIni;
+  uCadUsuario, uLogin, uAlterarSenha, cArquivoIni, uCadAcaoAcesso;
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
@@ -254,6 +257,13 @@ begin
   frmAlterarSenha:= TfrmAlterarSenha.Create(Self);
   frmAlterarSenha.ShowModal;
   frmAlterarSenha.Release;
+end;
+
+procedure TfrmPrincipal.AoAcesso1Click(Sender: TObject);
+begin
+  frmCadAcaoAcesso:= TfrmCadAcaoAcesso.Create(Self);
+  frmCadAcaoAcesso.ShowModal;
+  frmCadAcaoAcesso.Release;
 end;
 
 procedure TfrmPrincipal.AtualizaBancoDados(aForm : TfrmAtualizaDB);

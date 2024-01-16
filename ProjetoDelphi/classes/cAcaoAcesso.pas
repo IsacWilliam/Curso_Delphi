@@ -2,192 +2,349 @@ unit cAcaoAcesso;
 
 interface
 
-uses System.Classes, System.SysUtils, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs,
-     ZConnection, ZDataset, ZAbstractConnection, ZAbstractRODataset,
-     ZAbstractDataset, Vcl.Forms, Vcl.Buttons;
+uses System.Classes,
+     Vcl.Controls,
+     Vcl.ExtCtrls,
+     Vcl.Dialogs,
+     ZAbstractConnection,
+     ZConnection,
+     ZAbstractRODataset,
+     ZAbstractDataset,
+     ZDataset,
+     System.SysUtils,
+     Vcl.Forms,
+     Vcl.Buttons;
 
 type
   TAcaoAcesso = class
-    private
-      ConexaoDB: TZConnection;
-      F_acaoAcessoId: Integer;
-      F_descricao: String;
-      F_chave: String;
-    public
-      constructor Create(aConexao: TZConnection);
-      destructor Destroy; override;
-      function Inserir: Boolean;
-      function Atualizar: Boolean;
-      function Apagar: Boolean;
-      function Selecionar(id: Integer): Boolean;
-      function ChaveExiste(aChave: String): Boolean;
-    published
-      property codigo   : Integer   read F_acaoAcessoId   write F_acaoAcessoId;
-      property descricao: String    read F_descricao      write F_descricao;
-      property chave    : String    read F_chave          write F_chave;
+  private
+    ConexaoDB:TZConnection;
+    F_acaoAcessoId:Integer;
+    F_descricao:String;
+    F_chave: string;
+    class procedure PreencherAcoes(aForm: TForm; aConexao:TZConnection); static;
+    class procedure VerificarUsuarioAcao(aUsuarioId, aAcaoAcessoId: Integer;
+      aConexao: TZConnection); static;
+  public
+    constructor Create(aConexao:TZConnection);
+    destructor Destroy; override;
+    function Inserir:Boolean;
+    function Atualizar:Boolean;
+    function Apagar:Boolean;
+    function Selecionar(id:Integer):Boolean;
+    function ChaveExiste(aChave: String; aId:Integer=0): Boolean;
+
+    class procedure CriarAcoes(aNomeForm: TFormClass; aConexao: TZConnection); static;
+    class procedure PreencherUsuariosVsAcoes(aConexao: TZConnection); static;
+
+  published
+    property codigo        :Integer    read F_acaoAcessoId  write F_acaoAcessoId;
+    property descricao     :string     read F_descricao     write F_descricao;
+    property chave         :string     read F_chave         write F_chave;
   end;
 
 implementation
 
-{ TAcaoAcesso }
+{ TCategoria }
 
-function TAcaoAcesso.Apagar: Boolean;
-var qryApagar: TZQuery;
+{$region 'Constructor and Destructor'}
+constructor TAcaoAcesso.Create(aConexao:TZConnection);
 begin
-  if MessageDlg('Apagar o registro: '+#13+#13+
-               'Código: '+F_acaoAcessoId.ToString +#13+
-               'Nome: '+F_descricao, mtConfirmation, [mbYes, mbNo], 0)=mrNo then
-     Result:= False;
-     Abort;
-
-  try
-    Result:= True;
-    qryApagar:= TZQuery.Create(nil);
-    qryApagar.Connection:= ConexaoDB;
-    qryApagar.SQL.Clear;
-    qryApagar.SQL.Add('delete from acaoAcesso '+
-                      'where acaoAcessoId=:F_acaoAcessoId;');
-    qryApagar.ParamByName('acaoAcessoId').AsInteger:= F_acaoAcessoId;
-
-    Try
-      ConexaoDB.StartTransaction;
-      qryApagar.ExecSQL;
-      ConexaoDB.Commit;
-    Except
-      ConexaoDB.Rollback;
-      Result:= False;
-    End;
-
-  finally
-    if Assigned(qryApagar) then
-       FreeAndNil(qryApagar);
-  end;
-end;
-
-function TAcaoAcesso.Atualizar: Boolean;
-var qryAtualizar: TZQuery;
-begin
-  try
-    Result:= True;
-    qryAtualizar:= TZQuery.Create(nil);
-    qryAtualizar.Connection:= ConexaoDB;
-    qryAtualizar.SQL.Clear;
-    qryAtualizar.SQL.Add('update acaoAcesso '+
-                         'set descricao=:descicao '+
-                         'chave=:chave where acaoAcessoId=acaoAcessoId;');
-    qryAtualizar.ParamByName('acaoAcessoId').AsInteger:= Self.F_acaoAcessoId;
-    qryAtualizar.ParamByName('descricao').AsString:= Self.F_descricao;
-    qryAtualizar.ParamByName('chave').AsString:= Self.F_chave;
-
-    Try
-      ConexaoDB.StartTransaction;
-      qryAtualizar.ExecSQL;
-      ConexaoDB.Commit;
-    Except
-      ConexaoDB.Rollback;
-      Result:= False;
-    End;
-
-  finally
-    if Assigned(qryAtualizar) then
-       FreeAndNil(qryAtualizar);
-  end;
-end;
-
-function TAcaoAcesso.ChaveExiste(aChave: String): Boolean;
-var qryChaveExiste: TZQuery;
-begin
-  try
-    qryChaveExiste:= TZQuery.Create(nil);
-    qryChaveExiste.Connection:= ConexaoDB;
-    qryChaveExiste.SQL.Clear;
-    qryChaveExiste.SQL.Add('update acaoAcesso '+
-                         'set descricao=:descicao '+
-                         'chave=:chave where acaoAcessoId=acaoAcessoId;');
-    qryChaveExiste.ParamByName('chave').AsString:= Self.F_chave;
-
-    Try
-      qryChaveExiste.Open;
-
-      if qryChaveExiste.FieldByName('Qtde').AsInteger > 0 then
-         Result:= True
-      else
-         Result:= False;
-
-    Except
-      Result:= False;
-    End;
-
-  finally
-    if Assigned(qryChaveExiste) then
-       FreeAndNil(qryChaveExiste);
-  end;
-end;
-
-constructor TAcaoAcesso.Create(aConexao: TZConnection);
-begin
-  ConexaoDB:= aConexao
+  ConexaoDB:=aConexao;
 end;
 
 destructor TAcaoAcesso.Destroy;
 begin
+
   inherited;
 end;
+{$endRegion}
 
-function TAcaoAcesso.Inserir: Boolean;
-var qryInserir: TZQuery;
+{$region 'CRUD'}
+function TAcaoAcesso.Apagar: Boolean;
+var Qry:TZQuery;
 begin
-  try
-    Result:= True;
-    qryInserir:= TZQuery.Create(nil);
-    qryInserir.Connection:= ConexaoDB;
-    qryInserir.SQL.Clear;
-    qryInserir.SQL.Add('insert into acaoAcesso(descricao, chave) '+
-                       'values (:descicao, :chave);');
-    qryInserir.ParamByName('descricao').AsString:= Self.F_descricao;
-    qryInserir.ParamByName('chave').AsString:= Self.F_chave;
+  if MessageDlg('Apagar o Registro: '+#13+#13+
+                'Código: '+IntToStr(F_acaoAcessoId)+#13+
+                'Nome: '  +F_descricao, mtConfirmation,[mbYes, mbNo],0)=mrNo then begin
+     Result:=false;
+     abort;
+  end;
 
+  try
+    Result:=true;
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('DELETE FROM acaoAcesso '+
+                ' WHERE acaoAcessoId=:acaoAcessoId ');
+    Qry.ParamByName('acaoAcessoId').AsInteger :=F_acaoAcessoId;
     Try
       ConexaoDB.StartTransaction;
-      qryInserir.ExecSQL;
+      Qry.ExecSQL;
       ConexaoDB.Commit;
     Except
       ConexaoDB.Rollback;
-      Result:= False;
+      Result:=false;
     End;
 
   finally
-    if Assigned(qryInserir) then
-       FreeAndNil(qryInserir);
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+function TAcaoAcesso.Atualizar: Boolean;
+var Qry:TZQuery;
+begin
+  try
+    Result:=true;
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('UPDATE acaoAcesso '+
+                '   SET descricao     =:descricao '+
+                '      ,chave         =:chave '+
+                ' WHERE acaoAcessoId=:acaoAcessoId ');
+    Qry.ParamByName('acaoAcessoId').AsInteger    :=Self.F_acaoAcessoId;
+    Qry.ParamByName('descricao').AsString        :=Self.F_descricao;
+    Qry.ParamByName('chave').AsString            :=Self.F_chave;
+
+    Try
+      ConexaoDB.StartTransaction;
+      Qry.ExecSQL;
+      ConexaoDB.Commit;
+    Except
+      ConexaoDB.Rollback;
+      Result:=false;
+    End;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+function TAcaoAcesso.Inserir: Boolean;
+var Qry:TZQuery;
+begin
+  try
+    Result:=true;
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('INSERT INTO acaoAcesso (descricao, '+
+                '                        chave )'+
+                ' VALUES                (:descricao, '+
+                '                        :chave )' );
+
+    Qry.ParamByName('descricao').AsString    :=Self.F_descricao;
+    Qry.ParamByName('chave').AsString        :=Self.F_chave;
+
+    Try
+      ConexaoDB.StartTransaction;
+      Qry.ExecSQL;
+      ConexaoDB.Commit;
+    Except
+      ConexaoDB.Rollback;
+      Result:=false;
+    End;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
   end;
 end;
 
 function TAcaoAcesso.Selecionar(id: Integer): Boolean;
-var qrySelecionar: TZQuery;
+var Qry:TZQuery;
 begin
   try
-    Result:= True;
-    qrySelecionar:= TZQuery.Create(nil);
-    qrySelecionar.Connection:= ConexaoDB;
-    qrySelecionar.SQL.Clear;
-    qrySelecionar.SQL.Add('select acaoAcessoId, descricao, chave '+
-                          'from acaoAcesso where acaoAcessoId=:acaoAcessoId;');
-    qrySelecionar.ParamByName('acaoAcessoId').AsInteger:= id;
-
+    Result:=true;
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('SELECT acaoAcessoId,'+
+                '       descricao, '+
+                '       chave '+
+                '  FROM acaoAcesso '+
+                ' WHERE acaoAcessoId=:acaoAcessoId');
+    Qry.ParamByName('acaoAcessoId').AsInteger:=id;
     Try
-      qrySelecionar.Open;
+      Qry.Open;
 
-      Self.F_acaoAcessoId:= qrySelecionar.FieldByName('acaoAcessoId').AsInteger;
-      Self.F_descricao   := qrySelecionar.FieldByName('descricao').AsString;
-      Self.F_chave       := qrySelecionar.FieldByName('chave').AsString;
+      Self.F_acaoAcessoId  := Qry.FieldByName('acaoAcessoId').AsInteger;
+      Self.F_descricao     := Qry.FieldByName('descricao').AsString;
+      Self.F_chave         := Qry.FieldByName('chave').AsString;;
     Except
-      Result:= False;
+      Result:=false;
     End;
 
   finally
-    if Assigned(qrySelecionar) then
-       FreeAndNil(qrySelecionar);
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
   end;
 end;
+
+function TAcaoAcesso.ChaveExiste(aChave: String; aId:Integer):Boolean;
+var Qry:TZQuery;
+begin
+  try
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('SELECT COUNT(acaoAcessoId) AS Qtde '+
+                '  FROM acaoAcesso '+
+                ' WHERE chave =:chave ');
+    if aId > 0 then
+    begin
+      Qry.SQL.Add(' AND acaoAcessoId<>:acaoAcessoId');
+      Qry.ParamByName('acaoAcessoId').AsInteger :=aId;
+    end;
+
+    Qry.ParamByName('chave').AsString :=aChave;
+    Try
+      Qry.Open;
+
+      if Qry.FieldByName('Qtde').AsInteger>0 then
+         result := true
+      else
+         result := false;
+
+    Except
+      Result:=false;
+    End;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+
+class procedure TAcaoAcesso.PreencherAcoes(aForm: TForm; aConexao:TZConnection);
+var i:Integer;
+    oAcaoAcesso:TAcaoAcesso;
+begin
+  try
+    oAcaoAcesso:=TAcaoAcesso.Create(aConexao);
+    oAcaoAcesso.descricao := aForm.Caption;
+    oAcaoAcesso.Chave := aForm.Name;
+    if not oAcaoAcesso.ChaveExiste(oAcaoAcesso.Chave) then
+       oAcaoAcesso.Inserir;
+
+    for I := 0 to aForm.ComponentCount -1 do
+    begin
+      if (aForm.Components[i] is TBitBtn) then
+      begin
+        if TBitBtn(aForm.Components[i]).Tag=99 then
+        begin
+          oAcaoAcesso.descricao := '    - BOTÃO '+ StringReplace(TBitBtn(aForm.Components[i]).Caption, '&','',[rfReplaceAll]);
+          oAcaoAcesso.Chave     := aForm.Name+'_'+TBitBtn(aForm.Components[i]).Name;
+          if not oAcaoAcesso.ChaveExiste(oAcaoAcesso.Chave) then
+             oAcaoAcesso.Inserir;
+        end;
+      end;
+    end;
+
+  finally
+    if Assigned(oAcaoAcesso) then
+       FreeAndNil(oAcaoAcesso);
+  end;
+end;
+
+class procedure TAcaoAcesso.CriarAcoes(aNomeForm: TFormClass; aConexao:TZConnection);
+var
+  form: TForm;
+begin
+  try
+    form := aNomeForm.Create(Application);
+    PreencherAcoes(form,aConexao);
+  finally
+    if Assigned(form) then
+       form.Release;
+  end;
+end;
+
+
+class procedure TAcaoAcesso.VerificarUsuarioAcao(aUsuarioId:Integer; aAcaoAcessoId:Integer; aConexao:TZConnection);
+var Qry:TZQuery;
+begin
+  try
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=aConexao;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('SELECT usuarioId '+
+                '  FROM usuariosAcaoAcesso '+
+                ' WHERE usuarioId=:usuarioId '+
+                '   AND acaoAcessoId=:acaoAcessoId ');
+    Qry.ParamByName('usuarioId').AsInteger:=aUsuarioId;
+    Qry.ParamByName('acaoAcessoId').AsInteger:=aAcaoAcessoId;
+    Qry.Open;
+
+    if Qry.IsEmpty then
+    begin
+       Qry.Close;
+       Qry.SQL.Clear;
+       Qry.SQL.Add('INSERT INTO usuariosAcaoAcesso (usuarioId, acaoAcessoId, ativo) '+
+                   '     VALUES (:usuarioId, :acaoAcessoId, :ativo) ');
+       Qry.ParamByName('usuarioId').AsInteger:=aUsuarioId;
+       Qry.ParamByName('acaoAcessoId').AsInteger:=aAcaoAcessoId;
+       Qry.ParamByName('ativo').AsBoolean:=true;
+       Try
+         aConexao.StartTransaction;
+         Qry.ExecSQL;
+         aConexao.Commit;
+       Except
+         aConexao.Rollback;
+       End;
+    end;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+
+end;
+
+class procedure TAcaoAcesso.PreencherUsuariosVsAcoes(aConexao:TZConnection);
+var Qry:TZQuery;
+    QryAcaoAcesso:TZQuery;
+begin
+  try
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=aConexao;
+    Qry.SQL.Clear;
+
+    QryAcaoAcesso:=TZQuery.Create(nil);
+    QryAcaoAcesso.Connection:=aConexao;
+    QryAcaoAcesso.SQL.Clear;
+
+    Qry.SQL.Add('SELECT usuarioId FROM usuarios ');
+    Qry.Open;
+
+    QryAcaoAcesso.SQL.Add('SELECT acaoAcessoId FROM acaoAcesso ');
+    QryAcaoAcesso.Open;
+
+    while not Qry.Eof do
+    begin
+      QryAcaoAcesso.First;
+
+      while not QryAcaoAcesso.Eof do
+      begin
+        VerificarUsuarioAcao(Qry.FieldByName('usuarioId').AsInteger, QryAcaoAcesso.FieldByName('acaoAcessoId').AsInteger, aConexao);
+        QryAcaoAcesso.Next;
+      end;
+
+      Qry.Next;
+    end;
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+{$endregion}
+
 
 end.
