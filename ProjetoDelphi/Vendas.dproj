@@ -153,10 +153,6 @@
             <Form>frmRelCadCliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="relatorio\uRelCategoria.pas">
-            <Form>frmRelCategoia</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="relatorio\uRelVendaPorData.pas">
             <Form>frmRelVendaPorData</Form>
             <FormType>dfm</FormType>
@@ -201,6 +197,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="classes\cUsuarioLogado.pas"/>
+        <DCCReference Include="relatorio\uRelCadCategoria.pas">
+            <Form>frmRelCadCategoria</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

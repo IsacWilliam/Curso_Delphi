@@ -1,4 +1,4 @@
-unit cAcaoAcesso;
+ï»¿unit cAcaoAcesso;
 
 interface
 
@@ -65,7 +65,7 @@ function TAcaoAcesso.Apagar: Boolean;
 var Qry:TZQuery;
 begin
   if MessageDlg('Apagar o Registro: '+#13+#13+
-                'Código: '+IntToStr(F_acaoAcessoId)+#13+
+                'Cï¿½digo: '+IntToStr(F_acaoAcessoId)+#13+
                 'Nome: '  +F_descricao, mtConfirmation,[mbYes, mbNo],0)=mrNo then begin
      Result:=false;
      abort;
@@ -239,7 +239,7 @@ begin
       begin
         if TBitBtn(aForm.Components[i]).Tag=99 then
         begin
-          oAcaoAcesso.descricao := '    - BOTÃO '+ StringReplace(TBitBtn(aForm.Components[i]).Caption, '&','',[rfReplaceAll]);
+          oAcaoAcesso.descricao := '    - BOTÃƒO '+ StringReplace(TBitBtn(aForm.Components[i]).Caption, '&','',[rfReplaceAll]);
           oAcaoAcesso.Chave     := aForm.Name+'_'+TBitBtn(aForm.Components[i]).Name;
           if not oAcaoAcesso.ChaveExiste(oAcaoAcesso.Chave) then
              oAcaoAcesso.Inserir;

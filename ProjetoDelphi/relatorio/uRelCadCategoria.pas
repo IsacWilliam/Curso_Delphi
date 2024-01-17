@@ -1,4 +1,4 @@
-unit uRelCategoria;
+unit uRelCadCategoria;
 
 interface
 
@@ -9,7 +9,7 @@ uses
   RLReport, RLFilters, RLPDFFilter, RLHTMLFilter, RLXLSFilter, RLXLSXFilter;
 
 type
-  TfrmRelCategoia = class(TForm)
+  TfrmRelCadCategoria = class(TForm)
     qryCategorias: TZQuery;
     dtsCategorias: TDataSource;
     qryCategoriascategoriaId: TIntegerField;
@@ -45,7 +45,7 @@ type
   end;
 
 var
-  frmRelCategoia: TfrmRelCategoia;
+  frmRelCadCategoria: TfrmRelCadCategoria;
 
 implementation
 
@@ -53,12 +53,12 @@ implementation
 
 
 
-procedure TfrmRelCategoia.FormCreate(Sender: TObject);
+procedure TfrmRelCadCategoria.FormCreate(Sender: TObject);
 begin
   qryCategorias.Open;
 end;
 
-procedure TfrmRelCategoia.FormDestroy(Sender: TObject);
+procedure TfrmRelCadCategoria.FormDestroy(Sender: TObject);
 begin
   qryCategorias.Close;
 end;

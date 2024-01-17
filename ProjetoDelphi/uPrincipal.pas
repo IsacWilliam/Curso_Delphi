@@ -8,7 +8,8 @@ uses
   Enter, ShellApi, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, VclTee.TeeGDIPlus,
   Data.DB, VCLTee.Series, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart,
   VCLTee.DBChart, ZDbcIntfs, RLReport, ZAbstractRODataset, ZAbstractDataset,
-  ZDataset, uFrmAtualizaDB, cUsuarioLogado, cAtualizacaoBancoDeDados;
+  ZDataset, uFrmAtualizaDB, cUsuarioLogado, cAtualizacaoBancoDeDados,
+  cAcaoAcesso;
 
 type
   TfrmPrincipal = class(TForm)
@@ -71,7 +72,7 @@ implementation
 {$R *.dfm}
 
 uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
-  uRelCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
+  uRelCadCategoria, uRelCadCliente, uRelCadClienteFicha, uRelCadProduto,
   uRelCadProdutoComGrupoCategoria, uSelecionarData, uRelVendaPorData,
   uCadUsuario, uLogin, uAlterarSenha, cArquivoIni, uCadAcaoAcesso;
 
@@ -84,9 +85,9 @@ end;
 
 procedure TfrmPrincipal.Categoria2Click(Sender: TObject);
 begin
-  frmRelCategoia := TfrmRelCategoia.Create(nil);
-  frmRelCategoia.Relatorio.PreviewModal;
-  frmRelCategoia.Release;
+  frmRelCadCategoria := TfrmRelCadCategoria.Create(nil);
+  frmRelCadCategoria.Relatorio.PreviewModal;
+  frmRelCadCategoria.Release;
 end;
 
 procedure TfrmPrincipal.Cliente1Click(Sender: TObject);
@@ -171,8 +172,20 @@ begin
       end;
 
     AtualizaBancoDados(frmAtualizaDB);
+    TAcaoAcesso.CriarAcoes(TfrmCadCategoria, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmCadCliente, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmCadProduto, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmCadUsuario, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmCadAcaoAcesso, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmAlterarSenha, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmProVenda, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmRelProVendaPorData, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmRelCadClienteFicha, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmRelCadCliente, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmRelCadProdutoComGrupoCategoria, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmRelCadProduto, dtmPrincipal.ConexaoDB);
+    TAcaoAcesso.CriarAcoes(TfrmRelCadCategoria, dtmPrincipal.ConexaoDB);
     frmAtualizaDB.Free;
-
     TeclaEnter:= TMREnter.Create(Self);
     TeclaEnter.FocusEnabled := True;
     TeclaEnter.FocusColor := clInfoBk;

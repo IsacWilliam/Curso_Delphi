@@ -20,7 +20,6 @@ uses
   cControleEstoque in 'classes\cControleEstoque.pas',
   uRelCadClienteFicha in 'relatorio\uRelCadClienteFicha.pas' {frmRelCadClienteFicha},
   uRelCadCliente in 'relatorio\uRelCadCliente.pas' {frmRelCadCliente},
-  uRelCategoria in 'relatorio\uRelCategoria.pas' {frmRelCategoia},
   uRelVendaPorData in 'relatorio\uRelVendaPorData.pas' {frmRelVendaPorData},
   uRelCadProduto in 'relatorio\uRelCadProduto.pas' {frmRelCadProduto},
   uSelecionarData in 'relatorio\uSelecionarData.pas' {frmSelecionarData},
@@ -37,7 +36,8 @@ uses
   cArquivoIni in 'classes\cArquivoIni.pas',
   cAcaoAcesso in 'classes\cAcaoAcesso.pas',
   uCadAcaoAcesso in 'cadastro\uCadAcaoAcesso.pas' {frmCadAcaoAcesso},
-  cUsuarioLogado in 'classes\cUsuarioLogado.pas';
+  cUsuarioLogado in 'classes\cUsuarioLogado.pas',
+  uRelCadCategoria in 'relatorio\uRelCadCategoria.pas' {frmRelCadCategoria};
 
 {$R *.res}
 
@@ -45,5 +45,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmRelCadCategoria, frmRelCadCategoria);
   Application.Run;
 end.

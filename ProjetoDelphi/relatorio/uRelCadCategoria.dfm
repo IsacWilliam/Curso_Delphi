@@ -1,7 +1,7 @@
-object frmRelCategoia: TfrmRelCategoia
+object frmRelCadCategoria: TfrmRelCadCategoria
   Left = 0
   Top = 0
-  Caption = 'frmRelCategoia'
+  Caption = 'frmRelCadCategoria'
   ClientHeight = 565
   ClientWidth = 857
   Color = clBtnFace
