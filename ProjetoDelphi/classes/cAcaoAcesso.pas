@@ -24,7 +24,7 @@ type
     F_chave: string;
     class procedure PreencherAcoes(aForm: TForm; aConexao:TZConnection); static;
     class procedure VerificarUsuarioAcao(aUsuarioId, aAcaoAcessoId: Integer;
-      aConexao: TZConnection); static;
+                                                aConexao: TZConnection); static;
   public
     constructor Create(aConexao:TZConnection);
     destructor Destroy; override;
@@ -267,7 +267,8 @@ begin
 end;
 
 
-class procedure TAcaoAcesso.VerificarUsuarioAcao(aUsuarioId:Integer; aAcaoAcessoId:Integer; aConexao:TZConnection);
+class procedure TAcaoAcesso.VerificarUsuarioAcao(aUsuarioId:Integer; aAcaoAcessoId:Integer;
+                                                         aConexao:TZConnection);
 var Qry:TZQuery;
 begin
   try
@@ -278,8 +279,8 @@ begin
                 '  FROM usuariosAcaoAcesso '+
                 ' WHERE usuarioId=:usuarioId '+
                 '   AND acaoAcessoId=:acaoAcessoId ');
-    Qry.ParamByName('usuarioId').AsInteger:=aUsuarioId;
-    Qry.ParamByName('acaoAcessoId').AsInteger:=aAcaoAcessoId;
+    Qry.ParamByName('usuarioId').AsInteger:= aUsuarioId;
+    Qry.ParamByName('acaoAcessoId').AsInteger:= aAcaoAcessoId;
     Qry.Open;
 
     if Qry.IsEmpty then
@@ -288,9 +289,9 @@ begin
        Qry.SQL.Clear;
        Qry.SQL.Add('INSERT INTO usuariosAcaoAcesso (usuarioId, acaoAcessoId, ativo) '+
                    '     VALUES (:usuarioId, :acaoAcessoId, :ativo) ');
-       Qry.ParamByName('usuarioId').AsInteger:=aUsuarioId;
-       Qry.ParamByName('acaoAcessoId').AsInteger:=aAcaoAcessoId;
-       Qry.ParamByName('ativo').AsBoolean:=true;
+       Qry.ParamByName('usuarioId').AsInteger:= aUsuarioId;
+       Qry.ParamByName('acaoAcessoId').AsInteger:= aAcaoAcessoId;
+       Qry.ParamByName('ativo').AsBoolean:= True;
        Try
          aConexao.StartTransaction;
          Qry.ExecSQL;
@@ -326,13 +327,17 @@ begin
     QryAcaoAcesso.SQL.Add('SELECT acaoAcessoId FROM acaoAcesso ');
     QryAcaoAcesso.Open;
 
-    while not Qry.Eof do
+    Qry.First;
+
+    while not Qry.Eof do  //Usuários
     begin
       QryAcaoAcesso.First;
 
-      while not QryAcaoAcesso.Eof do
+      while not QryAcaoAcesso.Eof do  //Ação Acesso
       begin
-        VerificarUsuarioAcao(Qry.FieldByName('usuarioId').AsInteger, QryAcaoAcesso.FieldByName('acaoAcessoId').AsInteger, aConexao);
+        VerificarUsuarioAcao(Qry.FieldByName('usuarioId').AsInteger,
+                             QryAcaoAcesso.FieldByName('acaoAcessoId').AsInteger,
+                             aConexao);
         QryAcaoAcesso.Next;
       end;
 
@@ -341,10 +346,10 @@ begin
   finally
     if Assigned(Qry) then
        FreeAndNil(Qry);
+    if Assigned(QryAcaoAcesso) then
+       FreeAndNil(QryAcaoAcesso);
   end;
 end;
 
 {$endregion}
-
-
 end.
