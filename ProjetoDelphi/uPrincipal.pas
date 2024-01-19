@@ -59,6 +59,7 @@ type
     { Private declarations }
     TeclaEnter: TMREnter;
     procedure AtualizaBancoDados(aForm: TfrmAtualizaDB);
+    procedure CriarForm(aNomeForm: TFormClass);
   public
     { Public declarations }
   end;
@@ -78,9 +79,7 @@ uses uCadCategoria, uDTMConexao, uCadCliente, uCadProduto, uProVenda,
 
 procedure TfrmPrincipal.Categoria1Click(Sender: TObject);
 begin
-  frmCadCategoria := TfrmCadCategoria.Create(Self);
-  frmCadCategoria.ShowModal;
-  frmCadCategoria.Release;
+  CriarForm(TfrmCadCategoria);
 end;
 
 procedure TfrmPrincipal.Categoria2Click(Sender: TObject);
@@ -92,9 +91,7 @@ end;
 
 procedure TfrmPrincipal.Cliente1Click(Sender: TObject);
 begin
-  frmCadCliente:= TfrmCadCliente.Create(Self);
-  frmCadCliente.ShowModal;
-  frmCadCliente.Release;
+  CriarForm(TfrmCadCliente);
 end;
 
 procedure TfrmPrincipal.Cliente2Click(Sender: TObject);
@@ -212,9 +209,7 @@ end;
 
 procedure TfrmPrincipal.Produto1Click(Sender: TObject);
 begin
-  frmCadProduto := TfrmCadProduto.Create(Self);
-  frmCadProduto.ShowModal;
-  frmCadProduto.Release;
+  CriarForm(TfrmCadProduto);
 end;
 
 procedure TfrmPrincipal.Produto2Click(Sender: TObject);
@@ -234,16 +229,12 @@ end;
 
 procedure TfrmPrincipal.Usurio1Click(Sender: TObject);
 begin
-  frmCadUsuario := TfrmCadUsuario.Create(Self);
-  frmCadUsuario.ShowModal;
-  frmCadUsuario.Release;
+  CriarForm(TfrmCadUsuario);
 end;
 
 procedure TfrmPrincipal.Venda1Click(Sender: TObject);
 begin
-  frmProVenda := TfrmProVenda.Create(Self);
-  frmProVenda.ShowModal;
-  frmProVenda.Release;
+  CriarForm(TfrmProVenda);
 end;
 
 procedure TfrmPrincipal.VendasporData1Click(Sender: TObject);
@@ -267,16 +258,12 @@ end;
 
 procedure TfrmPrincipal.AlterarSenha1Click(Sender: TObject);
 begin
-  frmAlterarSenha:= TfrmAlterarSenha.Create(Self);
-  frmAlterarSenha.ShowModal;
-  frmAlterarSenha.Release;
+  CriarForm(TfrmAlterarSenha);
 end;
 
 procedure TfrmPrincipal.AoAcesso1Click(Sender: TObject);
 begin
-  frmCadAcaoAcesso:= TfrmCadAcaoAcesso.Create(Self);
-  frmCadAcaoAcesso.ShowModal;
-  frmCadAcaoAcesso.Release;
+  CriarForm(TfrmCadAcaoAcesso);
 end;
 
 procedure TfrmPrincipal.AtualizaBancoDados(aForm : TfrmAtualizaDB);
@@ -291,6 +278,19 @@ begin
     if Assigned(oAtualizarMSSQL) then
        FreeAndNil(oAtualizarMSSQL);
   end;
+end;
+
+procedure TfrmPrincipal.CriarForm(aNomeForm: TFormClass);
+var form: TForm;
+begin
+  try
+    form:= aNomeForm.Create(Application);
+    form.ShowModal;
+  finally
+    if Assigned(form) then
+       form.Release;
+  end;
+end;
 
 {
   aForm.chkConexao.Checked := True;
@@ -328,6 +328,6 @@ begin
   Sleep(500);
 }
 
-end;
+
 
 end.
