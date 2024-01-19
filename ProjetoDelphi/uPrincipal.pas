@@ -60,6 +60,7 @@ type
     TeclaEnter: TMREnter;
     procedure AtualizaBancoDados(aForm: TfrmAtualizaDB);
     procedure CriarForm(aNomeForm: TFormClass);
+    procedure CriarRelatorio(aNomeForm: TFormClass);
   public
     { Public declarations }
   end;
@@ -84,9 +85,7 @@ end;
 
 procedure TfrmPrincipal.Categoria2Click(Sender: TObject);
 begin
-  frmRelCadCategoria := TfrmRelCadCategoria.Create(nil);
-  frmRelCadCategoria.Relatorio.PreviewModal;
-  frmRelCadCategoria.Release;
+  CriarRelatorio(TfrmRelCadCategoria);
 end;
 
 procedure TfrmPrincipal.Cliente1Click(Sender: TObject);
@@ -96,16 +95,12 @@ end;
 
 procedure TfrmPrincipal.Cliente2Click(Sender: TObject);
 begin
-  frmRelCadCliente := TfrmRelCadCliente.Create(Self);
-  frmRelCadCliente.Relatorio.PreviewModal;
-  frmRelCadCliente.Release;
+  CriarRelatorio(TfrmRelCadCliente);
 end;
 
 procedure TfrmPrincipal.FichadeClientes1Click(Sender: TObject);
 begin
-  frmRelCadClienteFicha := TfrmRelCadClienteFicha.Create(Self);
-  frmRelCadClienteFicha.Relatorio.PreviewModal;
-  frmRelCadClienteFicha.Release;
+  CriarRelatorio(TfrmRelCadClienteFicha);
 end;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -214,16 +209,12 @@ end;
 
 procedure TfrmPrincipal.Produto2Click(Sender: TObject);
 begin
-  frmRelCadProduto:= TfrmRelCadProduto.Create(Self);
-  frmRelCadProduto.Relatorio.PreviewModal;
-  frmRelCadProduto.Release;
+  CriarRelatorio(TfrmRelCadProduto);
 end;
 
 procedure TfrmPrincipal.ProdutoporCategoria1Click(Sender: TObject);
 begin
-  frmRelCadProdutoComGrupoCategoria:= TfrmRelCadProdutoComGrupoCategoria.Create(Self);
-  frmRelCadProdutoComGrupoCategoria.Relatorio.PreviewModal;
-  frmRelCadProdutoComGrupoCategoria.Release;
+  CriarRelatorio(TfrmRelCadProdutoComGrupoCategoria);
 
 end;
 
@@ -286,6 +277,27 @@ begin
   try
     form:= aNomeForm.Create(Application);
     form.ShowModal;
+  finally
+    if Assigned(form) then
+       form.Release;
+  end;
+end;
+
+procedure TfrmPrincipal.CriarRelatorio(aNomeForm: TFormClass);
+var form: TForm;
+    aRelatorio: TRLReport;
+    i: Integer;
+begin
+  try
+    form:= aNomeForm.Create(Application);
+    for i := 0 to form.ComponentCount - 1 do
+      begin
+        if form.Components[i] is TRLReport then
+          begin
+            TRLReport(form.Components[i]).PreviewModal;
+            Break
+          end;
+      end;
   finally
     if Assigned(form) then
        form.Release;
