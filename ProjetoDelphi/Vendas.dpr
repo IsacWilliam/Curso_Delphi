@@ -37,7 +37,8 @@ uses
   cAcaoAcesso in 'classes\cAcaoAcesso.pas',
   uCadAcaoAcesso in 'cadastro\uCadAcaoAcesso.pas' {frmCadAcaoAcesso},
   cUsuarioLogado in 'classes\cUsuarioLogado.pas',
-  uRelCadCategoria in 'relatorio\uRelCadCategoria.pas' {frmRelCadCategoria};
+  uRelCadCategoria in 'relatorio\uRelCadCategoria.pas' {frmRelCadCategoria},
+  uUsuarioVsAcoes in 'login\uUsuarioVsAcoes.pas' {frmUsuarioVsAcoes};
 
 {$R *.res}
 
@@ -46,5 +47,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TfrmRelCadCategoria, frmRelCadCategoria);
+  Application.CreateForm(TfrmUsuarioVsAcoes, frmUsuarioVsAcoes);
   Application.Run;
 end.

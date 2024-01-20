@@ -13,6 +13,7 @@ object frmPrincipal: TfrmPrincipal
   Menu = mainPrincipal
   OldCreateOrder = False
   Position = poScreenCenter
+  WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -58,6 +59,13 @@ object frmPrincipal: TfrmPrincipal
       object AoAcesso1: TMenuItem
         Caption = 'A'#231#227'o Acesso'
         OnClick = AoAcesso1Click
+      end
+      object N7: TMenuItem
+        Caption = '-'
+      end
+      object UsuriosVSAes1: TMenuItem
+        Caption = 'Usu'#225'rios VS A'#231#245'es'
+        OnClick = UsuriosVSAes1Click
       end
       object N6: TMenuItem
         Caption = '-'

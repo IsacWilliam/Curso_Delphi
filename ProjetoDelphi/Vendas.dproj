@@ -201,6 +201,10 @@
             <Form>frmRelCadCategoria</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="login\uUsuarioVsAcoes.pas">
+            <Form>frmUsuarioVsAcoes</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include=".gitignore"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

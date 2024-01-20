@@ -9,7 +9,7 @@ uses
   Data.DB, VCLTee.Series, VCLTee.TeEngine, VCLTee.TeeProcs, VCLTee.Chart,
   VCLTee.DBChart, ZDbcIntfs, RLReport, ZAbstractRODataset, ZAbstractDataset,
   ZDataset, uFrmAtualizaDB, cUsuarioLogado, cAtualizacaoBancoDeDados,
-  cAcaoAcesso;
+  cAcaoAcesso, uUsuarioVsAcoes;
 
 type
   TfrmPrincipal = class(TForm)
@@ -38,6 +38,8 @@ type
     stbPrincipal: TStatusBar;
     AoAcesso1: TMenuItem;
     N6: TMenuItem;
+    UsuriosVSAes1: TMenuItem;
+    N7: TMenuItem;
     procedure mnuFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Categoria1Click(Sender: TObject);
@@ -55,6 +57,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure AlterarSenha1Click(Sender: TObject);
     procedure AoAcesso1Click(Sender: TObject);
+    procedure UsuriosVSAes1Click(Sender: TObject);
   private
     { Private declarations }
     TeclaEnter: TMREnter;
@@ -221,6 +224,11 @@ end;
 procedure TfrmPrincipal.Usurio1Click(Sender: TObject);
 begin
   CriarForm(TfrmCadUsuario);
+end;
+
+procedure TfrmPrincipal.UsuriosVSAes1Click(Sender: TObject);
+begin
+  CriarForm(TfrmUsuarioVsAcoes);
 end;
 
 procedure TfrmPrincipal.Venda1Click(Sender: TObject);
