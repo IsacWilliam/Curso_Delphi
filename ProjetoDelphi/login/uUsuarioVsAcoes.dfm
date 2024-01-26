@@ -12,6 +12,7 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
@@ -29,7 +30,7 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
     Height = 673
     Align = alLeft
     TabOrder = 0
-    object DBGrid1: TDBGrid
+    object grdUsuarios: TDBGrid
       Left = 1
       Top = 1
       Width = 391
@@ -63,9 +64,6 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
     Height = 41
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = 1
-    ExplicitTop = 678
-    ExplicitWidth = 915
     DesignSize = (
       928
       41)
@@ -104,6 +102,7 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
         D363C4D7244E6EFF00FFFF00FF244E6E244E6E244E6E244E6E244E6E244E6E24
         4E6E244E6E244E6E244E6E244E6E244E6E244E6E244E6EFF00FF}
       TabOrder = 0
+      OnClick = btnFecharClick
     end
   end
   object Panel3: TPanel
@@ -113,10 +112,7 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
     Height = 673
     Align = alClient
     TabOrder = 2
-    ExplicitLeft = 398
-    ExplicitTop = -6
-    ExplicitWidth = 622
-    object DBGrid2: TDBGrid
+    object grdAcoes: TDBGrid
       Left = 1
       Top = 1
       Width = 530
@@ -129,6 +125,7 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = grdAcoesDblClick
       Columns = <
         item
           Expanded = False
@@ -155,6 +152,7 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
   end
   object qryUsuario: TZQuery
     Connection = dtmPrincipal.ConexaoDB
+    AfterScroll = qryUsuarioAfterScroll
     SQL.Strings = (
       'select usuarioId, nome from usuarios;')
     Params = <>
@@ -174,7 +172,6 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
   end
   object qryAcoes: TZQuery
     Connection = dtmPrincipal.ConexaoDB
-    Active = True
     SQL.Strings = (
       'select ua.usuarioId, ua.acaoAcessoId, a.descricao, ua.ativo'
       'from usuariosAcaoAcesso as ua'
@@ -198,10 +195,12 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
     object qryAcoesusuarioId: TIntegerField
       FieldName = 'usuarioId'
       Required = True
+      Visible = False
     end
     object qryAcoesacaoAcessoId: TIntegerField
       FieldName = 'acaoAcessoId'
       Required = True
+      Visible = False
     end
     object qryAcoesdescricao: TWideStringField
       DisplayLabel = 'Descricao'
@@ -212,6 +211,7 @@ object frmUsuarioVsAcoes: TfrmUsuarioVsAcoes
     object qryAcoesativo: TBooleanField
       FieldName = 'ativo'
       Required = True
+      Visible = False
     end
   end
   object dtsUsuario: TDataSource
